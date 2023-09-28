@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- JQUERY -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <label for="phoneNumber">Número de Telefone:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber">
+    <button id="verifyButton">Verificar</button>
+
+    <script>
+        document.getElementById("verifyButton")
+        .addEventListener("click", function() {
+            var phoneNumber = document.querySelector('#phoneNumber').value;
+            var apiKey = '[chave api]';
+            var default_country = '55';
+
+            $.ajax({
+                url: 'https://api.veriphone.io/v2/verify',
+                method: 'POST',
+                data: {
+                    phone: phoneNumber,
+                    key: apiKey,
+                    default_country: default_country
+                },
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(data) {
+                    console.log('Número: ' + data.local_number);
+                    var statusNum = data.phone_valid == 1 ? 'ativo' : 'cancelado';
+                    console.log('Status: ' + statusNum);
+                    console.log('Tipo: ' + data.phone_type);
+                    console.log('Operadora: ' + data.carrier);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Erro na solicitação: ' + textStatus, errorThrown);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
