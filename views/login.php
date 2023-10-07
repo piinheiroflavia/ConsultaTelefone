@@ -8,51 +8,31 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <title>Tela de Login</title>
+    <title>Login</title>
+
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+    <!-- icone google -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
  <style>
     body {
         width: 100%;
         height: 100%;
-        background-color: #F5F5F5;
-        background-image: url("../views/Design.png");
-        background-position: center; /* Center the image */
+        background-image: url("../views/fundoo.png");
         background-repeat: no-repeat; /* Do not repeat the image */
         background-size: cover; /* Resize the background image to cover the entire container */
         
     }
-
-    #titutlo{
-        margin-top: 200px; 
-        width: 400px;
-        color: black;   
-        font-family: Arial; 
-        text-align: left;
-        font-size: 40px;
-
+    .textLogin{
+        margin-bottom: 30px;
+        text-align: start;
     }
-    #subTitutlo{
-         
-        width: 400px; 
-        color: black;  
-        font-family: Arial;
-        font-size: 23px;
-        margin-top: 400px;
-        margin-top: auto;
-        margin-bottom: 25rem;
-
-    }
-     
-    h1{
-        font-family: Arial;
-        text-align: left;
-        
-
-    }
-
     form {
         width: 300px;
-        margin: 200px auto;
+        margin: 130px auto;
         text-align: center;
     }
 
@@ -63,85 +43,123 @@
         height: 45px;
     }
 
-    input[type="submit"] {
-            background-color: #FAFAFA; /* Cor de fundo do botão */
-            color: #0A94C1; /* Cor do texto do botão */
-            padding: 10px 20px; /* Espaçamento interno do botão */
-            border-radius: 5px; 
-            cursor: pointer; /* Muda o cursor ao passar o mouse sobre o botão */
-            width: 200px;
-           
-           
-        }
-
-    
-
-        
         .sidebar {
             position: fixed;
             top: 0;
             right: 0;
             height: 100%;
-            width: 500px; /* Largura da barra lateral */
-            background-color: #00AAE0; /* Cor de fundo da barra lateral */
-            color: #fff; /* Cor do texto */
-            border-radius: 2%;
+            width: 400px; /* Largura da barra lateral */
+            background-image: linear-gradient(to top, #2b44ff, #0079ff, #009eff, #00bcff, #73d5f0);
+            color: #fff; /* Cor do texto */        
+            -webkit-animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+        @-webkit-keyframes slide-in-right {
+        0% {
+            -webkit-transform: translateX(1000px);
+                    transform: translateX(1000px);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: translateX(0);
+                    transform: translateX(0);
+            opacity: 1;
+        }
+        }
+        @keyframes slide-in-right {
+        0% {
+            -webkit-transform: translateX(1000px);
+                    transform: translateX(1000px);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: translateX(0);
+                    transform: translateX(0);
+            opacity: 1;
+        }
         }
 
         a {
             color: rgba(255, 255, 255, 1); /* Define a cor como branca  */
             text-align: end;
         } 
-        
+        .form-outline .form-control{
+            background-color: #fff;
+            
+        }
+        .paragAlterarSenha{
+            font-size: 0.7rem;
+            text-align: start;
+        }
+        .paragClickAqui:hover,  .paragClickNaoCad:hover{
+            color: #d9dbdc;
+        }
+        .paragNaoCad{
+            margin-top: 150px;
+            font-size: 0.7rem;
+            text-align: center;
+        }
 
+        .btnhome{
+            margin: 5px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btnLogar{
+            background-color: #73d5f000;
+            border: none;
+            border-radius: 50px;
+            padding: 3px;
+        }
+        #iconeHome, #iconeSeta {
+            margin: 5px;
+            border: solid 3px #fff;
+            padding: 5px;
+            border-radius: 50px;
+            color: #fff;
+        }
+        #iconeHome:hover, #iconeSeta:hover {
+            border: solid 3px #fff;
+            background-color: #fff;
+            color: #0079ff;
+        }
 
 </style> 
 
 </head>
 
 <body>
-    <div class="container text-center">
-   
-        <!-- Colunas divisão 50% -->
-         <div class="row">
-             <div class="col-6">
-                 <h2 id='titutlo'>Consulta de Número</h2>
-                 <p id='subTitutlo'>Consulte qualquer número de telefone celular de maneira rápida e conveniente.</p>
+    <div class="sidebar ">
+    <a href="./home.php" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">home</span> </a>
+        <form  method="post" action="../controllers/LoginController.php">
+            <div class="textLogin">
+                <h3 >Login</h3>
+                <h4 class="textAcesse">Acesse sua conta!</h4>
+            </div>
 
-             </div>
-             <div class="col-6">
-             
+            <div class="col-md-12">
+                <div class="form-outline">
+                <input type="text" class="form-control" name="login" id="login"  required />
+                <label for="login" class="form-label" style="color: #000;">Login</label>
+                </div>
+            </div>
+            <div class="col-md-12   ">
+                <div class="form-outline">
+                <input type="password" class="form-control" name="senha" id="senha" required />
+                <label for="senha" class="form-label" style="color: #000;">Senha</label>
+                </div>
+            </div>
+<!--        <input type="text" name="login" placeholder="Login" id="login">
+            <input type="password" name="senha" id="senha"> -->
 
-             </div>
-         </div>
-     </div>
-    
+                <p class="paragAlterarSenha">Esqueceu a senha? <strong><a href="../views/EnviarEmail.html" class="paragClickAqui"> Clique aqui</a> </strong> </p> 
 
-    
-          <div class="sidebar ">
-            <ul>
-            <form  method="post" action="../controllers/LoginController.php">
-                <h3>Login</h3>
-                <h4>Acesse sua conta!</h4>
+                
+                <button type="submit" class="btnLogar" name="submit"><span class="material-symbols-outlined" id="iconeSeta">arrow_forward</span></button>
 
-                <input type="text" name="login" placeholder="Login" id="login">
-                <input type="password" name="senha" id="senha">
-
-                <p>Para alterar senha <a href="../views/EnviarEmail.html"> Clique aqui</a> </p> 
-
-                <!-- <input type="submit" onclick="logar(); return false"> -->
-                <button type="submit" class="btn btn-outline-secondary" name="submit">entrar</button>
-
-                <!-- <div class id="btn">
-                    <a href="../views/registro.php">
-                    <button type="button" class="btn btn-outline-secondary">CADASTRE-SE</button></a>
-                </div> -->
-
-            </form>
-            </ul>
-          </div>
-        </div>
-      </div>
+                <p class="paragNaoCad">Não possui cadastro? <strong><a href="../views/registro.html" class="paragClickNaoCad"> Cadastre-se aqui</a> </strong> </p> 
+        </form>
+    </div>
 
 
     
