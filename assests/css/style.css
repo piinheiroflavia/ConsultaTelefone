@@ -1,7 +1,7 @@
 body {
     width: 100%;
     height: 100%;
-    background-image: url("../views/fundoo.png");
+    background-image: url("../imgs/fundoo.png");
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
     
@@ -43,6 +43,12 @@ body {
     opacity: 1;
 }
 }
+form {
+    width: 300px;
+    margin: 70px auto;
+    text-align: center;
+}
+
 /* titulo sidebar lateral geral */
 .textLogin{
     margin-bottom: 30px;
@@ -65,4 +71,60 @@ body {
     border: solid 3px #fff;
     background-color: #fff;
     color: #0079ff;
+}
+
+.form-outline .form-control{
+    background-color: #fff;
+    border-bottom: solid 1px #fff;
+    height: 35px;
+    margin: 18px 0px;
+}
+.btnhome{
+    margin: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+.btnLogar{
+    background-color: #73d5f000;
+    border: none;
+    border-radius: 50px;
+    padding: 3px;
+}
+/* alerta */
+#alertLogin-error{
+    width: 20%;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    -webkit-animation: scale-up-ver-top 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation: scale-up-ver-top 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+@-webkit-keyframes scale-up-ver-top {
+0% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+}
+100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+}
+}
+@keyframes scale-up-ver-top {
+0% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+}
+100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+}
 }

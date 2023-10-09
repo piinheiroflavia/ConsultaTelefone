@@ -1,5 +1,5 @@
 <?php
-    echo('test home');
+include_once('../template/links.php');
 ?>
 
 <!DOCTYPE html>
@@ -9,14 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap" rel="stylesheet">
-
+    
     <style>
         *{
             overflow-x: hidden;
@@ -142,7 +135,7 @@
 <body>
     <nav class="navbar fixed-top p-2 bg-body border-bottom border-blue-600 shadow-sm">
     <div class="container-fluid">
-        <img src="../template/Logotipo.png" alt="logo" height="50px">
+        <img src="../assests/imgs/Logotipo.png" alt="logo" height="50px">
 
         <div>
             <ul class="nav justify-content-end">
@@ -150,7 +143,7 @@
                 <a class="nav-link" href="./login.php">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./registro.html">Cadastre-se</a>
+                <a class="nav-link" href="./registro.php">Cadastre-se</a>
             </li>
             </ul>
         </div>
@@ -164,7 +157,7 @@
                 <p id="subTitulo">Obtenha informações sobre um número de telefone e celular de maneira fácil e rápida.</p>
             </div>
             <div class="col-6" id="imgHome">
-                <img src="./home.png" alt="" style="width:900px" >
+                <img src="../assests/imgs/home.png" alt="" style="width:900px" >
             </div>
         </div>
         <div>

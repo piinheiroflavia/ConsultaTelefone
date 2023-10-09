@@ -1,20 +1,15 @@
-<!-- consultas / regras de negocios -->
- 
+<?php
+include_once('../template/links.php');
+?> 
 <!DOCTYPE html>
     <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tela de Registro</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-        <!-- icone google -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-        <link rel="stylesheet" href="./style.css">
-        <style>
+        
+        <link rel="stylesheet" href="../assests/css/style.css">
+    <style>
 
         .sidebar{
             overflow-x: hidden;
@@ -22,62 +17,12 @@
             max-height: 100vh; /* Limita a altura do sidebar para a altura da viewport */
             padding: 20px; /* Espaçamento interno para os conteúdos dentro da sidebar */
         }
-            h2{
-                margin-top: 200px; 
-                width: 400px;
-                color: black;   
-                font-family: Arial; 
-                text-align: left;
-                font-size: 40px;
-        
-            }
-            
-             
-            h1{
-                font-family: Arial;
-                text-align: left;
-                
-        
-            }
-        
-            form {
-                width: 300px;
-                text-align: center;
-            }
-        
-            input {
-                display: block;
-                margin: 10px auto;
-                width: 350px;
-                height: 45px;
-            }
-        
-            input[type="submit"] {
-                    background-color: #FAFAFA; /* Cor de fundo do botão */
-                    color: #0A94C1; /* Cor do texto do botão */
-                    padding: 10px 20px; /* Espaçamento interno do botão */
-                    border-radius: 5px; 
-                    cursor: pointer; /* Muda o cursor ao passar o mouse sobre o botão */
-                    width: 200px;
-                   
-                   
-                }
-        
-                a {
-                    color: rgba(255, 255, 255, 1); /* Define a cor como branca  */
-                    text-align: end;
-                } 
-                
-        
-                label{
-                    text-align: start;
-                }
         </style> 
         
   
     </head>
     <body>
-        <img src="../template/Logotipo.png" alt="logo" height="65px" class="m-2">
+        <!-- <img src="../assests/imgs/Logotipo.png" alt="logo" height="65px" class="m-2"> -->
         
         <div class="container text-center">
             <div class="row">
@@ -92,13 +37,11 @@
                                         <h3 >Registre-se</h3>
                                     </div>
                                     <br>
-                                    <input id="nome" class="input-cadastro" type="text" minlength="15" maxlength="60" placeholder=" "  required="required"  >
-                                    <div class="vago"></div>
-                                    <label for="nome" class="placeholder" id="resN">Nome</label>
-
-                                        <div class="inputBox">
-                                            <label for="nome" class="labelInput">Nome Completo:</label>
-                                            <input type="text" name="nome" id="nome">
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="text" name="nome" class="form-control" id="nome" required />
+                                            <label for="nome" class="form-label">Nome Completo</label>
+                                            </div>
                                         </div>
                                     <br>
                                     <label >sexo:</label><br>
@@ -119,75 +62,87 @@
                                             <label for="dataNascimento"><b>Data de Nascimento</b></label>
                                             <input type="date" name="dataNascimento" id="dataNascimento" class="inputUser">
                                         </div>
-                                    <br>
-                                        <div class="inputBox">
-                                            <label for="nome" class="labelInput">Nome Materno:</label>
-                                            <input type="text" name="nomeMaterno" id="nomeMaterno">
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="text" name="nomeMaterno" class="form-control" id="nomeMaterno" required />
+                                            <label for="nomeMaterno" class="form-label">Nome Materno</label>
+                                            </div>
                                         </div>
-                                    <br>
-                                        <div class="inputBox">
-                                            <label for="email" class="labelInput">email:</label>
-                                            <input type="email" name="email" id="email">
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="email" name="email" class="form-control" id="email" required />
+                                            <label for="email" class="form-label">Login</label>
+                                            </div>
                                         </div>
-                                    <br>
-                                        <div class="inputBox">
-                                            <label for="nome" class="labelInput">Login:</label>
-                                            <input type="text" name="login" id="login" class="inputUser">
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="text" name="login" class="form-control" id="login" required />
+                                            <label for="login" class="form-label">Login</label>
+                                            </div>
                                         </div>
-                                    <br>
-                                        <div class="inputBox">
-                                            <label for="cpf"class="labelInput">CPF:</label>
-                                            <input type="text" name="cpf" id="cpf" >
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="text" name="cpf" class="form-control" id="cpf" required />
+                                            <label for="cpf" class="form-label">CPF</label>
+                                            </div>
                                         </div>
-                                    <br>
-                                        <div class="inputBox">
-                                           <label for="nome"class="labelInput">Celular:</label>
-                                           <input type="tel" name="celular" id="celular">
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="tel" name="celular" class="form-control" id="celular" required />
+                                            <label for="celular" class="form-label">Celular</label>
+                                            </div>
                                         </div>
-                                    <br>
-                                        <div class="inputBox">
-                                            <label for="nome"class="labelInput">Telefone Fixo:</label>
-                                            <input type="tel" name="telefone" id="telefone">
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="tel" name="telefone" class="form-control" id="telefone" required />
+                                            <label for="telefone" class="form-label">Telefone</label>
+                                            </div>
                                         </div>
-                                    <br><br>
-                                           <div class="inputBox">
-                                               <label for="cep"class="labelInput">cep:</label>
-                                                <input name="cep" type="text" id="cep" value="" size="10" maxlength="9"
-                                          onblur="pesquisacep(this.value);" class="inputUser">
-                                           </div>
-                                          <br>
-                                           <div class="inputBox">
-                                               <label for="logradouro"class="labelInput">Rua:</label>
-                                                <input type="text" name="logradouro" id="logradouro" class="inputUser">
-                                           </div>
-                                          <br>
-                                           <div class="inputBox">
-                                               <label for="bairro"class="labelInput">bairro:</label>
-                                                <input type="text" name="bairro" id="bairro" class="inputUser">
-                                          </div>
-                                          <br>
-                                            <div class="inputBox">
-                                                <label for="cidade"class="labelInput">cidade:</label>
-                                                <input type="text" name="cidade" id="cidade" class="inputUser">
-                                          </div>
-                                          <br>
-                                          <div class="inputBox">
-                                              <label for="uf"class="labelInput">Estado:</label>
-                                                <input type="text" name="uf" id="uf" class="inputUser">
-                                           </div>
-                                          <br> 
-                                          <div class="inputBox">
-                                              <label for="senha" class="labelInput">Senha:</label>
-                                                <input type="password" name="senha" id="senha" class="inputUser">
-                                           </div>
-                                          <br>
-                                           <div class="inputBox">
-                                               <label for="Confsenha" class="labelInput"> Confirma Senha:</label>
-                                                <input type="password" name="Confsenha" id="Confsenha" class="inputUser">
-                                         </div>
-                                          <br>
-                                         <br><br>
-                                          <button type="submit" id="btnSubmit" name="submit">Enviar</button>
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="text" name="cep" class="form-control" id="cep"  value="" size="10" maxlength="9"
+                                                onblur="pesquisacep(this.value);" required />
+                                            <label for="cep" class="form-label">Cep</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="text" name="logradouro" class="form-control" id="logradouro" required />
+                                            <label for="logradouro" class="form-label">Rua</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="text" name="bairro" class="form-control" id="bairro" required />
+                                            <label for="bairro" class="form-label">Bairro</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="text" name="cidade" class="form-control" id="cidade" required />
+                                            <label for="cidade" class="form-label">Cidade</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="text" name="uf" class="form-control" id="uf" required />
+                                            <label for="uf" class="form-label">UF</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            
+                                            <div class="form-outline">
+                                            <input type="password" name="senha" class="form-control" id="senha" required />
+                                            <label for="senha" class="form-label">Senha</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-outline">
+                                            <input type="password" name="Confsenha" class="form-control" id="Confsenha" required />
+                                            <label for="Confsenha" class="form-label">Confirma Senha:</label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" id="btnSubmit" name="submit">Cadastrar</button>
                                 </form>
                             </div>
                     </div>

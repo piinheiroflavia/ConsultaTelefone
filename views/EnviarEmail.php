@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../assests/css/style.css">
    <!-- MDB -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
    <!-- MDB -->
@@ -16,6 +16,7 @@
    <!-- icone google -->
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+   <link rel="stylesheet" href="../assests/css/style.css">
     <style>
     
     h2{
@@ -51,12 +52,7 @@
         align-items: center;
         justify-content: space-between;
     }
-    form {
-        width: 300px;
-        margin: 200px auto;
-        text-align: center;
-    }
-
+    
     input {
         display: block;
         margin: 10px auto;
@@ -64,21 +60,14 @@
         height: 45px;
     }
 
-    input[type="submit"] {
-            background-color: #FAFAFA; /* Cor de fundo do botão */
-            color: #0A94C1; /* Cor do texto do botão */
-            padding: 10px 20px; /* Espaçamento interno do botão */
-            border-radius: 5px; 
-            cursor: pointer; /* Muda o cursor ao passar o mouse sobre o botão */
-            width: 200px;
-        }
-        
 </style> 
 
 </head>
 
 <body>
-    <img src="../template/Logotipo.png" alt="logo" height="65px" class="m-2">
+    <div class="d-flex align-items-center"  id="alertLogin-error">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+    </div>
     <div class="container text-center">
 
     <div class="sidebar ">
@@ -90,9 +79,16 @@
             <div class="textLogin">
                 <h3 >Digite seu email</h3>
             </div>
-          <input type="email" name="email" placeholder="email" id="email">
-            
-          <button type="submit" class="btn btn-outline-secondary" name="submit">Enviar</button></a>
+
+            <div class="col-md-12">
+                <div class="form-outline">
+                <input type="email" name="email" class="form-control" id="email" required />
+                <label for="email" class="form-label">Login</label>
+                </div>
+            </div>
+
+          <button type="submit" class="btnLogar" name="submit"><span class="material-symbols-outlined" id="iconeSeta">arrow_forward</span></button>
+                
 
           <!-- <div class id="btn">
             <a href="../views/registro.php">
