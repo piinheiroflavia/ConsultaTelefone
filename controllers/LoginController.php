@@ -35,19 +35,25 @@ class LoginController {
             //this faz a referência a propriedade conexao
             $resultado = $this->conexao->query($sql) or die($this->conexao->error);
 
+            //transforma o var resultado em uma rede de objeto
+            $row = $resultado->fetch_Object();
             $qtd = $resultado->num_rows;
 
             // Verificar se a consulta retornou alguma linha
             if ($qtd > 0) {
                 // Usuário existe e as credenciais são válidas, permita o acesso
-                echo "Login bem-sucedido!";
-                print "
-                <script> alert('test');
-                location.href='../views/login.html';
-                </script>";
+                //echo "Login bem-sucedido!";
+                $_SESSION["login"] = $login;
+                $_SESSION["nome"] = $row->nome_usuario;
+                $_SESSION["tipoUser"] = $row->tipoUser;
+
+                print "<script> location.href='../?pagina'</script>";
             } else {
-                // Credenciais inválidas, exiba uma mensagem de erro
-                echo "Credenciais inválidas. Tente novamente.";
+                //echo "Credenciais inválidas. Tente novamente.";
+                //print "<script>alert('Credenciais inválidas. Tente novamente.')</script>";
+                
+                $_SESSION["login_error"] = "Dados inválidas. Tente novamente.";
+                print "<script> location.href='../views/login.php';</script>";
             }
         }
     }

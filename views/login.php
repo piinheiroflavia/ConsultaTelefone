@@ -1,3 +1,6 @@
+<?php
+    include_once('../controllers/LoginController.php');
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -17,19 +20,9 @@
     <!-- icone google -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+    <link rel="stylesheet" href="./style.css">
  <style>
-    body {
-        width: 100%;
-        height: 100%;
-        background-image: url("../views/fundoo.png");
-        background-repeat: no-repeat; /* Do not repeat the image */
-        background-size: cover; /* Resize the background image to cover the entire container */
-        
-    }
-    .textLogin{
-        margin-bottom: 30px;
-        text-align: start;
-    }
+  
     form {
         width: 300px;
         margin: 130px auto;
@@ -42,42 +35,6 @@
         width: 350px;
         height: 45px;
     }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100%;
-            width: 400px; /* Largura da barra lateral */
-            background-image: linear-gradient(to top, #2b44ff, #0079ff, #009eff, #00bcff, #73d5f0);
-            color: #fff; /* Cor do texto */        
-            -webkit-animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        }
-        @-webkit-keyframes slide-in-right {
-        0% {
-            -webkit-transform: translateX(1000px);
-                    transform: translateX(1000px);
-            opacity: 0;
-        }
-        100% {
-            -webkit-transform: translateX(0);
-                    transform: translateX(0);
-            opacity: 1;
-        }
-        }
-        @keyframes slide-in-right {
-        0% {
-            -webkit-transform: translateX(1000px);
-                    transform: translateX(1000px);
-            opacity: 0;
-        }
-        100% {
-            -webkit-transform: translateX(0);
-                    transform: translateX(0);
-            opacity: 1;
-        }
-        }
 
         a {
             color: rgba(255, 255, 255, 1); /* Define a cor como branca  */
@@ -95,7 +52,7 @@
             color: #d9dbdc;
         }
         .paragNaoCad{
-            margin-top: 150px;
+            margin-top: 20px;
             font-size: 0.7rem;
             text-align: center;
         }
@@ -111,24 +68,52 @@
             border-radius: 50px;
             padding: 3px;
         }
-        #iconeHome, #iconeSeta {
-            margin: 5px;
-            border: solid 3px #fff;
-            padding: 5px;
-            border-radius: 50px;
+        
+        #alertLogin-error{
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
             color: #fff;
+            -webkit-animation: scale-up-ver-top 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: scale-up-ver-top 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
         }
-        #iconeHome:hover, #iconeSeta:hover {
-            border: solid 3px #fff;
-            background-color: #fff;
-            color: #0079ff;
+        @-webkit-keyframes scale-up-ver-top {
+        0% {
+            -webkit-transform: scaleY(0.4);
+                    transform: scaleY(0.4);
+            -webkit-transform-origin: 100% 0%;
+                    transform-origin: 100% 0%;
         }
+        100% {
+            -webkit-transform: scaleY(1);
+                    transform: scaleY(1);
+            -webkit-transform-origin: 100% 0%;
+                    transform-origin: 100% 0%;
+        }
+        }
+        @keyframes scale-up-ver-top {
+        0% {
+            -webkit-transform: scaleY(0.4);
+                    transform: scaleY(0.4);
+            -webkit-transform-origin: 100% 0%;
+                    transform-origin: 100% 0%;
+        }
+        100% {
+            -webkit-transform: scaleY(1);
+                    transform: scaleY(1);
+            -webkit-transform-origin: 100% 0%;
+                    transform-origin: 100% 0%;
+        }
+        }
+
 
 </style> 
 
 </head>
 
 <body>
+    <img src="../template/Logotipo.png" alt="logo" height="65px" class="m-2">
+    
     <div class="sidebar ">
     <a href="./home.php" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">home</span> </a>
         <form  method="post" action="../controllers/LoginController.php">
@@ -156,28 +141,42 @@
 
                 
                 <button type="submit" class="btnLogar" name="submit"><span class="material-symbols-outlined" id="iconeSeta">arrow_forward</span></button>
-
+                <div class="d-flex align-items-center"  id="alertLogin-error">
+                    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                </div>
                 <p class="paragNaoCad">Não possui cadastro? <strong><a href="../views/registro.html" class="paragClickNaoCad"> Cadastre-se aqui</a> </strong> </p> 
+                
         </form>
     </div>
 
 
     
     <script>
-    //  function logar() {
+    
+    var alertLogin =  document.getElementById("alertLogin-error");
+    alertLogin.style.display = "none";
 
-    //     var login = document.getElementById('login').value;
-    //     var senha = document.getElementById('senha').value;
+   document.addEventListener("DOMContentLoaded", function() {
+    // Acessa a variável de sessão login_error diretamente
+    var loginError = <?php echo isset($_SESSION["login_error"]) ? json_encode($_SESSION["login_error"]) : "null"; ?>;
+    
+
+    
+
+    if (loginError !== null) {
+        alertLogin.style.fontSize = "0.9rem"
+        alertLogin.style.backgroundColor = "#e92538"
+        alertLogin.style.border = "solid 2px #ef3220";
+        alertLogin.style.display = "block";
+        alertLogin.textContent = loginError;
+        
+        // Remove a variável de erro da sessão para que a mensagem não seja exibida novamente após atualizar a página
+        <?php unset($_SESSION["login_error"]); ?>
+    }
+    });
 
 
-    //     if (login == 'comun' && senha == 'comun') {
-    //         alert('sucesso');
-            
-    //     } else {
-    //         alert("Usuario ou senha incorreta");
-    //     }
 
-    //  }
     </script>
 </body>
 

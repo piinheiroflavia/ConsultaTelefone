@@ -8,19 +8,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+   <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
+   <!-- MDB -->
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+   <!-- icone google -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <style>
-    body {
-        width: 100%;
-        height: 100%;
-        background-color: #F5F5F5;
-        background-image: url("../views/Design.png");
-        background-position: center; /* Center the image */
-        background-repeat: no-repeat; /* Do not repeat the image */
-        background-size: cover; /* Resize the background image to cover the entire container */
-        
-    }
-
+    
     h2{
         margin-top: 200px; 
         width: 400px;
@@ -48,7 +45,12 @@
         
 
     }
-
+    .btnTop{
+        margin: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     form {
         width: 300px;
         margin: 200px auto;
@@ -69,57 +71,27 @@
             border-radius: 5px; 
             cursor: pointer; /* Muda o cursor ao passar o mouse sobre o botão */
             width: 200px;
-           
-           
         }
-
-    
-
         
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100%;
-            width: 500px; /* Largura da barra lateral */
-            background-color: #00AAE0; /* Cor de fundo da barra lateral */
-            color: #fff; /* Cor do texto */
-            border-radius: 2%;
-        }
-
-        a {
-            color: rgba(255, 255, 255, 1); /* Define a cor como branca  */
-            text-align: end;
-        } 
-
 </style> 
 
 </head>
 
 <body>
+    <img src="../template/Logotipo.png" alt="logo" height="65px" class="m-2">
     <div class="container text-center">
-   
-        <!-- Colunas divisão 50% -->
-         <div class="row">
-             <div class="col-6">
-                 <h2>Consulta de Número</h2>
-                 <p>Consulte qualquer número de telefone celular de maneira rápida e conveniente.</p>
 
-             </div>
-             <div class="col-6">
-             
-
-             </div>
-         </div>
-     </div>
-      
     <div class="sidebar ">
-        <ul>
+        <div class="btnTop">
+            <a href="./home.php" class="btnhome"><span class="material-symbols-outlined"  id="iconeHome">arrow_back</span></a>
+            <a href="./login.php" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">home</span> </a>
+        </div>
          <form  method="post" action="../controllers/EnviarEmailController.php">
-          <h3>Digite seu email</h3>
-
+            <div class="textLogin">
+                <h3 >Digite seu email</h3>
+            </div>
           <input type="email" name="email" placeholder="email" id="email">
-          
+            
           <button type="submit" class="btn btn-outline-secondary" name="submit">Enviar</button></a>
 
           <!-- <div class id="btn">
@@ -127,7 +99,6 @@
             <button type="button" class="btn btn-outline-secondary">CADASTRE-SE</button></a>
            </div> -->
           </form>
-        </ul>
     </div> 
 </body>
 </html>

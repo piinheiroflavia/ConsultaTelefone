@@ -1,0 +1,68 @@
+body {
+    width: 100%;
+    height: 100%;
+    background-image: url("../views/fundoo.png");
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    
+}
+/* sidebar lateral geral */
+.sidebar {
+    position: fixed;
+    box-shadow:rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 400px; /* Largura da barra lateral */
+    background-image: linear-gradient(to top, #2b44ff, #0079ff, #009eff, #00bcff, #73d5f0);
+    color: #fff; /* Cor do texto */        
+    -webkit-animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-right 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@-webkit-keyframes slide-in-right {
+0% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+}
+}
+@keyframes slide-in-right {
+0% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+}
+}
+/* titulo sidebar lateral geral */
+.textLogin{
+    margin-bottom: 30px;
+    text-align: start;
+}
+/* icone home */
+.btnhome{
+    margin: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+#iconeHome, #iconeSeta {
+    margin: 5px;
+    border: solid 3px #fff;
+    padding: 5px;
+    border-radius: 50px;
+    color: #fff;
+}
+#iconeHome:hover, #iconeSeta:hover {
+    border: solid 3px #fff;
+    background-color: #fff;
+    color: #0079ff;
+}

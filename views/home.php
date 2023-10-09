@@ -54,6 +54,7 @@
         }
         }
         #titulo{
+            color: #ff6600;
             font-family: 'Inria Sans', sans-serif;
             font-size: 1.8rem;
             font-weight: 600;
@@ -171,11 +172,11 @@
         </div>
     </main>
     
-    <footer class="footer ">
+    <!-- <footer class="footer ">
         <div class="container-fluid">
             <p>&copy; Desenvolvido por <a href="#" target="_blank">Flavia Pinheiro</a> e <a href="#" target="_blank">Ana Beatriz</a> &middot;</p>
         </div>
-    </footer>
+    </footer> -->
     <!-- Footer -->
   <footer class="text-center text-white" style="background-color: #0a4275;">
     <!-- Grid container -->
@@ -189,14 +190,12 @@
           </button>
         </p>
       </section>
-      <!-- Section: CTA -->
-    </div>
-    <!-- Grid container -->
 
+    </div>
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2020 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    <div class="text-center p-3" style="background-color: #2b44ff;">
+      © 2023 Copyright:
+      <a class="text-white" href="#" target="_blank">Flavia Pinheiro</a> e <a class="text-white" href="#" target="_blank">Ana Beatriz</a> 
     </div>
     <!-- Copyright -->
   </footer>
