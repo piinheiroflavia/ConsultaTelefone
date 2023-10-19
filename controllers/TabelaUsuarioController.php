@@ -4,7 +4,8 @@
     {
         public function indexExibir()
         {
-            include('views/sist/TabelaUsuario.html');
+            include('views/sist/admin/TabelaUsuario.html');
+            
         }
     }
 

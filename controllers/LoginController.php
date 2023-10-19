@@ -2,8 +2,8 @@
 
 session_start();
 // Estabeleça a conexão com o banco de dados aqui
-include_once('../config.php');
-include_once('../models/Client.php');
+include_once('config.php');
+include_once('models/Client.php');
 
 class LoginController {
 

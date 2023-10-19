@@ -12,4 +12,7 @@ $conexao = new mysqli($dbhost, $dbUsername, $dbPassword, $dbName);
 if ($conexao->connect_error) {
     die("Erro de conexão com o banco de dados: " . $conexao->connect_error);
 }
+
+
+$consultaTelefonePath = '../../ConsultaTelefone/';
 ?>

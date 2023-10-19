@@ -1,9 +1,14 @@
+<?php
+  require_once('config.php');
+?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="shortcut icon" href="<?php echo $consultaTelefonePath; ?>/assests/imgs/favicon.png" type="image/x-icon">
 
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +28,12 @@
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
 
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <!--ICONS-->
+    <script src="https://kit.fontawesome.com/7198f8d6d1.js" crossorigin="anonymous"></script>
 </head>
 <body>
     

@@ -4,7 +4,8 @@
     {
         public function indexExibir(){
 
-            include('views/sist/modeloDB.html');
+            include('views/sist/admin/modeloDB.html');
+            
         }
     }
 

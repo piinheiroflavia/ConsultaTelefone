@@ -1,5 +1,6 @@
 <?php
-include_once('../template/links.php');
+require_once('template/links.php');
+require_once('config.php');
 ?>
 
 <!DOCTYPE html>
@@ -11,16 +12,45 @@ include_once('../template/links.php');
 
     
     <style>
+        @media screen  and (max-width: 630px){
+            #bloco1Home{
+                display: flex;
+                flex-direction: column;
+            }
+            #imgHomeDiv{
+                margin-top: 2px;
+            }
+        }
+        @media screen  and (max-width: 800px){
+            #bloco1Home{
+                
+                display: flex;
+            }
+            #imgHome{
+                margin-top: 116px;
+                width: 400px;
+            }
+
+        }
+
+        
         *{
             overflow-x: hidden;
         }       
         #descicao{
-            margin-top: 200px;
+            margin: 200px 0px 0px 83px;
+            padding-right: 120px;
+            display: flex;
+            flex-direction: column;
         }
-        #imgHome{
+        #imgHomeDiv{
+            display: flex;
             margin-top: 50px;
             -webkit-animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: slide-in-right 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+        #imgHome{
+            width: 500px;
         }
         @-webkit-keyframes slide-in-right {
         0% {
@@ -47,18 +77,16 @@ include_once('../template/links.php');
         }
         }
         #titulo{
-            color: #ff6600;
+            color: #203440;
             font-family: 'Inria Sans', sans-serif;
             font-size: 1.8rem;
             font-weight: 600;
-            margin: 40px 0px 10px 150px;
             -webkit-animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         }
 
         #subTitulo{
-            font-size: 1.5rem;
-            margin: 10px 50px 10px 150px;
+            font-size: 1rem;
             -webkit-animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         }
@@ -88,11 +116,12 @@ include_once('../template/links.php');
         }
         }
         #paragSobre{
-            background-color: #2b44ff;
+            background-color: #54c8e8;
             color: #fff;
             padding: 30px 100px;
             border-radius: 5px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
+            text-align: justify;
             margin: 40px 70px 20px 70px;
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
             -webkit-animation: slide-in-bottom 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
@@ -123,27 +152,30 @@ include_once('../template/links.php');
         }
         }
 
-        .footer{
+        #footer{
             padding: 3px;
-            background-color: #2b44ff;
-            color: #fff;
+            background-color: #001c38;
+            height: 40px;
             display: flex;
-            align-items: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;;
         }
     </style>
 </head>
 <body>
     <nav class="navbar fixed-top p-2 bg-body border-bottom border-blue-600 shadow-sm">
     <div class="container-fluid">
-        <img src="../assests/imgs/Logotipo.png" alt="logo" height="50px">
+        <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/Logotipo.png" alt="logo" height="70px">
 
         <div>
             <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link" href="./login.php">Login</a>
+                <a class="nav-link" href="login">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./registro.php">Cadastre-se</a>
+                <a class="nav-link" href="registro">Cadastre-se</a>
             </li>
             </ul>
         </div>
@@ -151,13 +183,13 @@ include_once('../template/links.php');
     </nav>
 
     <main >
-        <div class="row " >
-            <div class="col-6" id="descicao" >
+        <div class="row " id="bloco1Home" >
+            <div class="col" id="descicao" >
                 <h2 id="titulo">Consulta de Número</h2>
                 <p id="subTitulo">Obtenha informações sobre um número de telefone e celular de maneira fácil e rápida.</p>
             </div>
-            <div class="col-6" id="imgHome">
-                <img src="../assests/imgs/home.png" alt="" style="width:900px" >
+            <div class="col" id="imgHomeDiv">
+                <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/Consulta-home.png" alt="" id="imgHome"  >
             </div>
         </div>
         <div>
@@ -171,24 +203,12 @@ include_once('../template/links.php');
         </div>
     </footer> -->
     <!-- Footer -->
-  <footer class="text-center text-white" style="background-color: #0a4275;">
-    <!-- Grid container -->
-    <div class="container p-4 pb-0">
-      <!-- Section: CTA -->
-      <section class="">
-        <p class="d-flex justify-content-center align-items-center">
-          <span class="me-3">Register for free</span>
-          <button type="button" class="btn btn-outline-light btn-rounded">
-            Sign up!
-          </button>
-        </p>
-      </section>
-
-    </div>
+  <footer class="text-center text-white" id="footer" >
+   
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: #2b44ff;">
+    <div class="text-center p-3" style="font-size: 0.8rem;" >
       © 2023 Copyright:
-      <a class="text-white" href="#" target="_blank">Flavia Pinheiro</a> e <a class="text-white" href="#" target="_blank">Ana Beatriz</a> 
+      <a class="text-white" href="https://github.com/piinheiroflavia" target="_blank">Flavia Pinheiro</a> e <a class="text-white" href="https://github.com/PinheiiroAna" target="_blank">Ana Beatriz Pinheiro</a> 
     </div>
     <!-- Copyright -->
   </footer>

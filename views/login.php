@@ -1,6 +1,7 @@
 <?php
-    include_once('../controllers/LoginController.php');
-    include_once('../template/links.php');
+    require_once('controllers/LoginController.php');
+    require_once('template/links.php');
+    require_once('config.php');
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -11,26 +12,25 @@
     <title>Login</title>
 
     
-    <link rel="stylesheet" href="../assests/css/style.css">
+    <link rel="stylesheet" href="<?php echo $consultaTelefonePath; ?>/assests/css/style.css">
  <style>
-  
+/*começo do responsivo*/
+     @media (max-width: 343px){
+            .sidebar {
+               right: -55px;
    
-    input {
-        display: block;
-        margin: 10px auto;
-        width: 350px;
-        height: 45px;
     }
-
+        }
+  
+  /*fim do responsivo*/
         a {
             color: rgba(255, 255, 255, 1); /* Define a cor como branca  */
             text-align: end;
         } 
-        .form-outline .form-control{
-            background-color: #fff;
-            
-        }
+        
+
         .paragAlterarSenha{
+            margin-top: 15px;
             font-size: 0.7rem;
             text-align: start;
         }
@@ -38,8 +38,8 @@
             color: #d9dbdc;
         }
         .paragNaoCad{
-            margin-top: 20px;
-            font-size: 0.7rem;
+            margin-top: 200px;
+            font-size: 0.9rem;
             text-align: center;
         }
 
@@ -54,8 +54,167 @@
             border-radius: 50px;
             padding: 3px;
         }
+
+    /*TELA CADASTRO*/
+
+
+    .input1, .input2{
+        display: flex;
+        margin: 15px 5px;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .input-container-cadastro{
+    height: 40px;
+    position: relative;
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
         
-       
+    }
+    input[type="date"]#data-nascimento{ 
+        color:#ead8d800;
+    }
+    /* icone eyes */
+    .icon2{
+        position: absolute;
+        transition: all 0.35s;
+        top:60%;
+        cursor: pointer;
+        right: 20px;
+        transform: translateY(-50%);
+        color: #c2c5c6;
+    } 
+    #unlock{
+        display: none;
+    }
+    .input-cadastro, #check-inline{
+        display: flex;
+        align-items: center;
+    }
+    .form-check input #feminino #masculino #outros [type="radio"]{ 
+        color: rgba(255, 255, 255, 0);
+        border: none;
+    }
+    .input-cadastro, #check-inline label{
+        padding:5px;
+        font-size: 1rem;
+        color: #fff;
+    }
+    .input-cadastro{
+        background-color: #fff;
+        border:solid 1px #fff;
+        caret-color: #d82a2a00;
+        color: #000;
+        border-bottom: 0.5px solid #fff;
+        font-size: 15px;
+        height: 100%;
+        width: 100%;
+        outline: 0;
+        padding: 2px 5px ;  
+        border-radius: 50px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        
+    }
+    #select-div{
+        color: #000;
+        background-color: #fff;
+        border:solid 1px #fff;
+        padding: 2px 5px ;  
+        border-radius: 50px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    }
+    #numero-casa-div,  #bairro-div,  #cidade-div,  #estado-div,  #cpf-cnpj-div,  #celular-div,  #telefone-div,  #senha-div,  #conf-senha-div,  #nome-materno-div,  #cep-div, #endereco-div,  #nome-div,  #nome-social-div,  #email-div{
+        background-color: rgba(255, 255, 255, 0);
+        border:0;
+        caret-color: #d82a2a00;
+        color:rgb(255, 255, 255);
+        font-size: 18px;
+        outline: 0;
+    
+    }
+    .vago { 
+        border-radius: 10px;
+        height: 20px;
+        left: 20px;
+        position: absolute;
+        top: -20px;
+        transform: translateY(0);
+        transition: transform 200ms;
+        width: 96px;
+    } 
+    /*INPUT COM A BORDA*/
+    .input-cadastro:focus,
+    .input-cadastro:not(:placeholder-shown) {
+        transform: translateY(6px);
+        padding: 0px 10px;
+        
+    }
+    .input-cadastro:focus ~ .vago,
+    .input-cadastro:not(:placeholder-shown) ~ .vago {
+        transform: translateY(8px);
+    }
+    /* label */
+    .placeholder {
+        opacity: 0.9; 
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: #000;
+        line-height: 2px;
+        pointer-events: none;
+        position: absolute;
+        left: 20px;
+        transform-origin: 0 50%;
+        transition: transform 200ms, color 200ms;
+        top: 20px;             
+    }
+    /* efeito */
+    .input-cadastro:focus ~ .placeholder,
+    .input-cadastro:not(:placeholder-shown) ~ .placeholder {
+        transform: translateY(-30px) translateX(1px) scale(0.75);
+        font-weight: 700;
+        
+    }
+    .input-cadastro:not(:placeholder-shown) ~ .placeholder {
+        color: #fff;
+        
+    }  
+    .input-cadastro:focus ~ .placeholder {
+        color: #000 ;
+        
+    }
+    #cadastro-lado1-btn{
+        padding: 10px 40px 10px 29px;
+        color:#2a72d800;
+        background-color:rgba(229, 229, 229, 0.667);  
+    }
+    .cadastra-3{   
+        background-color:#fff;
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.8rem;
+        margin: 0px 10px;
+        text-align: center; 
+        position: relative;
+        transition: 0.6s;
+        width: 30%;
+        padding: 8px 5px;
+        border: 2px solid #2a72d800;
+        font-weight: 600;
+        text-decoration: none;
+        color: #2b44ff;
+        
+    }
+
+    .cadastra-3:hover::after{
+        font-family:"Font Awesome 5 Free";
+        content: " \f061";
+    }
+
 
 
 </style> 
@@ -68,35 +227,39 @@
         <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
     </div>
     <div class="sidebar ">
-    <a href="./home.php" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">home</span> </a>
-        <form  method="post" action="../controllers/LoginController.php">
+    <a href="home" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">home</span> </a>
+        <form  method="post" action="<?php echo $consultaTelefonePath; ?>/controllers/LoginController.php">
             <div class="textLogin">
                 <h3 >Login</h3>
                 <h4 class="textAcesse">Acesse sua conta!</h4>
             </div>
-
-            <div class="col-md-12">
-                <div class="form-outline">
-                <input type="text" class="form-control" name="login" id="login"  required />
-                <label for="login" class="form-label" style="color: #000;">Login</label>
+            
+                <!--Login-->
+                <div class="input-container-cadastro" id="login-div">
+                    <input id="login" name="login" class="input-cadastro" type="text" placeholder=" "  onkeyup="validLogin()">
+                    <div class="vago"></div>
+                    <label for="login" class="placeholder" id="resLogin" style="background: #7fffd400;">Login</label>                            
+                </div>     
+                <!--SENHA-->
+                <div class="input-container-cadastro" id="senha-div">
+                    <input id="Senha" name="senha" class="input-cadastro" type="password" placeholder=" " 
+                    onkeyup="validSenha()" onkeypress="return ApenasLetras(event,this)">
+                    <div class="vago"></div>
+                    <label for="Senha" class="placeholder" id="resSenha" style="background: #7fffd400;">Senha</label>
+                    <span class="icon2">
+                        <i id="lock" class="fa-solid fa-eye-slash" onclick="showPassword()"></i>
+                        <i id="unlock" class="fa-regular fa-eye" onclick="showPassword()"></i>
+                    </span>
+                </div>                       
+                  
+                <p class="paragAlterarSenha">Esqueceu a senha? <strong><a href="EnviarEmail" class="paragClickAqui" style="color:#fff;"> Clique aqui</a> </strong> </p> 
+                <div>
+                    <!-- BUTTON DISABLED TROCAR DEPOIS  -->
+                    <button type="submit" class="btnLogar" name="submit" disabled><span class="material-symbols-outlined" id="iconeSeta" >arrow_forward</span></button>
                 </div>
-            </div>
-            <div class="col-md-12   ">
-                <div class="form-outline">
-                <input type="password" class="form-control" name="senha" id="senha" required />
-                <label for="senha" class="form-label" style="color: #000;">Senha</label>
-                </div>
-            </div>
-<!--        <input type="text" name="login" placeholder="Login" id="login">
-            <input type="password" name="senha" id="senha"> -->
-
-                <p class="paragAlterarSenha">Esqueceu a senha? <strong><a href="../views/EnviarEmail.php" class="paragClickAqui"> Clique aqui</a> </strong> </p> 
 
                 
-                <button type="submit" class="btnLogar" name="submit"><span class="material-symbols-outlined" id="iconeSeta">arrow_forward</span></button>
-
-                
-                <p class="paragNaoCad">Não possui cadastro? <strong><a href="../views/registro.php" class="paragClickNaoCad"> Cadastre-se aqui</a> </strong> </p> 
+                <p class="paragNaoCad">Não possui cadastro? <strong><a href="registro" class="paragClickNaoCad" style="color:#fff;"> Cadastre-se aqui</a> </strong> </p> 
                 
         </form>
     </div>
@@ -130,6 +293,8 @@
 
 
     </script>
+    <script src="<?php echo $consultaTelefonePath; ?>/assests/js/script.js"></script>
+
 </body>
 
 </html>

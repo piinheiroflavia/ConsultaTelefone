@@ -44,10 +44,12 @@ class RegistroController {
             // Chame o método inserirCliente da instância do objeto
             if ($cliente->inserirCliente($this->conexao, $nome, $dataNascimento, $nomeMaterno, $login, $email, $cpf, $celular, $telefone, $cep, $logradouro, $bairro, $uf, $senha)) {
                 // Redirecione para uma página de sucesso ou exiba uma mensagem
-                echo "Registro bem-sucedido!";
+                //echo "Registro bem-sucedido!";
+                print "<script> location.href='../views/login.php';</script>";
             } else {
                 // Exiba uma mensagem de erro ou redirecione para uma página de erro
-                echo "Erro no registro.";
+                //echo "Erro no registro.";
+                print "<script> location.href='ErroController.php';</script>";
             }
         }
         
