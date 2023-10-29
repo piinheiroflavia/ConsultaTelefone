@@ -1,5 +1,9 @@
 <?php
-include_once('template/links.php');
+  include_once('template/links.php');
+  require_once('config.php');
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +22,9 @@ include_once('template/links.php');
       }
       #iconPdf{
          margin-top: 3px;
+      }
+      .material-symbols-outlined{
+        cursor: pointer;
       }
     </style>
 </head>
@@ -71,46 +78,55 @@ include_once('template/links.php');
                     <thead>
                         <tr>
                         <th>ID</th>
-                        <th>Data Acesso</th>
+                        <th>Usuário</th>
                         <th>Nome</th>
                         <th>Status</th>
                         <th>Email</th>
                         <th>Cpf</th>
                         <th>Celular</th>
+                        <th></th>
+                        <th></th>
 
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                         <tr>
                         <td>1</td>
-                        <td>10/10/2023 20:50</td>
+                        <td>Admin</td>
                         <td>Ana Pinheiro</td>
                         <td>Ativo</td>
                         <td>anapinheiro@gmail.com</td>
                         <td>000.000.000-00</td>
                         <td>21 00000-0000</td>
+                        <td><span class="material-symbols-outlined">info</span></td>
+                        <td><span class="material-symbols-outlined" onclick="deleteUser()">delete</span></td>
                         </tr>
                         <tr>
                         <td>2</td>
-                        <td>10/10/2023 20:50</td>
+                        <td>Comun</td>
                         <td>Ana Pinheiro</td>
-                        <td>Ativo</td>
+                        <td>Inativo</td>
                         <td>anapinheiro@gmail.com</td>
                         <td>000.000.000-00</td>
                         <td>21 00000-0000</td>
+                        <td><span class="material-symbols-outlined">info</span></td>
+                        <td><span class="material-symbols-outlined" onclick="deleteUser()">delete</span></td>
                         </tr>
                         <td>3</td>
-                        <td>10/10/2023 20:50</td>
+                        <td>Comun</td>
                         <td>Ana Pinheiro</td>
-                        <td>Ativo</td>
+                        <td>Inativo</td>
                         <td>anapinheiro@gmail.com</td>
                         <td>000.000.000-00</td>
                         <td>21 00000-0000</td>
+                        <td><span class="material-symbols-outlined">info</span></td>
+                        <td><span class="material-symbols-outlined" onclick="deleteUser()">delete</span></td>
+
                     </tbody>
                     </table>
                 </div>
             </div>
-
+           
 
             </div>
             <div class="content-backdrop fade"></div>
@@ -235,5 +251,30 @@ include_once('template/links.php');
       </tr>
     </tbody>
   </table> -->
+
+
+  <script>
+
+    function deleteUser(){   
+      Swal.fire({
+      title: 'Deletar Usuário',
+      text: "Essa ação não pode ser revertida!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ok',
+      cancelButtonText: 'cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Usuário deletado com sucesso!',
+          'Esse usuário não existe mais',
+          'success'
+        )
+      }
+    })
+    }
+  </script>
 </body>
 </html>

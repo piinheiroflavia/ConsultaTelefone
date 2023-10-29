@@ -34,6 +34,9 @@
 
     <!--ICONS-->
     <script src="https://kit.fontawesome.com/7198f8d6d1.js" crossorigin="anonymous"></script>
+    <!--popup-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
     

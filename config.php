@@ -1,8 +1,8 @@
 <!-- connexão com o banco de dados -->
 <!--aqui que vai definir as constantes, senhas, usuarios-->
 <?php
-
-$dbhost = 'Localhost';
+$dbDrive = 'mysql';
+$dbhost = 'localhost';
 $dbUsername = 'root';
 $dbPassword = '';
 $dbName = 'gp_03_consultanumero';

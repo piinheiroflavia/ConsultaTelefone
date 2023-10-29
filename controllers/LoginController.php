@@ -2,8 +2,8 @@
 
 session_start();
 // Estabeleça a conexão com o banco de dados aqui
-include_once('config.php');
-include_once('models/Client.php');
+include_once(__DIR__ . '/../config.php');
+include_once(__DIR__ . '/../models/Client.php');
 
 class LoginController {
 
@@ -20,7 +20,7 @@ class LoginController {
             
             //inicio do codigo para logar o usuario
             if (empty($_POST) or (empty($_POST['login']) or (empty($_POST['senha'])))) {
-                print "<script> location.href='login.html';</script>";
+                print "<script> console.log('logado');</script>";
             }
 
             //dados do formulário de login
@@ -47,13 +47,16 @@ class LoginController {
                 $_SESSION["nome"] = $row->nome_usuario;
                 $_SESSION["tipoUser"] = $row->tipoUser;
 
-                print "<script> location.href='../?pagina'</script>";
+
+                //trocar depois para a tela do 2fa
+                
+                print "<script> location.href='../dashboard'</script>";
             } else {
                 //echo "Credenciais inválidas. Tente novamente.";
                 //print "<script>alert('Credenciais inválidas. Tente novamente.')</script>";
                 
-                $_SESSION["login_error"] = "Dados inválidas. Tente novamente.";
-                print "<script> location.href='../views/login.php';</script>";
+                $_SESSION["login_error"] = "Dados inválidos. Tente novamente.";
+                print "<script> location.href='../login';</script>";
             }
         }
     }

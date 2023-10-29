@@ -1,7 +1,7 @@
 <?php
-    require_once('controllers/LoginController.php');
-    require_once('template/links.php');
-    require_once('config.php');
+    include_once('controllers/LoginController.php');
+    include_once('template/links.php');
+    include_once('config.php');
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -228,7 +228,7 @@
     </div>
     <div class="sidebar ">
     <a href="home" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">home</span> </a>
-        <form  method="post" action="<?php echo $consultaTelefonePath; ?>/controllers/LoginController.php">
+        <form  method="post" action="../../ConsultaTelefone/controllers/LoginController.php">
             <div class="textLogin">
                 <h3 >Login</h3>
                 <h4 class="textAcesse">Acesse sua conta!</h4>
@@ -236,7 +236,8 @@
             
                 <!--Login-->
                 <div class="input-container-cadastro" id="login-div">
-                    <input id="login" name="login" class="input-cadastro" type="text" placeholder=" "  onkeyup="validLogin()">
+                    <input id="login" name="login" class="input-cadastro" type="text" placeholder=" "  >
+                    <!-- onkeyup="validLogin()" -->
                     <div class="vago"></div>
                     <label for="login" class="placeholder" id="resLogin" style="background: #7fffd400;">Login</label>                            
                 </div>     
@@ -254,10 +255,8 @@
                   
                 <p class="paragAlterarSenha">Esqueceu a senha? <strong><a href="EnviarEmail" class="paragClickAqui" style="color:#fff;"> Clique aqui</a> </strong> </p> 
                 <div>
-                    <!-- BUTTON DISABLED TROCAR DEPOIS  -->
-                    <button type="submit" class="btnLogar" name="submit" disabled><span class="material-symbols-outlined" id="iconeSeta" >arrow_forward</span></button>
+                    <button type="submit" class="btnLogar" name="submit" ><span class="material-symbols-outlined" id="iconeSeta">arrow_forward</span></button>
                 </div>
-
                 
                 <p class="paragNaoCad">Não possui cadastro? <strong><a href="registro" class="paragClickNaoCad" style="color:#fff;"> Cadastre-se aqui</a> </strong> </p> 
                 
@@ -293,7 +292,7 @@
 
 
     </script>
-    <script src="<?php echo $consultaTelefonePath; ?>/assests/js/script.js"></script>
+    <script src="../../ConsultaTelefone/assests/js/script.js"></script>
 
 </body>
 

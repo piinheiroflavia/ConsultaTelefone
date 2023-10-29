@@ -1,4 +1,5 @@
 <?php
+
   require_once('config.php');
 ?> 
 <!DOCTYPE html>
@@ -17,6 +18,7 @@
     <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <link rel="shortcut icon" href="<?php echo $consultaTelefonePath; ?>/assests/imgs/favicon.png" type="image/x-icon">
     <!-- Vendors styles-->
     <link rel="stylesheet" href="<?php echo $consultaTelefonePath; ?>/template/vendors/simplebar/css/simplebar.css">
     <link rel="stylesheet" href="<?php echo $consultaTelefonePath; ?>/template/css/vendors/simplebar.css">
@@ -30,7 +32,7 @@
   <style>
     body {
     background-color: #f6f6f6;
-  }
+    }
     #sidebar{
         background-color: #fff; 
         color:#000; 
@@ -127,7 +129,7 @@
                         <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
                       </svg> Perfil</a>
 
-                      <a class="dropdown-item" href="home">
+                      <a class="dropdown-item"  onclick="clickSair()">
                       <svg class="icon me-2">
                         <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
                       </svg> Sair</a>
@@ -175,12 +177,29 @@
     <script src="vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
     <script src="vendors/@coreui/utils/js/coreui-utils.js"></script>
     <script src="js/widgets.js"></script>
+    <script src="../../ConsultaTelefone/template/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
 
-    <script>
 
-    
+<script>
 
-    </script>
+  console.log('tes')
+  
+  function clickSair(){
+    Swal.fire({
+      title: 'Tem certeza que deseja sair?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Sair',
+      confirmButtonColor: '#3085d6',
+      denyButtonText: 'Cancela',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        location.href='';
+      } 
+    })
+  }
+</script>
 
   </body>
 </html>

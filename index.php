@@ -7,7 +7,8 @@
     require_once 'controllers/TabelaUsuarioController.php';
     require_once 'controllers/PerfilController.php';
     require_once 'controllers/HistLogController.php';
-    
+
+   
     // pega a URL completa
     $currentURL = $_SERVER['REQUEST_URI'];
 
@@ -40,6 +41,8 @@
             }
         }
     }
+
+    //var_dump($_GET['url']);
     //query string dentro do sistema
     //$template = file_get_contents('template/estruturaSistema.php');
                 

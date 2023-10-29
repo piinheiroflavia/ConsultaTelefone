@@ -7,7 +7,6 @@ include_once('../config.php');
 include_once('../models/Client.php');
 
 
-
 class RegistroController {
 
     //só pode ser acessada dentro da classe
@@ -45,7 +44,7 @@ class RegistroController {
             if ($cliente->inserirCliente($this->conexao, $nome, $dataNascimento, $nomeMaterno, $login, $email, $cpf, $celular, $telefone, $cep, $logradouro, $bairro, $uf, $senha)) {
                 // Redirecione para uma página de sucesso ou exiba uma mensagem
                 //echo "Registro bem-sucedido!";
-                print "<script> location.href='../views/login.php';</script>";
+                print "<script> location.href='../login';</script>";
             } else {
                 // Exiba uma mensagem de erro ou redirecione para uma página de erro
                 //echo "Erro no registro.";

@@ -56,7 +56,7 @@ var respSucesso = document.getElementById('respSucesso');
 
 var btn = document.getElementById("btnSubmit")
 
-btn.style.cursor = 'not-allowed';
+//btn.style.cursor = 'not-allowed';
 
 /*FUNÇÕES QUE INDETIFICAM SE O CAMPO ESTÁ VÁLIDO (COR VERDE), CASO O ALGUNS CAMPOS FIQUE VAZIO OU MENOR QUE 15 CARACTERES O CAMPO FICA VERMELHO, */
 function validNome(){
@@ -76,29 +76,29 @@ nome.focus();
 }
 
   
+console.log('rodando')
+ function validarNascimento() {
+//     // var idadeMinima = 18;
+//     // //pega o valor da dataNasc
+//     // var dataNasc = new Date(nascimento.value);
+//     // //pega o valor da dataAtual
+//     // var dataAtual = new Date();
 
-function validarNascimento() {
-    var idadeMinima = 18;
-    //pega o valor da dataNasc
-    var dataNasc = new Date(nascimento.value);
-    //pega o valor da dataAtual
-    var dataAtual = new Date();
-
-    //
-    dataAtual.setFullYear(dataAtual.getFullYear() - idadeMinima);
+//     // //
+//     // dataAtual.setFullYear(dataAtual.getFullYear() - idadeMinima);
 
 
-    if (nascimento.value === '') {
-        nascimento.style.border = 'solid 2.3px #ff0018';
-        nascimento.focus();
-        resDn.innerHTML='Data de Nascimento';
+     if (nascimento.value === '') {
+         nascimento.style.border = 'solid 2.3px #ff0018';
+         nascimento.focus();
+         resDn.innerHTML='Data de Nascimento';
 
-    } else if (dataNasc > idadeMinima) {
-        nascimento.style.border = 'solid 2.3px #ff0018';
-        nascimento.focus();
-        resDn.innerHTML='Usuário menor de 18 anos ';
+//     // } else if (dataNasc > idadeMinima) {
+//     //     nascimento.style.border = 'solid 2.3px #ff0018';
+//     //     nascimento.focus();
+//     //     resDn.innerHTML='Usuário menor de 18 anos ';
     } else {
-        nascimento.style.border = 'solid 2.3px #008000';
+         nascimento.style.border = 'solid 2.3px #008000';
     }
 }
 
@@ -290,11 +290,11 @@ if(telefone.value==''){
   resTel.style.color = ' #ff0018'
   telefone.focus();
   validaTelefone = false;
-}else if (telefone.value.length < 15 ){
-  telefone.style.border = 'solid 2.3px #ff0018'
-  resTel.innerHTML = '*Telefone';		
-  resTel.style.color = '#ff0018';
-  validaTelefone = false;
+// }else if (telefone.value.length < 15 ){
+//   telefone.style.border = 'solid 2.3px #ff0018'
+//   resTel.innerHTML = '*Telefone';		
+//   resTel.style.color = '#ff0018';
+//   validaTelefone = false;
 }else{
   resTel.style.color = '#008000'
   resTel.innerHTML='Telefone ';		
@@ -322,7 +322,7 @@ $("#telefone")
 
 function validSenha() {
 
-if((senha.value=='')||(senha.value.length < 8 )){
+if(senha.value.length < 8 ){
   senha.style.border = 'solid 2.3px #ff0018'
   resSenha.innerHTML='Senha  *Apenas letras';		
   resSenha.style.color = ' #ff0018'
@@ -353,27 +353,28 @@ if((confirma.value == '')||(senha.value != confirma.value)){
 }
 
 //VERIFICAR SE TODOS OS CAMPOS ESTAO VAZIOS ANTES DE CADASTRAR O USUÁRIO
-function validar(){
+// function validar(){
 
-if (validaNome && validLogin && validaEmail && validaCep && validaNum && validaCpfCnpj && validaCelular && validaTelefone && validaSenha && validaconSenha){
+// if (validaNome && validLogin && validaEmail && validaCep && validaNum && validaCpfCnpj && validaCelular && validaTelefone && validaSenha && validaconSenha){
 
-  respErro.setAttribute('style', 'display: bloco', 'color: #0C4B77')
-  respSucesso.innerHTML = '<strong>Cadastrando usuário...</strong>'
-  respErro.innerHTML =''
-  btn.disabled = true 
-  btn.style.backgroundColor = '#fff'
+//   respErro.setAttribute('style', 'display: bloco', 'color: #0C4B77')
+//   respSucesso.innerHTML = '<strong>Cadastrando usuário...</strong>'
+//   console.log('<strong>Cadastrando usuário...</strong>')
+//   respErro.innerHTML =''
+//   btn.disabled = true 
+//   btn.style.backgroundColor = '#fff'
 
-//se nem todos os campos são preenchidos
-}else{
-  respErro.setAttribute('style', 'display: bloco', 'color: #0C4B77')
-  respSucesso.innerHTML = ''
-  respErro.innerHTML = 'Preencha todos os campos corretamente'
-  respErro.style.color = '#ff0018'
-  btn.disabled = true
-  btn.style.cursor = 'no-drop'
-}
+// //se nem todos os campos são preenchidos
+// }else{
+//   respErro.setAttribute('style', 'display: bloco', 'color: #0C4B77')
+//   respSucesso.innerHTML = ''
+//   respErro.innerHTML = 'Preencha todos os campos corretamente'
+//   respErro.style.color = '#ff0018'
+//   btn.disabled = true
+//   btn.style.cursor = 'no-drop'
+// }
    
-}
+// }
 
 //FUNÇÃO PARA ACEITAR APENAS LETRAS NA SENHA
 function ApenasLetras(e, t) {

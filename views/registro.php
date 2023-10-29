@@ -228,7 +228,7 @@
         <div class="btnTop">
             <a href="login" class="btnhome"><span class="material-symbols-outlined"  id="iconeHome">arrow_back</span></a>
         </div>
-                                <form  method="POST" action="<?php echo $consultaTelefonePath; ?>/controllers/RegistroController.php">
+                                <form  method="POST" action="../../ConsultaTelefone/controllers/RegistroController.php">
 
                                     <div class="textLogin">
                                         <h3 >Registre-se</h3>
@@ -385,7 +385,7 @@
                                     <p></p>
                                 </div>
                                 <br>
-                                <button type="submit" id="btnSubmit" class="cadastra-3" name="submit" disabled >Cadastrar</button>
+                                <button type="submit" id="btnSubmit" class="cadastra-3" name="submit"  >Cadastrar</button>
                             </form>
                         </div>
                     </div>
@@ -394,7 +394,7 @@
         </div>
         
 
-<script src="<?php echo $consultaTelefonePath; ?>/assests/js/script.js"></script>
+<script src="../../ConsultaTelefone/assests/js/script.js"></script>
 <script>
         
     
