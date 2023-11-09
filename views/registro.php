@@ -216,8 +216,9 @@
   
     </head>
     <body>
-       
-        
+    <div class="alert alert-success" id="alertLogin-error" role="alert" style="color: #05a85c;     width: 40%;">
+        Usuário registrado com sucesso!! Aguarde alguns instantes e faça o login.
+    </div>
         <div class="container text-center">
             <div class="row">
                 <div class="col-6">
@@ -228,7 +229,7 @@
         <div class="btnTop">
             <a href="login" class="btnhome"><span class="material-symbols-outlined"  id="iconeHome">arrow_back</span></a>
         </div>
-                                <form  method="POST" action="../../ConsultaTelefone/controllers/RegistroController.php">
+                                <form  method="POST"  onsubmit="return validar()" action="../../ConsultaTelefone/controllers/RegistroController.php">
 
                                     <div class="textLogin">
                                         <h3 >Registre-se</h3>
@@ -385,19 +386,17 @@
                                     <p></p>
                                 </div>
                                 <br>
-                                <button type="submit" id="btnSubmit" class="cadastra-3" name="submit"  >Cadastrar</button>
+                                <button type="submit"  class="cadastra-3" name="submit" >Cadastrar</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
 
-<script src="../../ConsultaTelefone/assests/js/script.js"></script>
+<script src="../../ConsultaTelefone/assests/js/registroo.js"></script>
 <script>
-        
-    
+
     function limpa_formulário_cep() {
             //Limpa valores do formulário de cep.
             document.getElementById('logradouro').value=("");

@@ -4,8 +4,8 @@
     use App\Models\User;
 
     class UserService
-    {
-        public function get($id = null)
+   {
+      public function get($id = null)
         {
             try{
                 if ($id) {
@@ -60,6 +60,27 @@
             }
         }
         
-    }
+   //2FA
+   // class _2faModel extends Databaseconect
+      //  {
+       //     private $pdo;
+//
+       //     public function __construct()
+       //     {
+       //ç         $this->pdo - $this->getConnection();
+       //     }
+
+       //     public function select_label()
+       //     {
+         //       $stm- $this->pdo->query("SELECT * FROM 2fa");
+       //         if ($stm->rowCount()> 0){
+         //           return $stm->fetchALL(PDO::FETCH_ASSOC);
+         //       }else{
+         //           return[];
+         //       }
+        //    }
+     //   }
+
+  }
 
 ?>

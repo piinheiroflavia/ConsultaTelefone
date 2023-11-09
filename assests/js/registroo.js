@@ -352,8 +352,20 @@ if((confirma.value == '')||(senha.value != confirma.value)){
 }
 }
 
+var alertLogin =  document.getElementById("alertLogin-error");
+alertLogin.style.display = "none";
+function validar(){
+    const tempoAtraso = 8000; // 2000 milissegundos (2 segundos)
+   
+    alertLogin.style.display = "block";
+
+    setTimeout(function() {
+        validarEnvio();
+    }, tempoAtraso);
+ 
+}
 //VERIFICAR SE TODOS OS CAMPOS ESTAO VAZIOS ANTES DE CADASTRAR O USUÁRIO
- function validar(){
+ function validarEnvio(){
 
  if (validaNome && validLogin && validaEmail && validaCep && validaNum && validaCpfCnpj && validaCelular && validaTelefone && validaSenha && validaconSenha){
 

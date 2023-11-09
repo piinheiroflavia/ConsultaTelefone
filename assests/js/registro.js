@@ -76,7 +76,7 @@ nome.focus();
 }
 
 
-console.log('rodando')
+console.log('test')
  function validarNascimento() {
 //     // var idadeMinima = 18;
 //     // //pega o valor da dataNasc
@@ -352,9 +352,23 @@ if((confirma.value == '')||(senha.value != confirma.value)){
 }
 }
 
-//VERIFICAR SE TODOS OS CAMPOS ESTAO VAZIOS ANTES DE CADASTRAR O USUÁRIO
- function validar(){
+function validar(){
+    
+    console.log('teste validar')
+    Swal.fire({
+          position: 'top-center',
+          icon: 'success',
+          title: 'Registrado com sucesso',
+          showConfirmButton: false,
+          timer: 1500
+    })
 
+    validarEnvio()
+ 
+}
+//VERIFICAR SE TODOS OS CAMPOS ESTAO VAZIOS ANTES DE CADASTRAR O USUÁRIO
+ function validarEnvio(){
+    console.log('teste validar envio')
  if (validaNome && validLogin && validaEmail && validaCep && validaNum && validaCpfCnpj && validaCelular && validaTelefone && validaSenha && validaconSenha){
 
    respErro.setAttribute('style', 'display: bloco', 'color: #0C4B77')
@@ -363,8 +377,7 @@ if((confirma.value == '')||(senha.value != confirma.value)){
    respErro.innerHTML =''
    btn.disabled = true 
    btn.style.backgroundColor = '#fff'
-   console.log('teste foi')
-
+   
 // //se nem todos os campos são preenchidos
  }else{
    respErro.setAttribute('style', 'display: bloco', 'color: #0C4B77')
@@ -374,7 +387,7 @@ if((confirma.value == '')||(senha.value != confirma.value)){
    btn.disabled = true
    btn.style.cursor = 'no-drop'
  }
-   
+ return false;
  }
 
 //FUNÇÃO PARA ACEITAR APENAS LETRAS NA SENHA
