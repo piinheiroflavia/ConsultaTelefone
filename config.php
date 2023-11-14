@@ -8,6 +8,7 @@ $dbPassword = '';
 $dbName = 'gp_03_consultanumero';
     
 $conexao = new mysqli($dbhost, $dbUsername, $dbPassword, $dbName);
+$conn = new PDO("mysql:host=$dbhost; dbname=" . $dbName, $dbUsername, $dbPassword);
 
 if ($conexao->connect_error) {
     die("Erro de conexão com o banco de dados: " . $conexao->connect_error);

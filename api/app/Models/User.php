@@ -18,7 +18,7 @@ use PDOException;
 
              //VARIAVEIS ESTATICA USA O SELF E NAO ESTATICAS/static O THIS
 
-             $sql = 'SELECT * FROM ' . self::$table . ' WHERE id_usuario = :id';
+            $sql = 'SELECT * FROM ' . self::$table . ' WHERE id_usuario = :id';
           
 
              $stmt = $connPdo->prepare($sql);
@@ -114,36 +114,48 @@ use PDOException;
             }
         }
 
-        public static function update($data)
+        public static function updateUser($data)
         { 
-            $connPdo = new \PDO(dbDrive . ':host=' . dbHost . ';dbname=' . dbName, dbUserName, dbPassword);
-
-            $sql = 'UPDATE ' . self::$table . ' SET nome_usuario = :nu, sexo = :sx, data_nasc = :dn, nome_materno = :nm, login = :lg, email = :em, cpf = :cpf, celular = :cl, telefone = :te, cep = :cep, logradouro = :ld, bairro = :br, uf = :uf, senha = :sh, tipoUser = :tu WHERE id_usuario = :id';
-
-            $stmt = $connPdo->prepare($sql);
-            $stmt->bindValue(':nu', $data['nome_usuario']);
-            $stmt->bindValue(':sx', $data['sexo']);
-            $stmt->bindValue(':dn', $data['data_nasc']);
-            $stmt->bindValue(':nm', $data['nome_materno']);
-            $stmt->bindValue(':lg', $data['login']);
-            $stmt->bindValue(':em', $data['email']);
-            $stmt->bindValue(':cpf', $data['cpf']);
-            $stmt->bindValue(':cl', $data['celular']);
-            $stmt->bindValue(':te', $data['telefone']);
-            $stmt->bindValue(':cep', $data['cep']);
-            $stmt->bindValue(':ld', $data['logradouro']);
-            $stmt->bindValue(':br', $data['bairro']);
-            $stmt->bindValue(':uf', $data['uf']);
-            $stmt->bindValue(':sh', $data['senha']);
-            $stmt->bindValue(':tu', $data['tipoUser']);
-            $stmt->bindValue(':id', $data['id_usuario']);
-            $stmt->execute();
-
-            if ($stmt->rowCount() > 0) {
-                return 'usuário(a) atualizado com sucesso!';
-            } else {
-                throw new \Exception("Falha ao atualizar usuário(a)!");
+            try {
+                $connPdo = new \PDO(dbDrive . ':host=' . dbHost . ';dbname=' . dbName, dbUserName, dbPassword);
+        
+                $sql = 'UPDATE ' . self::$table . ' SET nome_usuario = :nu, sexo = :sx, data_nasc = :dn, nome_materno = :nm, login = :lg, email = :em, cpf = :cpf, celular = :cl, telefone = :te, cep = :cep, logradouro = :ld, bairro = :br, uf = :uf, senha = :sh, tipoUser = :tu WHERE id_usuario = :id';
+        
+                $stmt = $connPdo->prepare($sql);
+                $stmt->bindValue(':nu', isset($data['nome_usuario']) ? $data['nome_usuario'] : null);
+                $stmt->bindValue(':sx', isset($data['sexo']) ? $data['sexo'] : null);
+                $stmt->bindValue(':dn', isset($data['data_nasc']) ? $data['data_nasc'] : null);
+                $stmt->bindValue(':nm', isset($data['nome_materno']) ? $data['nome_materno']: null);
+                $stmt->bindValue(':lg', isset($data['login']) ? $data['login']: null);
+                $stmt->bindValue(':em', isset($data['email']) ? $data['email']: null);
+                $stmt->bindValue(':cpf',isset($data['cpf']) ?  $data['cpf']: null);
+                $stmt->bindValue(':cl', isset($data['celular']) ? $data['celular']: null);
+                $stmt->bindValue(':te', isset($data['telefone']) ? $data['telefone']: null);
+                $stmt->bindValue(':cep',isset($data['cep']) ?  $data['cep']: null);
+                $stmt->bindValue(':ld', isset($data['logradouro']) ? $data['logradouro']: null);
+                $stmt->bindValue(':br', isset($data['bairro']) ? $data['bairro']: null);
+                $stmt->bindValue(':uf', isset($data['uf']) ? $data['uf']: null);
+                $stmt->bindValue(':sh', isset($data['senha']) ? $data['senha']: null);
+                $stmt->bindValue(':tu', isset($data['tipoUser']) ? $data['tipoUser']: null);
+               // $stmt->bindValue(':id', isset($data['id_usuario']) ? $data['id_usuario']: null);
+                error_log ( "Parameters: " . print_r($data, true));
+                $stmt->execute();
+        
+                if ($stmt->rowCount() > 0) {
+                    return 'usuário(a) atualizado com sucesso!';
+                } else {
+                    throw new \Exception("Falha ao atualizar usuário(a)!");
+                    error_log ( "Parameters: " . print_r($data, true));
+                }
+            } catch (\PDOException $e) {
+                throw new \Exception("Erro no banco de dados: " . $e->getMessage());
+                     error_log ( "Parameters: " . print_r($data, true));
+            } catch (\Exception $e) {
+                throw $e; // Propague a exceção original para o chamador
+                     error_log ( "Parameters: " . print_r($data, true));
             }
+
+
         }
 
         public static function delete(int $id ){

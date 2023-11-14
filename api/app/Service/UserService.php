@@ -26,11 +26,14 @@
             //return $_POST;
         }
 
-        public function put($id, $data) 
+        public function put($data) 
         {
+            $data = $_POST;
+            error_log(json_encode($data)); // Converte o array $data em uma string JSON
+    
             try {
-                $data['id_usuario'] = $id;
-                $response = User::update($data); // Se você está usando um método "update", deve chamá-lo aqui
+                //$data['id_usuario'] = $id;
+                $response = User::updateUser($data); // Se você está usando um método "update", deve chamá-lo aqui
                 return ['status' => 'success', 'message' => $response];
             } catch (\Exception $e) {
                 return ['status' => 'error', 'message' => $e->getMessage()];

@@ -31,7 +31,7 @@
 
             // Se tiver alguma coisa na URL que não seja 'home', 'registro', 'login' ou 'EnviarEmail', use o Dashboard.php
             $currentPage = $parts[0];
-            if ($currentPage !== 'home' && $currentPage !== 'registro' && $currentPage !== 'login' && $currentPage !== 'EnviarEmail' && $currentPage !== '2FA') {
+            if ($currentPage !== 'home' && $currentPage !== 'registro' && $currentPage !== 'login' && $currentPage !== 'EnviarEmail' && $currentPage !== '2FA' && $currentPage !== 'atualizarSenha') {
 
                 include "template/sistema.php"; 
      
