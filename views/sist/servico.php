@@ -1,5 +1,23 @@
 <?php
-  include_once('template/links.php');
+ob_start();  
+
+require_once('template/links.php');
+require_once('config.php');
+
+// Verifique se a chave 'nome' está definida na sessão
+if (isset($_SESSION['nome'])) {
+    $nomeUsuario = $_SESSION['nome'];
+    //var_dump($_SESSION);
+    echo "</pre>";
+
+} else {
+    
+    header("Location: login.php");
+    exit(); // Certifique-se de sair após redirecionar para evitar a execução adicional do código
+}
+ob_end_flush();  
+
+
 ?> 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -138,7 +156,7 @@
     <!-- SERVIÇO -->
   <div class="container pt-4" id="servico" >
     <div>
-      <h3 class="welcome-text">Seja Bem Vindo, <span class="text-black fw-bold" style="color: #81b4d4;" >Pinheiro</span></h3>
+      <h3 class="welcome-text">Seja Bem Vindo, <span class="text-black fw-bold" style="color: #81b4d4;" ><?php  echo " $nomeUsuario"; ?></span></h3>
       <h5 class="welcome-sub-text">Consulte qualquer número de telefone e   celular de maneira rápida e conveniente.</h5>
     </div>
     <hr style=" margin-bottom: 20px; width: 70%;" >

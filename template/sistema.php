@@ -1,6 +1,28 @@
 <?php
 
-  require_once('config.php');
+ob_start();
+session_start();
+require_once('config.php');
+
+if (isset($_SESSION['nome'])) {
+  $nomeUsuario = $_SESSION['nome'];
+
+  echo "</pre>";
+} else {
+  
+  //header("Location: login.php");
+  exit(); 
+}
+
+
+if (isset($_POST['logout'])) {
+  // Limpe ou destrua completamente a sessão
+  session_destroy();
+  echo "limpo";
+  // Redirecione para a página de login ou outra página após o logout
+  print "<script> location.href='./'</script>";
+  exit();
+}
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,7 +130,7 @@
             <div class="dropdown">  
               <ul class="nav justify-content-end">
                 <li class="">
-                  <a class="nav-link disabled" aria-disabled="true">[tipo do usuário]</a>
+                  <a class="nav-link disabled" aria-disabled="true"><?php  echo " $nomeUsuario"; ?></a>
                 </li>
                 <li class="">
                   <a class=" dropdown-toggle d-flex align-items-start hidden-arrow " style="margin-right: 10px;" role="button"  id="navbarDropdownMenuAvatar" data-bs-toggle="dropdown" aria-expanded="false">
@@ -129,7 +151,7 @@
                         <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
                       </svg> Perfil</a>
 
-                      <a class="dropdown-item"  onclick="clickSair()">
+                      <a class="dropdown-item" onclick="clickSair()">
                       <svg class="icon me-2">
                         <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
                       </svg> Sair</a>
@@ -170,6 +192,10 @@
       
     </div>
     
+    <form method="post" id="logoutForm">
+        <input type="hidden" name="logout" value="1">
+    </form>
+
     <!-- CoreUI and necessary plugins-->
     <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
     <script src="vendors/simplebar/js/simplebar.min.js"></script>
@@ -181,9 +207,6 @@
 
 
 <script>
-
-  console.log('tes')
-  
   function clickSair(){
     Swal.fire({
       title: 'Tem certeza que deseja sair?',
@@ -193,11 +216,10 @@
       confirmButtonColor: '#3085d6',
       denyButtonText: 'Cancela',
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        location.href='';
-      } 
-    })
+        document.getElementById('logoutForm').submit();
+      }
+    });
   }
 </script>
 

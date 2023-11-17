@@ -1,6 +1,30 @@
 <?php
+ob_start();
 include_once('template/links.php');
 
+// Verifique se a chave 'nome' está definida na sessão
+if (isset($_SESSION['nome'])) {
+    $nomeUsuario = $_SESSION['nome'];
+    $tipoUser = $_SESSION['tipoUser'];
+    $data_nasc = $_SESSION['data_nasc'];
+    $email = $_SESSION['email'];
+    $cpf = $_SESSION['cpf'];
+    $celular = $_SESSION['celular'];
+    $telefone = $_SESSION['telefone'];
+    $cep = $_SESSION['cep'];
+    $logradouro = $_SESSION['logradouro'];
+    $status = $_SESSION['status'];
+    //var_dump($_SESSION);
+
+
+    echo "</pre>";
+} else {
+    // Se 'nome' não estiver definido, trate de acordo (por exemplo, redirecione para a página de login)
+    header("Location: login.php");
+    exit(); // Certifique-se de sair após redirecionar para evitar a execução adicional do código
+}
+
+ob_end_flush(); 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -100,8 +124,8 @@ include_once('template/links.php');
                 <div class="card-body text-center">
                     <!-- Profile image-->
                     <img class="img-account-profile rounded-circle mb-2" src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="">
-                    <p><strong>Nome Usuário</strong></p>       
-                    <p>[tipo de usuario]</p>       
+                    <p><strong><?php  echo " $nomeUsuario"; ?></strong></p>       
+                    <p><?php  echo " $tipoUser"; ?></p>       
                     <!--upload button-->
                     <!-- <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     <button class="btn" type="button">Upload new image</button><br><br><br> -->
@@ -115,52 +139,47 @@ include_once('template/links.php');
                 <div class="card-header">Detalhes da conta</div>
                 <div class="card-body">
                     <form>
-                        <!-- Form Group (username)-->
-                        <div class="mb-3">
-                            <p><strong>Nome</strong></p>
-                            <p>test</p>
-                        </div>
-                        <!-- Form Row-->
                         <div class="row gx-3 mb-3">
-                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <p><strong>Nome</strong></p>
+                                <p><?php  echo " $nomeUsuario"; ?></p>
+                            </div>
+                            
                             <div class="col-md-6">
                               <p><strong>email</strong></p>
-                              <p>test</p>
+                              <p><?php  echo " $email"; ?></p>
                             </div>
-                            <!-- Form Group (last name)-->
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                              <p><strong>Data de Nascimento</strong></p>
+                              <p><?php  echo " $data_nasc"; ?></p>
+                            </div>
                             <div class="col-md-6">
                               <p><strong>cpf</strong></p>
-                                <p>test</p>
+                                <p><?php  echo " $cpf"; ?></p>
                             </div>
                         </div>
-                        <!-- Form Row-->
                         <div class="row gx-3 mb-3">
-                          <!-- Form Group (first name)-->
                           <div class="col-md-6">
-                            <p><strong>Data de Nascimento</strong></p>
-                            <p>test</p>
+                            <p><strong>Telefone</strong></p>
+                            <p><?php  echo " $telefone"; ?></p>
                           </div>
-                          <!-- Form Group (last name)-->
                           <div class="col-md-6">
                             <p><strong>Celular</strong></p>
-                              <p>test</p>
+                              <p><?php  echo " $celular"; ?></p>
                           </div>
                       </div>
-                      <!-- Form Row-->
                       <div class="row gx-3 mb-3">
-                        <!-- Form Group (first name)-->
                         <div class="col-md-6">
-                          <p><strong>Telefone</strong></p>
-                          <p>test</p>
+                          <p><strong>CEP</strong></p>
+                            <p><?php  echo " $cep"; ?></p>
                         </div>
-                        <!-- Form Group (last name)-->
                         <div class="col-md-6">
-                          <p><strong>Endereço</strong></p>
-                            <p>test</p>
+                            <p><strong>Endereço</strong></p>
+                            <p><?php  echo " $logradouro"; ?></p>
                         </div>
                     </div>
-                        <!-- Save changes button-->
-                        <!-- <button class="btn" type="button">Editar</button> -->
                     </form>
                 </div>
             </div>
