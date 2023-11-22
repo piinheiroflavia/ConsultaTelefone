@@ -38,7 +38,7 @@
             color: #d9dbdc;
         }
         .paragNaoCad{
-            margin-top: 200px;
+            margin-top: 90px;
             font-size: 0.9rem;
             text-align: center;
         }
@@ -233,7 +233,14 @@
                 <h3 >Login</h3>
                 <h4 class="textAcesse">Acesse sua conta!</h4>
             </div>
-            
+                <!-- <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <label class="form-check-label" for="inlineRadio1">Admin</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" for="inlineRadio2">Comun</label>
+                </div> -->
                 <!--Login-->
                 <div class="input-container-cadastro" id="login-div">
                     <input id="login" name="login" class="input-cadastro" type="text" placeholder=" "  >
@@ -251,8 +258,9 @@
                         <i id="lock" class="fa-solid fa-eye-slash" onclick="showPassword()"></i>
                         <i id="unlock" class="fa-regular fa-eye" onclick="showPassword()"></i>
                     </span>
-                </div>                       
-                  
+                </div>   
+                <br> 
+                
                 <p class="paragAlterarSenha">Esqueceu a senha? <strong><a href="EnviarEmail" class="paragClickAqui" style="color:#fff;"> Clique aqui</a> </strong> </p> 
                 <div>
                     <button type="submit" class="btnLogar" name="submit" ><span class="material-symbols-outlined" id="iconeSeta">arrow_forward</span></button>
@@ -260,7 +268,10 @@
                 
                 <p class="paragNaoCad">Não possui cadastro? <strong><a href="registro" class="paragClickNaoCad" style="color:#fff;"> Cadastre-se aqui</a> </strong> </p> 
                 
+               
+
         </form>
+        
     </div>
 
 

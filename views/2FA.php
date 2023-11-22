@@ -103,6 +103,10 @@ $login = $_SESSION["login_user"];
             border-radius: 50px;
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         }
+
+        /* #iconeSeta{
+            cursor: not-allowed;
+        } */
     </style>
 
 </head>
@@ -128,28 +132,44 @@ $login = $_SESSION["login_user"];
                 </h4><br>
               
                 <input name="pergunta_2fa" value="<?= $perguntas ?>" type="hidden">
-                <input name="login_2fa" value="<?= $login ?>" type="hidden">
+                <input name="login_2fa" value="<?= $login ?>" type="hidden"  class="input-cadastro" >
 
                 <?php if ($perguntas == 'Digite sua data de nascimento?') : ?>
-                    <input class="input_2fa" name="resposta_2fa" type="date" placeholder="Resposta" maxlength="8"><br>
+                    <input class="input_2fa input-cadastro" name="resposta_2fa" type="date" placeholder="Resposta" maxlength="8"  id="input1" onkeyup="verificarCampo1()"><br>
                 <?php endif; ?>
 
                 <?php if ($perguntas != 'Digite sua data de nascimento?') : ?>
-                    <input class="input_2fa" name="resposta_2fa" type="text" placeholder="Resposta" maxlength="60"><br>
+                    <input class="input_2fa input-cadastro" name="resposta_2fa" type="text" placeholder="Resposta" maxlength="60" id="input2" onkeyup="verificarCampo2()"><br>
                 <?php endif; ?>
 
-
-
-
-
-                <button type="submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                    </svg>
+                <br>
+                <button type="submit" class="btnLogar" name="submit">
+                    <span class="material-symbols-outlined" id="iconeSeta" >arrow_forward</span>
                 </button>
             </form>
         </div>
-
+    
+    <script>
+        var input1 = document.getElementById("input1");
+        var input2 = document.getElementById("input2");
+        var iconeSeta = document.getElementById("iconeSeta").disabled = true;;
+        
+        function verificarCampo1(){
+            if(input1 == ''){
+                alert('test2')
+            }else{
+                iconeSeta.style.cursor = 'pointer'
+            }
+        } 
+        
+        function verificarCampo2(){
+            if(input2 == ''){
+                alert('test2')
+            }else{
+                iconeSeta.style.cursor = 'pointer'
+            }
+        } 
+    </script>
 
 
 </body>
