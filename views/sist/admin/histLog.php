@@ -1,169 +1,97 @@
-<?php
-include_once("template/links.php");
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tabela de Usuários</title>
 
-    <!-- Inclua a biblioteca jQuery -->
+    <!-- Adicione os links necessários para a DataTables e seus plugins -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+    <!-- Adicione outros links conforme necessário -->
+
+    <!-- Adicione jQuery e DataTables JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Inclua a biblioteca DataTables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    
-
-
-    <style>
-      /* @media screen  and (max-width: 1200px){
-        #btnPDF{
-         
-        }
-      } */
-
-      #iconSearch{
-      background-color: #35aad4;
-      margin: 5px;
-      border: solid 3px #fff;
-      padding: 7px;
-      border-radius: 50px;
-      color: #fff;
-      }
-      #iconPdf{
-         margin-top: 3px; 
-      }
-    </style> 
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <!-- Adicione outros scripts conforme necessário -->
 </head>
 <body>
 
-  <!-- TABELA USUÁRIO -->
-  <div class="container pt-4" id="tabelaUsuario">
-    <h3 class="welcome-text" style="margin-bottom: 30px;">Histórico de <strong>Acesso dos Usuários</strong> </h3>
-    <hr style=" margin-bottom: 20px;" >
+<div class="container">
+    <h2>Tabela de Usuários</h2>
 
+    <table id="tabelaUsuarios" class="display">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome Completo</th>
+            <th>Sexo</th>
+            <th>Data de Nascimento</th>
+            <th>Nome Materno</th>
+            <th>Login</th>
+            <th>Email</th>
+            <th>CPF</th>
+            <th>Celular</th>
+            <th>Telefone</th>
+            <th>CEP</th>
+            <th>Logradouro</th>
+            <th>Bairro</th>
+            <th>UF</th>
+            <th>Senha</th>
+            <th>Tipo de Usuário</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
 
-
-    
-
-
-
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">  
-          <div class="content-wrapper">
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card mb-4">
-                
-                <!-- <div class="card-body">
-                  <div class="row gx-3 gy-2 align-items-center" >
-                    
-                  <div class="col-md-2">
-                        <div>
-                            <label for="defaultFormControlInput" class="form-label">Pesquisar</label> 
-                            <input
-                            type="text"
-                            class="form-control"
-                            id="defaultFormControlInput"
-                            placeholder="digite aqui.."
-                            aria-describedby="defaultFormControlHelp"
-                            />  
-                      </div>
-                      
-                    </div>                                 
-                    <div class="col-md-2 float-left" >
-                        <label class="form-label" for="showToastPlacement">&nbsp;</label>
-                        <button id="showToastPlacement" class="btn d-block" style="border:none; padding: 0px 2px; width: 28px; box-shadow: none;"><span class="material-symbols-outlined" id="iconSearch">search</span></button>
-                    </div>
-
-                    <div class="col-md-2 float-left" id="btnPDF" style=" margin-left: 570px;">
-                        <label class="form-label" for="showToastPlacement">&nbsp;</label>
-                        <button id="showToastPlacement" class="btn d-block pdf " style="background-color:#35aad4; color:#fff;     padding: 5px 22px; width: 149px;">Exportar PDF</button>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
-              <div class="card mb-4">
-                <h5 class="card-header">Acesso de Usuários</h5>    
-                 
-                <div class="table-responsive text-nowrap" style="margin: 10px 30px">
-                <div class="panel-body" style="width: 100% !important;">
-                  <div>
-                      <table id="tabelaUso" class="table table-hover display" style="width: 100% !important;">
-                      </table>
-                    </div>
-                  </div>
-
-                </div>
-            </div>
-            </div>
-            <div class="content-backdrop fade"></div>
-          </div>
-        </div>
-      </div>
-
-
-      
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
-    <!-- / Layout wrapper -->
-
-  </div> 
-
-
-
-
-   
-
-    <script>
-        // Certifique-se de que o DataTables seja inicializado após o carregamento da página
-        $(document).ready(function() {
-
-            var endpoint = 'http://localhost/ConsultaTelefone/api/public_html/api/user';
-            // fetch(url).
-            // then(response => response.json())
-            // .then(data => {
-             
-            // })
-            // .catch(erro =>{
-            //     console.log('Erro ' + error.message);
-            // })
-
-            fetch(endpoint)
-        .then(response => response.json())
-        .then(data => {
-            // Processar os dados e preencher a tabela
-            var tabela = $('#tabelaUso').DataTable({
-                renderer: "bootstrap",
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.11.4/i18n/pt_br.json"
+<script>
+    $(document).ready(function () {
+        // Inicialize a DataTable com as configurações desejadas
+        var tabelaUsuarios = $('#tabelaUsuarios').DataTable({
+            ajax: 'controllers/data.php', // Caminho para o arquivo data.php que retorna os dados
+            columns: [
+                {data: 'id_usuario'},
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        // Combine o primeiro e último nome em um único campo da tabela
+                        return data.nome_usuario + ' ' + data.nome_materno;
+                    }
                 },
-                data: data.data, // Usar os dados da API
-                columns: [
-                    { "data": "id_usuario", "title": "ID do usuário" },
-                    { "data": "tipoUser", "title": "Tipo de usuário" },
-                    { "data": "login", "title": "login" },
-                    //{ "data": "nome_usuario", "title": "Nome do usuário" },
-                    { "data": "data_nasc", "title": "Data Nascimento" },
-                     { "data": "status", "title": "Status" },
-                    { "data": "email", "title": "Email" },
-                    { "data": "cpf", "title": "CPF" },
-                    { "data": "celular", "title": "Celular" }
-                ],
-                "order": [[0, "desc"]],
-                "pageLength": 10
-            });
-            console.log(data);
-        })
-        .catch(erro => {
-            console.log('Erro ' + erro.message);
+                {data: 'sexo'},
+                {data: 'data_nasc'},
+                {data: 'nome_materno'},
+                {data: 'login'},
+                {data: 'email'},
+                {data: 'cpf'},
+                {data: 'celular'},
+                {data: 'telefone'},
+                {data: 'cep'},
+                {data: 'logradouro'},
+                {data: 'bairro'},
+                {data: 'uf'},
+                {data: 'senha'},
+                {data: 'tipoUser'},
+                {data: 'status'}
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                {extend: 'copy', exportOptions: {columns: ':visible'}},
+                {extend: 'excel', exportOptions: {columns: ':visible'}},
+                {extend: 'csv', exportOptions: {columns: ':visible'}},
+                {extend: 'pdf', exportOptions: {columns: ':visible'}},
+                {extend: 'print', exportOptions: {columns: ':visible'}}
+            ],
+            colReorder: true,
+            select: true
         });
-
     });
-    </script>
+</script>
 
 </body>
 </html>

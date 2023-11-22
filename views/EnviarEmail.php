@@ -239,11 +239,6 @@
             }else{
                $_SESSION['msg'] = "<p style='color: #ff0000'>Erro: Email não cadastrado!</p>";
             }
-
-
-
-
-
         }else{
             $_SESSION['msg'] = "<p style='color: #ff0000'>Erro: Email não cadastrado!</p>";
         }

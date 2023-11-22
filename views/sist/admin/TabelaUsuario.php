@@ -1,280 +1,180 @@
 <?php
-  include_once('template/links.php');
-  require_once('config.php');
-
-
+include_once('template/links.php');
+require_once('config.php');
+// Certifique-se de que o caminho para o UserController.php está correto
+include_once(__DIR__ . '/../../../controllers/UserController.php');
 
 ?>
+
+<!-- Cabeçalho e estilos -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista de Usuários</title>
     <style>
-      #iconSearch{
-      background-color: #35aad4;
-      margin: 5px;
-      border: solid 3px #fff;
-      padding: 7px;
-      border-radius: 50px;
-      color: #fff;
-      }
-      #iconPdf{
-         margin-top: 3px;
-      }
-      .material-symbols-outlined{
-        cursor: pointer;
-      }
+        /* Estilos aqui... */
     </style>
 </head>
 <body>
 
-  <!-- TABELA USUÁRIO -->
-  <div class="container pt-4" id="tabelaUsuario">
-    <h3 class="welcome-text" style="margin-bottom: 30px;">Histórico de <strong>Usuários</strong> </h3>
-    <hr style=" margin-bottom: 20px;" >
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-          <div class="content-wrapper">
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card mb-4">
-               <!-- card-body -->
-               <div class="card-body">
-                  <div class="row gx-3 gy-2 align-items-center" >
-                    
-                  <div class="col-md-2">
-                        <div>
-                            <label for="defaultFormControlInput" class="form-label">Pesquisar</label> 
-                            <input
-                            type="text"
-                            class="form-control"
-                            id="defaultFormControlInput"
-                            placeholder="digite aqui.."
-                            aria-describedby="defaultFormControlHelp"
-                            />  
-                      </div>
-                      
-                    </div>                                 
-                    <div class="col-md-2 float-left" >
-                        <label class="form-label" for="showToastPlacement">&nbsp;</label>
-                        <button id="showToastPlacement" class="btn d-block" style="border:none; padding: 0px 2px; width: 28px; box-shadow: none;"><span class="material-symbols-outlined" id="iconSearch">search</span></button>
-                    </div>
+<?php
+    // Criar uma instância da classe UserController, passando a conexão como argumento
+    $userController = new UserController($conexao);
 
-                    <div class="col-md-2 float-left" style=" margin-left: 570px;" >
-                        <label class="form-label" for="showToastPlacement">&nbsp;</label>
-                        <button id="showToastPlacement" class="btn d-block" style="background-color:#35aad4; color:#fff;     padding: 5px 22px;  width: 149px; ">Exportar PDF</button>
-                    </div>
-                  </div>
-                </div>
-                <!-- fim card-body -->
-              </div>
+    // Definir ação padrão
+    $acao = 'selectAllClientes';
+    $parametros = [];
 
-              <div class="card mb-4">
-                <h5 class="card-header">Usuários</h5>
+    // Executar ação
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_POST['acao'] === 'excluirUsuario') {
+            $idUsuarioParaExcluir = isset($_POST['id']) ? $_POST['id'] : null;
 
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-striped">
-                    <thead>
-                        <tr>
-                        <th>ID</th>
-                        <th>Usuário</th>
-                        <th>Nome</th>
-                        <th>Status</th>
-                        <th>Email</th>
-                        <th>Cpf</th>
-                        <th>Celular</th>
-                        <th></th>
-                        <th></th>
+            if ($idUsuarioParaExcluir !== null) {
+                $resultadoExclusao = $userController->executarAcao('excluirUsuario', ['id' => $idUsuarioParaExcluir]);
 
-                        </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                        <tr>
-                        <td>1</td>
-                        <td>Admin</td>
-                        <td>Ana Pinheiro</td>
-                        <td>Ativo</td>
-                        <td>anapinheiro@gmail.com</td>
-                        <td>000.000.000-00</td>
-                        <td>21 00000-0000</td>
-                        <td><span class="material-symbols-outlined">info</span></td>
-                        <td><span class="material-symbols-outlined" onclick="deleteUser()">delete</span></td>
-                        </tr>
-                        <tr>
-                        <td>2</td>
-                        <td>Comun</td>
-                        <td>Ana Pinheiro</td>
-                        <td>Inativo</td>
-                        <td>anapinheiro@gmail.com</td>
-                        <td>000.000.000-00</td>
-                        <td>21 00000-0000</td>
-                        <td><span class="material-symbols-outlined">info</span></td>
-                        <td><span class="material-symbols-outlined" onclick="deleteUser()">delete</span></td>
-                        </tr>
-                        <td>3</td>
-                        <td>Comun</td>
-                        <td>Ana Pinheiro</td>
-                        <td>Inativo</td>
-                        <td>anapinheiro@gmail.com</td>
-                        <td>000.000.000-00</td>
-                        <td>21 00000-0000</td>
-                        <td><span class="material-symbols-outlined">info</span></td>
-                        <td><span class="material-symbols-outlined" onclick="deleteUser()">delete</span></td>
-
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-           
-
-            </div>
-            <div class="content-backdrop fade"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
-    <!-- / Layout wrapper -->
-
-  </div>
-
-  <!-- <table class="table align-middle mb-0 bg-white">
-    <thead class="bg-dark">
-      <tr>
-        <th>Name</th>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Position</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <div class="d-flex align-items-center">
-            <img
-                src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                alt=""
-                style="width: 45px; height: 45px"
-                class="rounded-circle"
-                />
-            <div class="ms-3">
-              <p class="fw-bold mb-1">John Doe</p>
-              <p class="text-muted mb-0">john.doe@gmail.com</p>
-            </div>
-          </div>
-        </td>
-        <td>
-          <p class="fw-normal mb-1">Software engineer</p>
-          <p class="text-muted mb-0">IT department</p>
-        </td>
-        <td>
-          <span class="badge badge-success rounded-pill d-inline">Active</span>
-        </td>
-        <td>Senior</td>
-        <td>
-          <button type="button" class="btn btn-link btn-sm btn-rounded">
-            Edit
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="d-flex align-items-center">
-            <img
-                src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                class="rounded-circle"
-                alt=""
-                style="width: 45px; height: 45px"
-                />
-            <div class="ms-3">
-              <p class="fw-bold mb-1">Alex Ray</p>
-              <p class="text-muted mb-0">alex.ray@gmail.com</p>
-            </div>
-          </div>
-        </td>
-        <td>
-          <p class="fw-normal mb-1">Consultant</p>
-          <p class="text-muted mb-0">Finance</p>
-        </td>
-        <td>
-          <span class="badge badge-primary rounded-pill d-inline"
-                >Onboarding</span
-            >
-        </td>
-        <td>Junior</td>
-        <td>
-          <button
-                  type="button"
-                  class="btn btn-link btn-rounded btn-sm fw-bold"
-                  data-mdb-ripple-color="dark"
-                  >
-            Edit
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="d-flex align-items-center">
-            <img
-                src="https://mdbootstrap.com/img/new/avatars/7.jpg"
-                class="rounded-circle"
-                alt=""
-                style="width: 45px; height: 45px"
-                />
-            <div class="ms-3">
-              <p class="fw-bold mb-1">Kate Hunington</p>
-              <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-            </div>
-          </div>
-        </td>
-        <td>
-          <p class="fw-normal mb-1">Designer</p>
-          <p class="text-muted mb-0">UI/UX</p>
-        </td>
-        <td>
-          <span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
-        </td>
-        <td>Senior</td>
-        <td>
-          <button
-                  type="button"
-                  class="btn btn-link btn-rounded btn-sm fw-bold"
-                  data-mdb-ripple-color="dark"
-                  >
-            Edit
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
-
-
-  <script>
-
-    function deleteUser(){   
-      Swal.fire({
-      title: 'Deletar Usuário',
-      text: "Essa ação não pode ser revertida!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'ok',
-      cancelButtonText: 'cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Usuário deletado com sucesso!',
-          'Esse usuário não existe mais',
-          'success'
-        )
-      }
-    })
+                if (isset($resultadoExclusao['mensagem'])) {
+                    // Exibindo a mensagem de exclusão (pode ser ajustado conforme necessário)
+                    echo $resultadoExclusao['mensagem'];
+                    exit; // Garante que nada mais seja enviado junto com a resposta
+                }
+            }
+        } else {
+            $clientes = $userController->executarAcao($_POST['acao'], $parametros);
+        }
+    } else {
+        $clientes = $userController->executarAcao($acao, $parametros);
     }
-  </script>
+
+    // Exibir mensagem de exclusão (se houver)
+    if (isset($_GET['mensagem'])) {
+        echo "<p>{$_GET['mensagem']}</p>";
+    }
+?>
+
+
+<!-- Seu HTML com a tabela -->
+<div class="container pt-4" id="tabelaUsuario">
+    <!-- ... (código anterior) -->
+
+    <div class="table-responsive text-nowrap">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Login</th>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>Email</th>
+                    <th>Cpf</th>
+                    <th>Celular</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                <?php foreach ($clientes as $cliente) : ?>
+                    <tr>
+                        <td><?php echo $cliente['id_usuario']; ?></td>
+                        <td><?php echo $cliente['login']; ?></td>
+                        <td><?php echo $cliente['nome_usuario']; ?></td>
+                        <td><?php echo $cliente['status']; ?></td>
+                        <td><?php echo $cliente['email']; ?></td>
+                        <td><?php echo $cliente['cpf']; ?></td>
+                        <td><?php echo $cliente['celular']; ?></td>
+                        <td><span class="material-symbols-outlined" onclick="editarUsuario(<?php echo $cliente['id_usuario']; ?>)">info</span></td>
+                        <td><span class="material-symbols-outlined" onclick="deleteUser(<?php echo $cliente['id_usuario']; ?>)">delete</span></td>
+                        <td>
+                            <form method="post" action="http://localhost/ConsultaTelefone/historico-usuario">
+                                <input type="hidden" name="acao" value="excluirUsuario">
+                                <input type="hidden" name="id" value="<?php echo $cliente['id_usuario']; ?>">
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Scripts e funções JavaScript -->
+<script>
+    function deleteUser(userId) {
+    console.log("Excluindo usuário: " + userId);
+
+    if (confirm("Tem certeza que deseja excluir este usuário?")) {
+            // Fazer solicitação AJAX para excluir o usuário
+            fetch(`http://localhost/ConsultaTelefone/historico-usuario?acao=excluirUsuario&id=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.mensagem);
+                    // Recarregar a página ou atualizar a tabela de usuários
+                    window.location.reload();
+                })
+                .catch(error => console.error('Erro ao excluir usuário:', error));
+        }
+    }
+
+
+    // Função fictícia para editar usuário (substitua pelo seu código real)
+    function editarUsuario(userId) {
+        alert(`Editar usuário ${userId}`);
+    }
+</script>
+
+
+
+<!-- 
+  <script>
+    function deleteUser(id) {
+        Swal.fire({
+            title: 'Deletar Usuário',
+            text: "Essa ação não pode ser revertida!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ok',
+            cancelButtonText: 'cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Chama a função do userController para excluir o usuário
+                // Passa o ID do usuário como parâmetro
+                // Atualiza a tabela após a exclusão
+                userController.executarAcao('excluirUsuario', { id: id })
+                    .then(() => {
+                        Swal.fire(
+                            'Usuário deletado com sucesso!',
+                            'Esse usuário não existe mais',
+                            'success'
+                        );
+                        // Recarrega a página ou atualiza a tabela de alguma forma
+                         window.location.reload();
+                        // OU
+                        // Atualize a tabela dinamicamente sem recarregar a página
+                        // Atualiza a tabela dinamicamente sem recarregar a página
+                        document.querySelector(`tr[data-id="${id}"]`).remove();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        Swal.fire(
+                            'Erro',
+                            'Ocorreu um erro ao excluir o usuário',
+                            'error'
+                        );
+                    });
+            }
+        });
+    }
+
+    // Função para editar usuário
+    function editarUsuario(id) {
+        // Implemente a lógica de edição do usuário aqui
+        // Pode abrir um modal de edição, redirecionar para outra página, etc.
+        console.log('Editar usuário com ID:', id);
+    }
+</script> -->
 </body>
 </html>

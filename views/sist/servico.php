@@ -1,21 +1,21 @@
 <?php
-ob_start();  
+//ob_start();  
 
 require_once('template/links.php');
 require_once('config.php');
 
-// Verifique se a chave 'nome' está definida na sessão
-if (isset($_SESSION['nome'])) {
-    $nomeUsuario = $_SESSION['nome'];
-    //var_dump($_SESSION);
-    echo "</pre>";
+//// Verifique se a chave 'nome' está definida na sessão
+// if (isset($_SESSION['nome'])) {
+//     $nomeUsuario = $_SESSION['nome'];
+//     //var_dump($_SESSION);
+//     echo "</pre>";
 
-} else {
+// } else {
     
-    header("Location: login.php");
-    exit(); // Certifique-se de sair após redirecionar para evitar a execução adicional do código
-}
-ob_end_flush();  
+//     header("Location: login.php");
+//     exit(); // Certifique-se de sair após redirecionar para evitar a execução adicional do código
+// }
+//ob_end_flush();  
 
 
 ?> 

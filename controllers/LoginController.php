@@ -14,42 +14,6 @@ class LoginController {
     public function __construct($conexao) {
         $this->conexao = $conexao;
     }
-
-    //metodo responsavel por selecionar o id do usuario
-    public static function select(int $id ){
-        $conexao = new \PDO(dbDrive. ': host='. dbHost. '; dbname='. dbName, dbUserName, dbPassword);
-
-        $sql = 'SELECT * FROM ' . self::$table . ' WHERE id_usuario = :id';
-     
-        $stmt = $conexao->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $stmt->execute();
-       
-        if($stmt->rowCount() > 0 ){
-            return $stmt->fetch(\PDO::FETCH_ASSOC);
-        }else {
-            throw new \Exception("Erro sem usuario");
-        }
-    }
-
-    // public static function selectAll(){
-    //     //utilizando o objeto PDO /// contra \ para usar com variavis globais
-    //     $connPdo = new \PDO(dbDrive. ': host='. dbHost. '; dbname='. dbName, dbUserName, dbPassword);
-
-    //     //VARIAVEIS ESTATICA USA O SELF E NAO ESTATICAS O THIS
-
-    //     $sql = 'SELECT * FROM ' . self::$table ;
-
-    //     $stmt = $connPdo->prepare($sql);
-    //     $stmt->execute();
-       
-    //     if($stmt->rowCount() > 0 ){
-    //        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    //     }else {
-    //         throw new \Exception("Erro sem usuario");
-    //     }
-    // }
-
     public function login() {
         if (isset($_POST['submit'])) {
             
@@ -62,6 +26,7 @@ class LoginController {
             $login = $_POST['login'];
             $senha = $_POST['senha'];
             $nome = "";
+            $nomemae = "";
             $tipoUser = "";
             $data_nasc = "";
             $email = "";
@@ -86,7 +51,9 @@ class LoginController {
             // Verificar se a consulta retornou alguma linha
             if ($qtd > 0) {
 
+               // $id = $row->id_usuario;
                 $nome = $row->nome_usuario;
+                $nomemae = $row->nome_materno;
                 $tipoUser = $row->tipoUser;
                 $data_nasc = $row->data_nasc;
                 $email = $row->email;
@@ -96,9 +63,13 @@ class LoginController {
                 $cep = $row->cep;
                 $logradouro = $row->logradouro;
                 $status = $row->status;
+            
+                //se o usuario for tipo admin cria sessao e adiciona role admin
+                if($tipoUser === "admin"){
 
                 $_SESSION["login"] = $login;
                 $_SESSION["nome"] = $nome;
+                $_SESSION["nomemae"] = $nomemae;
                 $_SESSION["tipoUser"] = $tipoUser;
                 $_SESSION['data_nasc'] = $data_nasc;
                 $_SESSION['email'] = $email;
@@ -108,17 +79,26 @@ class LoginController {
                 $_SESSION['cep']= $cep;
                 $_SESSION['logradouro']= $logradouro;
                 $_SESSION['status']= $status;
+                
+                $_SESSION['role'] = 'admin';
+                    print "<script> location.href='../dashboard'</script>";
 
-                var_dump($_SESSION["login"]);
-                var_dump($_SESSION["nome"]);
-                var_dump($_SESSION["tipoUser"]);
+
+                    // $_SESSION['msg'] = "<p style='color: #ff0000'>login realizado com sucesso!</p>";
+                    // return ["mensagem" => "login realizado com sucesso"];
+                }
+                //se nao for igual o tipo admin redireciona para o 2fa
+                else{
+                    $_SESSION["login_user"] = $login;
+                    // $_SESSION['msg'] = "<p style='color: #ff0000'>login realizado com sucesso!</p>";
+                    // return ["mensagem" => "login realizado com sucesso"];
+                  
+                    
+
+                  print "<script> location.href='../2FA'</script>";                  
+                }
+                                
                 
-                echo "<script>console.log('Login: " . $login . "');</script>";
-                echo "<script>console.log('nome: " . $nome . "');</script>";
-                echo "<script>console.log('tipoUser: " . $tipoUser . "');</script>";
-                echo "<script>console.log('data_nasc: " . $data_nasc . "');</script>";
-                
-                print "<script> location.href='../dashboard'</script>";
             } else {
                 //echo "Credenciais inválidas. Tente novamente.";
                 //print "<script>alert('Credenciais inválidas. Tente novamente.')</script>";
@@ -128,7 +108,10 @@ class LoginController {
             }
         }
     }
+
 }
+
+
 
 // Crie uma instância da classe LoginController, passando a conexão como argumento
 $loginController = new LoginController($conexao);

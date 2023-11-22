@@ -14,6 +14,8 @@ if (isset($_SESSION['nome'])) {
   exit(); 
 }
 
+// Obtém o papel do usuário da sessão
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
 
 if (isset($_POST['logout'])) {
   // Limpe ou destrua completamente a sessão
@@ -86,35 +88,42 @@ if (isset($_POST['logout'])) {
         <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/Logotipo.png" alt="" width="80%" height="100%">
       </div>
       <!-- MENU LATERAL -->
-      <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="" >
-        
+      <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
         <li class="nav-title" style="color:#000">Menu</li>
-        <li class="nav-item"><a class="nav-link" href="dashboard" style="color:#000" >
-            <svg class="nav-icon" >
-              <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-speedometer" style="color:#000"></use>
-            </svg> Dashboard</a>
-        </li>
         <li class="nav-item"><a class="nav-link" href="servico" style="color:#000">
             <svg class="nav-icon">
               <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-star" style="color:#000"></use>
-            </svg> Serviço</a></li>
-
-        <li class="nav-item"><a class="nav-link" href="historico-usuario" style="color:#000">
-            <svg class="nav-icon">
-              <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-description" style="color:#000"></use>
-            </svg> Histórico de Usuário</a></li>
-
-        <li class="nav-item"><a class="nav-link" href="historico-log" style="color:#000">
-            <svg class="nav-icon">
-              <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-description" style="color:#000"></use>
-            </svg> Histórico de Logs</a></li>
-
-        <li class="nav-item"><a class="nav-link" href="database" style="color:#000">
-            <svg class="nav-icon">
-              <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-layers" style="color:#000"></use>
-            </svg> Modelo de DB</a></li>
-
-      </ul>
+            </svg> Serviço</a>
+        </li>
+        
+        <?php
+        // Mostra opções adicionais para o administrador
+        if ($role === 'admin') {
+            echo '
+              <li class="nav-item"><a class="nav-link" href="dashboard" style="color:#000" >
+                  <svg class="nav-icon" >
+                    <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-speedometer" style="color:#000"></use>
+                  </svg> Dashboard</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="historico-usuario" style="color:#000">
+                  <svg class="nav-icon">
+                    <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-description" style="color:#000"></use>
+                  </svg> Histórico de Usuário</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="historico-log" style="color:#000">
+                  <svg class="nav-icon">
+                    <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-description" style="color:#000"></use>
+                  </svg> Histórico de Logs</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="database" style="color:#000">
+                  <svg class="nav-icon">
+                    <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-layers" style="color:#000"></use>
+                  </svg> Modelo de DB</a>
+              </li>
+            ';
+        }
+        ?>
+</ul>
     </div>
     <!-- HEADER -->
     <div class="wrapper d-flex flex-column min-vh-100 bg-light" >

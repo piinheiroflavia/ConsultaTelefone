@@ -10,65 +10,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../../extensions/Editor/css/editor.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.dataTables.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="../../extensions/Editor/js/dataTables.editor.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.7.0/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+</head>
+    <style>
+        a.buttons-collection {
+            margin-left: 1em;
+        }
+    </style>
 </head>
 <body>
-
-    <div class="panel-body" style="width: 100% !important;">
-        <h4>test</h4>
-        <div>
-            <table id="tabelaUso" class="table table-hover display" style="width: 100% !important;">
-            </table>
-        </div>
-    </div>
-
-   
+    <!-- Your HTML Table -->
+    <table id="tabelaUso" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID do usuário</th>
+                <th>Tipo de usuário</th>
+                <th>Login</th>
+                <th>Nome do usuário</th>
+                <th>Data Nascimento</th>
+                <th>Email</th>
+                <th>CPF</th>
+                <th>Celular</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID do usuário</th>
+                <th>Tipo de usuário</th>
+                <th>Login</th>
+                <th>Nome do usuário</th>
+                <th>Data Nascimento</th>
+                <th>Email</th>
+                <th>CPF</th>
+                <th>Celular</th>
+            </tr>
+        </tfoot>
+    </table>
 
     <script>
-        // Certifique-se de que o DataTables seja inicializado após o carregamento da página
         $(document).ready(function() {
-
             var endpoint = 'http://localhost/ConsultaTelefone/api/public_html/api/user';
-            // fetch(url).
-            // then(response => response.json())
-            // .then(data => {
-             
-            // })
-            // .catch(erro =>{
-            //     console.log('Erro ' + error.message);
-            // })
 
             fetch(endpoint)
-        .then(response => response.json())
-        .then(data => {
-            // Processar os dados e preencher a tabela
-            var tabela = $('#tabelaUso').DataTable({
-                renderer: "bootstrap",
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.11.4/i18n/pt_br.json"
-                },
-                data: data.data, // Usar os dados da API
-                columns: [
-                    { "data": "id_usuario", "title": "ID do usuário" },
-                    { "data": "tipoUser", "title": "Tipo de usuário" },
-                    { "data": "login", "title": "login" },
-                    { "data": "nome_usuario", "title": "Nome do usuário" },
-                    { "data": "data_nasc", "title": "Data Nascimento" },
-                    // { "data": "status", "title": "Status" },
-                    { "data": "email", "title": "Email" },
-                    { "data": "cpf", "title": "CPF" },
-                    { "data": "celular", "title": "Celular" }
-                ],
-                "order": [[0, "desc"]],
-                "pageLength": 10000
-            });
-            console.log(data);
-        })
-        .catch(erro => {
-            console.log('Erro ' + erro.message);
+                .then(response => response.json())
+                .then(data => {
+                    // Processar os dados e preencher a tabela DataTable
+                    var tabelaUso = $('#tabelaUso').DataTable({
+                        renderer: "bootstrap",
+                        language: {
+                            url: "//cdn.datatables.net/plug-ins/1.11.4/i18n/pt_br.json"
+                        },
+                        data: data.data,
+                        columns: [
+                            { "data": "id_usuario", "title": "ID do usuário" },
+                            { "data": "tipoUser", "title": "Tipo de usuário" },
+                            { "data": "login", "title": "Login" },
+                            { "data": "nome_usuario", "title": "Nome do usuário" },
+                            { "data": "data_nasc", "title": "Data Nascimento" },
+                            { "data": "email", "title": "Email" },
+                            { "data": "cpf", "title": "CPF" },
+                            { "data": "celular", "title": "Celular" }
+                        ],
+                        "order": [[0, "desc"]],
+                        "pageLength": 10000,
+                        dom: 'Bfrtip', // Adiciona os botões na parte superior
+                        buttons: [
+                            '', '', '', '', '',
+                            {
+                                extend: 'collection',
+                                text: 'Copiar',
+                                buttons: [
+                                    'copy', 'excel', 'csv', 'pdf', 'print'
+                                ]
+                            }
+                        ]
+                    });
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.log('Erro ' + error.message);
+                });
         });
-
-    });
     </script>
-
 </body>
 </html>

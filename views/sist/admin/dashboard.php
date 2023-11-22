@@ -1,25 +1,23 @@
 <?php
-ob_start();  // Inicie o buffer de saída antes de qualquer conteúdo
-//session_start();
+ob_start();
+// session_start();
 
 require_once('template/links.php');
 require_once('config.php');
+include_once(__DIR__ . '/../../../controllers/userController.php');
 
-// Verifique se a chave 'nome' está definida na sessão
-if (isset($_SESSION['nome'])) {
-    $nomeUsuario = $_SESSION['nome'];
-    // echo "Bem-vindo, $nomeUsuario!";
-    // // Adicione um echo ou var_dump aqui para testar a sessão
-    // echo "<pre>";
-    //var_dump($_SESSION);
-    echo "</pre>";
-} else {
-    // Se 'nome' não estiver definido, trate de acordo (por exemplo, redirecione para a página de login)
-    header("Location: login.php");
-    exit(); // Certifique-se de sair após redirecionar para evitar a execução adicional do código
-}
-ob_end_flush();  // Libere o buffer de saída no final do script
+// ...
 
+// Obtenha o resultado do dashboard
+$resultadoDashboard = $userController->executarAcao('dashboard', []);
+
+// Atribua as variáveis do resultado do dashboard
+$quantidadeAdmin = $resultadoDashboard['quantidadeAdmin'];
+$quantidadeComun = $resultadoDashboard['quantidadeComun'];
+$quantidadeAtivo = $resultadoDashboard['quantidadeAtivo'];
+$quantidadeInativo = $resultadoDashboard['quantidadeInativo'];
+
+ob_end_flush();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,12 +75,36 @@ ob_end_flush();  // Libere o buffer de saída no final do script
                          style="background-color:#fff;box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;  border-radius:8px">
 
                         <div class="card-group" style=" border-radius:8px; box-shadow:none">
-                            <div class="card" style=" border-radius:8px; box-shadow:none">
-                                <div class="card-body border">
+                        <div class="card" style=" border-radius:8px; box-shadow:none">
+                                <div class="card-body border" id="grafic">
+                                    <div class="text-medium-emphasis text-end mb-4">
+                                        <svg class="icon icon-xxl">
+                                            <use
+                                                xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-people"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="fs-4 fw-semibold "><?php echo " {$quantidadeComun}"; ?></div><small
+                                        class="text-medium-emphasis text-uppercase fw-semibold">Quantidade clientes Comuns</small>
+                                    <div class="progress progress-thin mt-3 mb-0">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 25%"
+                                             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card" style=" border-radius:8px; box-shadow:none">
-                                <div class="card-body border">
+                                <div class="card-body border" id="grafic2">
+                                    <div class="text-medium-emphasis text-end mb-4">
+                                        <svg class="icon icon-xxl">
+                                            <use
+                                                xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-user-follow"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="fs-4 fw-semibold"><?php echo "{$quantidadeAtivo}";?></div><small
+                                        class="text-medium-emphasis text-uppercase fw-semibold">Clientes Ativos</small>
+                                    <div class="progress progress-thin mt-3 mb-0">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%"
+                                             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card" style=" border-radius:8px; box-shadow:none">
@@ -93,7 +115,7 @@ ob_end_flush();  // Libere o buffer de saída no final do script
                                                 xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-people"></use>
                                         </svg>
                                     </div>
-                                    <div class="fs-4 fw-semibold ">87</div><small
+                                    <div class="fs-4 fw-semibold "><?php echo "{$quantidadeInativo}";?></div><small
                                         class="text-medium-emphasis text-uppercase fw-semibold">Clientes Inativos</small>
                                     <div class="progress progress-thin mt-3 mb-0">
                                         <div class="progress-bar bg-info" role="progressbar" style="width: 25%"
@@ -109,8 +131,8 @@ ob_end_flush();  // Libere o buffer de saída no final do script
                                                 xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-user-follow"></use>
                                         </svg>
                                     </div>
-                                    <div class="fs-4 fw-semibold">3</div><small
-                                        class="text-medium-emphasis text-uppercase fw-semibold">Clientes Ativos</small>
+                                    <div class="fs-4 fw-semibold"><?php echo " {$quantidadeAdmin}"; ?></div><small
+                                        class="text-medium-emphasis text-uppercase fw-semibold">Quantidade de Adms</small>
                                     <div class="progress progress-thin mt-3 mb-0">
                                         <div class="progress-bar bg-success" role="progressbar" style="width: 25%"
                                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>

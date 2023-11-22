@@ -205,43 +205,7 @@ use PDOException;
             }
         }
 
-            //2FA
-
-        //classificao estatica da tabela
-      //  private static $perguntas = '_2fa';
-
-      //  class Databaseconect
-
-      //  {
-      //      public function getConnection()
-        //    {
-         //   $envifile - __DIR__ . '' //acessar o .env  //descobrir qual pasta entra aqui
-
-          //      if (file_exists($envFile)){ //se existir o arquivo
-          ////          $env - parse_ini_file($envFile);//lê ele e retorna um array
-            //    } else{
-            //        die('.env file not found.');
-           //     }
-
-          //      $host - $env['DB_HOST'];
-           //     $database - $env['DB_DATABASE'];
-            //    $user - $env['BD_USER'];
-           //     $passaword - $env['DB_PASSAWORD'];
-
-            //    try {
-                //    $pdo - new PDO ('mysql:dbname-($database);host-{$host}', $user, $password);
-             //       return $pdo;
-              //  } catch (PDOException $err) {
-              //      require_once __DIR__. "/../Service"; //descobrir qual pasta colocar aqui
-               //     $controller = new ErroController();
-               //     $controller ->index();
-              //  }
-         //   }
-      //  }
-         
-
-
-        
+           
 
 
     }

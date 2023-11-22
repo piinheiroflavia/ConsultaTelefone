@@ -1,9 +1,23 @@
 <?php
-    require_once('template/links.php');
-    require_once('config.php');
+include_once('template/links.php');
+include_once('config.php');
+require_once(__DIR__ . '/../models/_2fa.php');
+
+$models2fa = new _2fa();
+$tabela_2fa = $models2fa->select_2fa();
+
+
+$indiceAleatorio = array_rand($tabela_2fa); // Retira um índice aleatório da entidade
+$_2faAleatorio = $tabela_2fa[$indiceAleatorio];
+
+$perguntas = $_2faAleatorio['2fa_quest'];
+session_start();
+$login = $_SESSION["login_user"];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,136 +26,132 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <title>2FA</title>
-    
 
-   <link rel="stylesheet" href="<?php echo $consultaTelefonePath; ?>/assests/css/style.css">
-    
-<style>
-        
-    
-    h2{
-        margin-top: 200px; 
-        width: 400px;
-        color: black;   
-        font-family: Arial; 
-        text-align: left;
-        font-size: 40px;
 
-    }
-    p{
-         
-        width: 400px; 
-        color: black;  
-        font-family: Arial;
-        font-size: 23px;
-        margin-top: 400px;
-        margin-top: auto;
-        margin-bottom: 25rem;
+    <link rel="stylesheet" href="<?php echo $consultaTelefonePath; ?>/assests/css/style.css">
 
-    }
-     
-    h1{
-        font-family: Arial;
-        text-align: left;
-        
+    <style>
+        h2 {
+            margin-top: 200px;
+            width: 400px;
+            color: black;
+            font-family: Arial;
+            text-align: left;
+            font-size: 40px;
 
-    }
-    .btnTop{
-        margin: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    
-    .input-container-cadastro {
-    background-color: #fff;
-    border: solid 1px #fff;
-    caret-color: #d82a2a00;
-    color: #000;
-    border-bottom: 0.5px solid #fff;
-    font-size: 20px;
-    height: 100%;
-    width: 95%;
-    outline: 0;
- 
-    border-radius: 50px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    }
-    .input-cadastro:focus ~ .placeholder,
-    .input-cadastro:not(:placeholder-shown) ~ .placeholder {
-        transform: translateY(-30px) translateX(1px) scale(0.75);
-        font-weight: 700;
-        
-    }
-    .input-cadastro {
-    background-color: #fff;
-    border: solid 1px #fff;
-    caret-color: #d82a2a00;
-    color: #000;
-    border-bottom: 0.5px solid #fff;
-    font-size: 15px;
-    height: 100%;
-    width: 100%;
-    outline: 0;
-    padding: 9px 5px;
-    border-radius: 50px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    }
+        }
 
-</style> 
+        p {
+
+            width: 400px;
+            color: black;
+            font-family: Arial;
+            font-size: 23px;
+            margin-top: 400px;
+            margin-top: auto;
+            margin-bottom: 25rem;
+
+        }
+
+        h1 {
+            font-family: Arial;
+            text-align: left;
+
+
+        }
+
+        .btnTop {
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .input-container-cadastro {
+            background-color: #fff;
+            border: solid 1px #fff;
+            caret-color: #d82a2a00;
+            color: #000;
+            border-bottom: 0.5px solid #fff;
+            font-size: 20px;
+            height: 100%;
+            width: 95%;
+            outline: 0;
+
+            border-radius: 50px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+
+        .input-cadastro:focus~.placeholder,
+        .input-cadastro:not(:placeholder-shown)~.placeholder {
+            transform: translateY(-30px) translateX(1px) scale(0.75);
+            font-weight: 700;
+
+        }
+
+        .input-cadastro {
+            background-color: #fff;
+            border: solid 1px #fff;
+            caret-color: #d82a2a00;
+            color: #000;
+            border-bottom: 0.5px solid #fff;
+            font-size: 15px;
+            height: 100%;
+            width: 100%;
+            outline: 0;
+            padding: 9px 5px;
+            border-radius: 50px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+    </style>
 
 </head>
 
 <body>
-    <div class="d-flex align-items-center"  id="alertLogin-error">
-        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+    <div class="d-flex align-items-center" id="alertLogin-error">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+            <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
     </div>
     <div class="container text-center">
 
-    <div class="sidebar ">
-        <div class="btnTop">
-            <a href="home" class="btnhome"><span class="material-symbols-outlined"  id="iconeHome">arrow_back</span></a>
-            <a href="login" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">home</span> </a>
-        </div>
-         <form  method="post" action="<?php echo $consultaTelefonePath; ?>/controllers/EnviarEmailController.php">
-            <div class="textLogin">
-                <h3 >Autentificação</h3>
+        <div class="sidebar ">
+            <div class="btnTop">
+                <a href="home" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">arrow_back</span></a>
+                <a href="login" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">home</span> </a>
             </div>
-            <span>Digite o nome da sua mãe?</span>
-            <br>
-            <div class="input-container-cadastro" id="nome-div">
-                <input id="nome" class="input-cadastro" type="text" placeholder="digite aqui.. "  required="required" onkeyup="validNome()" >
-                <div class="vago"></div>                                       
-            </div><br>    
-          <!-- BUTTON DISABLED TROCAR DEPOIS  -->
-          <button type="submit" class="btnLogar" name="submit" disabled><span class="material-symbols-outlined" id="iconeSeta">arrow_forward</span></button>
-          </form>
-    </div> 
+
+            <form method="post" action="../../ConsultaTelefone/controllers/_2faController.php">
+                <h4>
+                    <?php echo $perguntas; //printa as perguntas do 2fa
+                    ?>
+                </h4><br>
+              
+                <input name="pergunta_2fa" value="<?= $perguntas ?>" type="hidden">
+                <input name="login_2fa" value="<?= $login ?>" type="hidden">
+
+                <?php if ($perguntas == 'Digite sua data de nascimento?') : ?>
+                    <input class="input_2fa" name="resposta_2fa" type="date" placeholder="Resposta" maxlength="8"><br>
+                <?php endif; ?>
+
+                <?php if ($perguntas != 'Digite sua data de nascimento?') : ?>
+                    <input class="input_2fa" name="resposta_2fa" type="text" placeholder="Resposta" maxlength="60"><br>
+                <?php endif; ?>
 
 
-    <title> <?php echo $title ?></title>
-<main id="main2fa">
 
-  <form id="form_2fa">
-    <?php 
-    
-        $indiceAletorio = array_rand($_2fa); //retira um indice aleatorio da entidade
-        $_2faAleatorio = $_2fa[$indiceAletorio];// usa o indice sorteado para acessar a pergunta do 2fa 
-    
-    ?>
-    <h4>
-        <?php echo $_2faAleatorio['2fa_quest']; //printa a pergunta do 2fa
-        ?>
-    </h4><br>
 
-    <input id="input_2fa" type="text" placeholder="Resposta"><br>
 
-    <button type="submit">
-        
-    </button>
-  </form>
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
 
 
 
 </body>
+
 </html>
