@@ -36,24 +36,32 @@ class Client {
         return mysqli_fetch_assoc($result);
     }
 
-    // Em vez de receber todos os campos como parâmetros, podemos receber um array associativo contendo os campos que precisam ser atualizados
+    
     public static function updateCliente($conexao, $id, $dados) {
-        // // $dados é um array associativo contendo os campos a serem atualizados
-        // $set = [];
-        // foreach ($dados as $campo => $valor) {
-        //     $set[] = "$campo = '$valor'";
-        // }
-
-        // $setStr = implode(', ', $set);
-
-        // $query = "UPDATE usuario SET $setStr WHERE id_usuario = $id";
-
-        // // Debug: imprime a consulta antes de executar
-        // echo $query;
-
-        // return mysqli_query($conexao, $query);
-        
+        $set = [];
+        $tipos = "";
+        $valores = [];
+    
+        foreach ($dados as $campo => $valor) {
+            $set[] = "$campo = ?";
+            $tipos .= "s";
+            $valores[] = $valor;
+        }
+    
+        $setStr = implode(', ', $set);
+        $tipos .= "i";
+        $valores[] = $id;
+    
+        $query = "UPDATE usuario SET $setStr WHERE id_usuario = ?";
+        $stmt = $conexao->prepare($query);
+    
+        // Bind dos parâmetros
+        $stmt->bind_param($tipos, ...$valores);
+    
+        // Execução da consulta
+        return $stmt->execute();
     }
+    
 
     
 
@@ -62,6 +70,7 @@ class Client {
         $query = "DELETE FROM usuario WHERE id_usuario = $id";
         return mysqli_query($conexao, $query);
     }
+
 
 }
 ?>

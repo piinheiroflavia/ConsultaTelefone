@@ -33,6 +33,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
+    
+
 </head>
 <body>
     <?php
@@ -48,8 +50,6 @@
             die("Erro de conexão: " . $conn->connect_error);
         }
 
-
-
         // Processar a exclusão de usuário
         if (isset($_GET["selectId"])) {
             $id = $_GET["selectId"];
@@ -59,10 +59,6 @@
             $sql = "select * FROM usuario WHERE id_usuario=$id";
             $conn->query($sql);
         }
-
-
-
-
 
         // Processar o formulário de criação de usuário
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["nome_usuario"], $_POST["email"])) {
@@ -177,7 +173,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_id"])) {
             echo "<td>" . $row["tipoUser"] . "</td>";
             echo "<td>" . $row["status"] . "</td>";
             
-            echo "<td><a href='http://localhost/ConsultaTelefone/views/test.php?selectId=" . $row["id_usuario"] . "'  onclick='info()' >Info</a></td>";
+            echo "<td><a href='#' onclick='showUserInfo(" . $row["id_usuario"] . ", \"" . $row["nome_usuario"] . "\", \"" . $row["sexo"] . "\", \"" . $row["data_nasc"] . "\", \"" . $row["nome_materno"] . "\", \"" . $row["login"] . "\", \"" . $row["email"] . "\", \"" . $row["cpf"] . "\", \"" . $row["celular"] . "\", \"" . $row["telefone"] . "\", \"" . $row["cep"] . "\", \"" . $row["logradouro"] . "\", \"" . $row["bairro"] . "\", \"" . $row["uf"] . "\", \"" . $row["senha"] . "\", \"" . $row["tipoUser"] . "\", \"" . $row["status"] . "\")'>Info</a></td>";
+
             
             // echo "<td><a href='http://localhost/ConsultaTelefone/views/test.php?selectId=" . $row["id_usuario"] . "'  onclick='info(" . $row["id_usuario"] . ", \"" . $row["nome_usuario"] . "\", \"" . $row["sexo"] . "\", \"" . $row["data_nasc"] . "\", \"" . $row["nome_materno"] . "\", \"" . $row["login"] . "\", \"" . $row["email"] . "\", \"" . $row["cpf"] . "\", \"" . $row["celular"] . "\", \"" . $row["telefone"] . "\", \"" . $row["cep"] . "\", \"" . $row["logradouro"] . "\", \"" . $row["bairro"] . "\", \"" . $row["uf"] . "\", \"" . $row["senha"] . "\", \"" . $row["tipoUser"] . "\", \"" . $row["status"] . "\")' >Info</a></td>";
 
@@ -214,6 +211,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_id"])) {
 </div>
 </div>
 </div>
+
+
 
 
 <!-- Formulário de edição (inicialmente oculto) -->
@@ -308,9 +307,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_id"])) {
     }
 
 
-   function info(){
-    console.log('j')
-   }
+    function showUserInfo(id, nome_usuario, sexo, data_nasc, nome_materno, login, email, cpf, celular, telefone, cep, logradouro, bairro, uf, senha, tipoUser, status) {
+            var userInfo = document.getElementById('user-info');
+            userInfo.innerHTML = `
+                <p>ID: ${id}</p>
+                <p>Nome do Usuário: ${nome_usuario}</p>
+                <p>Sexo: ${sexo}</p>
+                <p>Data de Nascimento: ${data_nasc}</p>
+                <!-- Adicione mais campos conforme necessário -->
+            `;
+            // Abre o modal
+            var myModal = new bootstrap.Modal(document.getElementById('userInfoModal'));
+            myModal.show();
+        }
 </script>
     <?php
         // Fechar a conexão com o banco de dados

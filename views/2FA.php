@@ -104,9 +104,9 @@ $login = $_SESSION["login_user"];
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         }
 
-        /* #iconeSeta{
+         #iconeSeta{
             cursor: not-allowed;
-        } */
+        } 
     </style>
 
 </head>
@@ -152,12 +152,14 @@ $login = $_SESSION["login_user"];
     <script>
         var input1 = document.getElementById("input1");
         var input2 = document.getElementById("input2");
+
         var iconeSeta = document.getElementById("iconeSeta").disabled = true;;
         
         function verificarCampo1(){
             if(input1 == ''){
                 alert('test2')
             }else{
+                alert('tt2')
                 iconeSeta.style.cursor = 'pointer'
             }
         } 
@@ -166,6 +168,7 @@ $login = $_SESSION["login_user"];
             if(input2 == ''){
                 alert('test2')
             }else{
+                alert('te')
                 iconeSeta.style.cursor = 'pointer'
             }
         } 

@@ -18,14 +18,19 @@ class UserController
             case 'selectAllClientes':
                 return $this->selectAllClientes($parametros);
                 break;
+
             case 'obterInformacoesUsuario':
                 return $this->obterInformacoesUsuario($parametros['login']);
+                
             case 'editarUsuario':
                 return $this->editarUsuario($parametros['id'], $parametros['nome'], $parametros['email'], $parametros['senha']);
+
             case 'excluirUsuario':
                 return $this->excluirUsuario($parametros['id']);
+
             case 'dashboard':
                 return $this->dashboard();
+
             default:
                 // Lidar com ação desconhecida
                 return null;
@@ -46,19 +51,33 @@ class UserController
 
     public function editarUsuario($id, $nome, $email, $senha)
     {
+        // Pelo menos um campo deve ser fornecido
+        if (is_null($nome) && is_null($email) && is_null($senha)) {
+            return false; // Ou você pode lançar uma exceção ou tomar outra ação apropriada
+        }
+    
         $dadosAtualizacao = [];
-        if (!is_null($nome)) {
-            $dadosAtualizacao['nome'] = $nome;
+        $tipos = "";
+        $valores = [];
+    
+        // Construa dinamicamente o array de dados de atualização
+        $campos = ['nome_usuario' => $nome, 'email' => $email, 'senha' => $senha];
+        foreach ($campos as $campo => $valor) {
+            if (!is_null($valor)) {
+                $dadosAtualizacao[$campo] = $valor;
+                $tipos .= "s"; // Supondo que todos os campos são strings, ajuste se necessário
+                $valores[] = $valor;
+            }
         }
-        if (!is_null($email)) {
-            $dadosAtualizacao['email'] = $email;
-        }
-        if (!is_null($senha)) {
-            $dadosAtualizacao['senha'] = $senha;
-        }
+    
+        // Adicione o ID como último valor no array
+        $tipos .= "i";
+        $valores[] = $id;
     
         return Client::updateCliente($this->conexao, $id, $dadosAtualizacao);
     }
+    
+
     
 
     public function excluirUsuario($id)
@@ -122,6 +141,7 @@ class UserController
 
         return $quantidade;
     }
+
 }
 
 // Crie uma instância da classe UserController, passando a conexão como argumento
