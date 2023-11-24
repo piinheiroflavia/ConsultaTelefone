@@ -60,7 +60,7 @@ if (isset($_POST['logout'])) {
     #sidebar{
         background-color: #fff; 
         color:#000; 
-        width:260px;
+        width:220px;
         box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px; 
     }
    #parteSupImg{

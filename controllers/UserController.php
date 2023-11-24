@@ -18,7 +18,13 @@ class UserController
             case 'selectAllClientes':
                 return $this->selectAllClientes($parametros);
                 break;
-
+            case 'selectAllLog':
+                return $this->selectAllLog($parametros);
+                break;
+            case 'historicoLogs':
+                return $this->historicoLogs();
+                break;
+                
             case 'obterInformacoesUsuario':
                 return $this->obterInformacoesUsuario($parametros['login']);
                 
@@ -43,6 +49,33 @@ class UserController
         //var_dump($resultado); // Adicione esta linha
         return $resultado;
     }
+
+    public function selectAllLogs()
+    {
+        $sql = "SELECT * FROM sua_tabela_de_logs";
+        $result = $this->conexao->query($sql);
+
+        if (!$result) {
+            // Trate o erro, por exemplo, exibindo uma mensagem de erro ou logando
+            echo "Erro na consulta: " . $this->conexao->error;
+            return null;
+        }
+
+        $logs = $result->fetch_all(MYSQLI_ASSOC);
+
+        return $logs;
+    }
+
+
+    
+    public function historicoLogs()
+    {
+        $logs = $this->selectAllLogs();
+        // Renderize a página de histórico de logs com os dados obtidos
+        // Você pode usar um arquivo de visualização (por exemplo, histLog.php) para isso
+        include_once(__DIR__ . '/../views/sist/admin/histLog.php');
+    }
+
 
     public function obterInformacoesUsuario($login)
     {
@@ -143,6 +176,14 @@ class UserController
     }
 
 }
+
+
+
+
+
+
+
+
 
 // Crie uma instância da classe UserController, passando a conexão como argumento
 $userController = new UserController($conexao);

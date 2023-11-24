@@ -26,8 +26,6 @@ class Client {
         }
     }
     
-    
-    
 
     public static function selectClientePorLogin($conexao, $login) {
         $query = "SELECT * FROM usuario WHERE login = '$login'";
@@ -61,16 +59,29 @@ class Client {
         // Execução da consulta
         return $stmt->execute();
     }
-    
-
-    
-
+  
     public static function deleteCliente($conexao, $id)
     {
         $query = "DELETE FROM usuario WHERE id_usuario = $id";
         return mysqli_query($conexao, $query);
     }
 
-
+    // ---------------------------------LOG--------------------------------------
+    public static function selectAllLogs($conexao) {
+        $result = $conexao->query(" ");
+    
+        if ($result->num_rows > 0) {
+            $logs = array();
+    
+            while ($row = $result->fetch_assoc()) {
+                $logs[] = $row;
+            }
+    
+            return $logs;
+        } else {
+            throw new \Exception("Erro sem usuário");
+        }
+    }
+    
 }
 ?>

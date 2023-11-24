@@ -63,42 +63,55 @@ class LoginController {
                 $cep = $row->cep;
                 $logradouro = $row->logradouro;
                 $status = $row->status;
-            
-                //se o usuario for tipo admin cria sessao e adiciona role admin
-                if($tipoUser === "admin"){
 
-                $_SESSION["login"] = $login;
-                $_SESSION["nome"] = $nome;
-                $_SESSION["nomemae"] = $nomemae;
-                $_SESSION["tipoUser"] = $tipoUser;
-                $_SESSION['data_nasc'] = $data_nasc;
-                $_SESSION['email'] = $email;
-                $_SESSION['cpf']= $cpf;
-                $_SESSION['celular']= $celular;
-                $_SESSION['telefone']= $telefone;
-                $_SESSION['cep']= $cep;
-                $_SESSION['logradouro']= $logradouro;
-                $_SESSION['status']= $status;
+                 // Inserir registro na tabela log
+                $usuario_id = $row->id_usuario;
+                $data_log = date('Y-m-d H:i:s'); 
+                $status_log = 'ativo';
+                $descricao = '';
+ 
                 
-                $_SESSION['role'] = 'admin';
-                    print "<script> location.href='../dashboard'</script>";
+                    //se o usuario for tipo admin cria sessao e adiciona role admin
+                if($tipoUser === "admin"){
+                    
+                    $descricao_log = "Usuário admin $nome foi logado.";
 
-
-                    // $_SESSION['msg'] = "<p style='color: #ff0000'>login realizado com sucesso!</p>";
-                    // return ["mensagem" => "login realizado com sucesso"];
-                }
-                //se nao for igual o tipo admin redireciona para o 2fa
-                else{
+                    $_SESSION["login"] = $login;
+                    $_SESSION["nome"] = $nome;
+                    $_SESSION["nomemae"] = $nomemae;
+                    $_SESSION["tipoUser"] = $tipoUser;
+                    $_SESSION['data_nasc'] = $data_nasc;
+                    $_SESSION['email'] = $email;
+                    $_SESSION['cpf']= $cpf;
+                    $_SESSION['celular']= $celular;
+                    $_SESSION['telefone']= $telefone;
+                    $_SESSION['cep']= $cep;
+                    $_SESSION['logradouro']= $logradouro;
+                    $_SESSION['status']= $status;
+                    
+                    $_SESSION['role'] = 'admin';
+                        print "<script> location.href='../dashboard'</script>";  
+                
+                        // $_SESSION['msg'] = "<p style='color: #ff0000'>login realizado com sucesso!</p>";
+                        // return ["mensagem" => "login realizado com sucesso"];
+                }else{
                     $_SESSION["login_user"] = $login;
                     // $_SESSION['msg'] = "<p style='color: #ff0000'>login realizado com sucesso!</p>";
                     // return ["mensagem" => "login realizado com sucesso"];
-                  
-                    
-
                   print "<script> location.href='../2FA'</script>";                  
                 }
-                                
                 
+                $queryLog = "INSERT INTO log (usuario_id, data_log, status, descricao) VALUES ('$usuario_id', '$data_log', '$status_log', '$descricao_log')";
+                mysqli_query($this->conexao, $queryLog);
+                error_log($queryLog);
+                
+               
+
+                $result = mysqli_query($this->conexao, $queryLog);
+                if (!$result) {
+                    die('Erro na execução da consulta: ' . mysqli_error($this->conexao));
+                }
+
             } else {
                 //echo "Credenciais inválidas. Tente novamente.";
                 //print "<script>alert('Credenciais inválidas. Tente novamente.')</script>";
