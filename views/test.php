@@ -37,7 +37,7 @@
 
 </head>
 <body>
-    <?php
+<?php
         // Conexão com o banco de dados (substitua pelos seus próprios dados)
         $dbDrive = 'mysql';
         $dbhost = 'localhost';
@@ -84,92 +84,113 @@
         }
 
         // Processar a edição de usuário
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_id"])) {
-    $edit_id = $_POST["edit_id"];
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_id"])) {
+        $edit_id = $_POST["edit_id"];
 
-    // Recuperar os dados atuais do usuário do banco de dados
-    $sql_select = "SELECT * FROM usuario WHERE id_usuario = $edit_id";
-    $result_select = $conn->query($sql_select);
+        // Recuperar os dados atuais do usuário do banco de dados
+        $sql_select = "SELECT * FROM usuario WHERE id_usuario = $edit_id";
+        $result_select = $conn->query($sql_select);
 
-    if ($result_select) {
-        $row = $result_select->fetch_assoc();
+        if ($result_select) {
+            $row = $result_select->fetch_assoc();
 
-        // Verificar e atualizar apenas os campos alterados
-        $fields_to_update = [];
-        $edit_fields = [
-            'nome_usuario', 'sexo', 'data_nasc', 'nome_materno',
-            'login', 'email', 'cpf', 'celular', 'telefone',
-            'cep', 'logradouro', 'bairro', 'uf', 'senha',
-            'tipoUser', 'status'
-        ];
+            // Verificar e atualizar apenas os campos alterados
+            $fields_to_update = [];
+            $edit_fields = [
+                'nome_usuario', 'sexo', 'data_nasc', 'nome_materno',
+                'login', 'email', 'cpf', 'celular', 'telefone',
+                'cep', 'logradouro', 'bairro', 'uf', 'senha',
+                'tipoUser', 'status'
+            ];
 
-        foreach ($edit_fields as $field) {
-            if (isset($_POST["edit_$field"]) && $_POST["edit_$field"] != $row[$field]) {
-                $fields_to_update[$field] = $_POST["edit_$field"];
+            foreach ($edit_fields as $field) {
+                if (isset($_POST["edit_$field"]) && $_POST["edit_$field"] != $row[$field]) {
+                    $fields_to_update[$field] = $_POST["edit_$field"];
+                }
+            }
+
+            // Construir a atualização somente para os campos alterados
+            if (!empty($fields_to_update)) {
+                $set_clause = implode(', ', array_map(function ($field) use ($fields_to_update) {
+                    return "$field = '{$fields_to_update[$field]}'";
+                }, array_keys($fields_to_update)));
+
+                $sql_update = "UPDATE usuario SET $set_clause WHERE id_usuario = $edit_id";
+                $conn->query($sql_update);
             }
         }
-
-        // Construir a atualização somente para os campos alterados
-        if (!empty($fields_to_update)) {
-            $set_clause = implode(', ', array_map(function ($field) use ($fields_to_update) {
-                return "$field = '{$fields_to_update[$field]}'";
-            }, array_keys($fields_to_update)));
-
-            $sql_update = "UPDATE usuario SET $set_clause WHERE id_usuario = $edit_id";
-            $conn->query($sql_update);
-        }
     }
-}
    // Consultar usuários do banco de dados
         $result = $conn->query("SELECT * FROM usuario");
-    ?>
 
-<!-- create -->
+        // Consultar usuários do banco de dados
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["search_terms"])) {
+            $search_terms = $_POST["search_terms"];
+            $search_array = explode(" ", $search_terms);
+
+            $where_conditions = [];
+
+            foreach ($search_array as $term) {
+                $where_conditions[] = "(nome_usuario LIKE '%$term%' OR cpf LIKE '%$term%' OR email LIKE '%$term%')";
+            }
+
+            // Construir a condição de pesquisa com base nos termos fornecidos
+            $where_clause = implode(" AND ", $where_conditions);
+
+            // Consultar usuários do banco de dados com base nas condições de pesquisa
+            if (!empty($where_conditions)) {
+                $result = $conn->query("SELECT * FROM usuario WHERE $where_clause");
+            } else {
+                $result = $conn->query("SELECT * FROM usuario");
+            }
+        }else {
+            // Se não houver uma solicitação de pesquisa, exibir todas as informações
+            $result = $conn->query("SELECT * FROM usuario");
+        }
+
+?>
+
+
             
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="mb-3">
+    <div class="input-group">
+        <label for="search_terms" class="visually-hidden">Pesquisar por Nome, CPF ou Email:</label>
+        <input type="text" class="form-control" id="search_terms" name="search_terms" placeholder="Pesquisar por Nome, CPF ou Email" style="width: 40px;">
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+        <a  href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btn btn-primary">Limpar</a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Criar</button>
 
-    
-    <table>
+    </div>
+</form>
+
+
+    <table class="table table-sm table-striped  table-hover">
+    <thead  class=" table-dark">
     <tr>
         <th id='id_user'>ID</th>
         <th id='nome'>Nome do Usuário</th>
-        <th id='sexo'>Sexo</th>
-        <th id='dateN'>Data de Nascimento</th>
-        <th id='nomeM'>Nome Materno</th>
         <th id='login'>Login</th>
         <th id='email'>Email</th>
         <th id='cpf'>CPF</th>
-        <th id='cel'>Celular</th>
-        <th id='tel'>Telefone</th>
-        <th id='cep'>CEP</th>
-        <th id='loga'>Logradouro</th>
-        <th id='bair'>Bairro</th>
-        <th id='uf'>UF</th>
-        <th id='senha'>Senha</th>
         <th id='tipoUse'>Tipo de Usuário</th>
         <th id='status'>Status</th>
         <th id='id_user'>info</th>
         <th id='id_user'>Ação</th>
         <th id='id_user'>Editar</th>
     </tr>
+    </thead>
     <?php
         // Exibir usuários na tabela
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
             echo "<td>" . $row["id_usuario"] . "</td>";
             echo "<td>" . $row["nome_usuario"] . "</td>";
-            echo "<td>" . $row["sexo"] . "</td>";
-            echo "<td>" . $row["data_nasc"] . "</td>";
-            echo "<td>" . $row["nome_materno"] . "</td>";
+            
             echo "<td>" . $row["login"] . "</td>";
             echo "<td>" . $row["email"] . "</td>";
             echo "<td>" . $row["cpf"] . "</td>";
-            echo "<td>" . $row["celular"] . "</td>";
-            echo "<td>" . $row["telefone"] . "</td>";
-            echo "<td>" . $row["cep"] . "</td>";
-            echo "<td>" . $row["logradouro"] . "</td>";
-            echo "<td>" . $row["bairro"] . "</td>";
-            echo "<td>" . $row["uf"] . "</td>";
-            echo "<td>" . $row["senha"] . "</td>";
+         
             echo "<td>" . $row["tipoUser"] . "</td>";
             echo "<td>" . $row["status"] . "</td>";
             
@@ -179,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_id"])) {
             // echo "<td><a href='http://localhost/ConsultaTelefone/views/test.php?selectId=" . $row["id_usuario"] . "'  onclick='info(" . $row["id_usuario"] . ", \"" . $row["nome_usuario"] . "\", \"" . $row["sexo"] . "\", \"" . $row["data_nasc"] . "\", \"" . $row["nome_materno"] . "\", \"" . $row["login"] . "\", \"" . $row["email"] . "\", \"" . $row["cpf"] . "\", \"" . $row["celular"] . "\", \"" . $row["telefone"] . "\", \"" . $row["cep"] . "\", \"" . $row["logradouro"] . "\", \"" . $row["bairro"] . "\", \"" . $row["uf"] . "\", \"" . $row["senha"] . "\", \"" . $row["tipoUser"] . "\", \"" . $row["status"] . "\")' >Info</a></td>";
 
 
-            echo "<td><a href='http://localhost/ConsultaTelefone/views/test.php?delete=" . $row["id_usuario"] . "'>Excluir</a></td>";
+            echo "<td><a href='http://localhost/ConsultaTelefone/views/test.php?delete=" . $row["id_usuario"] . "' >Excluir</a></td>";
 
             echo "<td><a href='#' onclick='editUser(" . $row["id_usuario"] . ", \"" . $row["nome_usuario"] . "\", \"" . $row["sexo"] . "\", \"" . $row["data_nasc"] . "\", \"" . $row["nome_materno"] . "\", \"" . $row["login"] . "\", \"" . $row["email"] . "\", \"" . $row["cpf"] . "\", \"" . $row["celular"] . "\", \"" . $row["telefone"] . "\", \"" . $row["cep"] . "\", \"" . $row["logradouro"] . "\", \"" . $row["bairro"] . "\", \"" . $row["uf"] . "\", \"" . $row["senha"] . "\", \"" . $row["tipoUser"] . "\", \"" . $row["status"] . "\")'>Editar</a></td>";
             echo "</tr>";
@@ -188,7 +209,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_id"])) {
     ?>
 </table>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal </button>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">
@@ -207,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_id"])) {
                  <button type="submit" onclick="alert()" class="btn btn-primary">Criar Usuário</button>
             </form>
 
-  </div>
+</div>
 </div>
 </div>
 </div>

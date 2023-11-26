@@ -19,12 +19,15 @@ class UserController
                 return $this->selectAllClientes($parametros);
                 break;
             case 'selectAllLog':
-                return $this->selectAllLog($parametros);
+                return $this->selectAllLogs($parametros);
                 break;
             case 'historicoLogs':
                 return $this->historicoLogs();
                 break;
-                
+            case 'buscarPorCPF':
+                return $this->buscarPorCPF($parametros['cpf']);
+                break;
+    
             case 'obterInformacoesUsuario':
                 return $this->obterInformacoesUsuario($parametros['login']);
                 
@@ -32,8 +35,17 @@ class UserController
                 return $this->editarUsuario($parametros['id'], $parametros['nome'], $parametros['email'], $parametros['senha']);
 
             case 'excluirUsuario':
-                return $this->excluirUsuario($parametros['id']);
-
+                    $idUsuarioParaExcluir = isset($parametros['id']) ? $parametros['id'] : null;
+               
+                if ($idUsuarioParaExcluir !== null) {
+                        $resultadoExclusao = $this->excluirUsuario($idUsuarioParaExcluir);
+                
+                    if (isset($resultadoExclusao['mensagem'])) {
+                            echo $resultadoExclusao['mensagem'];
+                            exit;
+                    }
+                }
+            break;  
             case 'dashboard':
                 return $this->dashboard();
 
@@ -82,6 +94,13 @@ class UserController
         return Client::selectClientePorLogin($this->conexao, $login);
     }
 
+    public function buscarPorCPF($cpf) {
+        $resultadoBusca = Client::selectClientePorCPF($this->conexao, $cpf);
+
+        return $resultadoBusca;
+    }
+
+
     public function editarUsuario($id, $nome, $email, $senha)
     {
         // Pelo menos um campo deve ser fornecido
@@ -116,16 +135,14 @@ class UserController
     public function excluirUsuario($id)
     {
         $exclusaoBemSucedida = Client::deleteCliente($this->conexao, $id);
-    
-        if ($exclusaoBemSucedida) {
 
-            print "<script> location.href='./historico-usuario'</script>";
+        if ($exclusaoBemSucedida) {
             return ["mensagem" => "Usuário excluído com sucesso"];
         } else {
             return ["mensagem" => "Erro ao excluir usuário"];
         }
     }
-        
+            
 
 
     private function dashboard()

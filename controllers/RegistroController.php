@@ -36,6 +36,15 @@
                 $uf = $_POST['uf'];
                 $senha = $_POST['senha']; 
 
+                // // Gerar um sal único
+                // $sal = bin2hex(random_bytes(16)); // Sal de 128 bits (16 bytes)
+
+                // // Concatenar o sal à senha
+                // $senhaComSal = $senha . $sal;
+
+                // // Aplicar a função hash (use um algoritmo seguro como bcrypt ou Argon2 se possível)
+                // $senhaHash = password_hash($senhaComSal, PASSWORD_BCRYPT);
+
 
                 // Crie uma instância da classe Client
                 $cliente = new Client();

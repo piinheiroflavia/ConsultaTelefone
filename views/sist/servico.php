@@ -2,23 +2,10 @@
 //ob_start();  
 
 require_once('template/links.php');
-require_once('config.php');
+include_once('config.php');  // Certifique-se de incluir o arquivo de configuração
 
-//// Verifique se a chave 'nome' está definida na sessão
-// if (isset($_SESSION['nome'])) {
-//     $nomeUsuario = $_SESSION['nome'];
-//     //var_dump($_SESSION);
-//     echo "</pre>";
+?>
 
-// } else {
-    
-//     header("Location: login.php");
-//     exit(); // Certifique-se de sair após redirecionar para evitar a execução adicional do código
-// }
-//ob_end_flush();  
-
-
-?> 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -261,15 +248,16 @@ phoneNumber.addEventListener('input',function(){
     }
   });
 btn.addEventListener('click', function(){
-    var phoneNumber = document.querySelector('#phoneNumber').value;
+    var phoneNumberValue = phoneNumber.value.trim();
       var apiKey = '2D44499B27DE43FAA68BCE92EC07D50A';
       var default_country = '55';
-
+      console.log('Botão clicado');
+      console.log('Número de telefone:', phoneNumberValue);
       $.ajax({
       url: 'https://api.veriphone.io/v2/verify',
       method: 'POST',
       data: {
-        phone: phoneNumber,
+        phone: phoneNumberValue,
         key: apiKey,
         default_country: default_country
       },
@@ -301,8 +289,23 @@ btn.addEventListener('click', function(){
             //     resOpe.innerHTML = 'Operadora não identificada'; 
             //  break;
         }
-
-
+        // Em seguida, faça uma requisição para registrar na tabela de log
+        $.ajax({
+                url: 'http://localhost/ConsultaTelefone/controllers/ServicoNum.php',
+                method: 'POST',
+                data: {
+                    phoneNumber: phoneNumberValue
+                },
+                dataType: 'text',
+                success: function (response) {
+                    console.log(response);
+                    console.log('Resposta do servidor:', data);
+                    // Continue com o restante do seu código para exibir os resultados, se necessário
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Erro ao registrar na tabela de log: ' + textStatus, errorThrown);
+                }
+            });
       },
       error: function(jqXHR, textStatus, errorThrown) {
       console.error('Erro na solicitação: ' + textStatus, errorThrown);

@@ -186,7 +186,7 @@ require_once('config.php');
         <div class="row " id="bloco1Home" >
             <div class="col" id="descicao" >
                 <h2 id="titulo">Consulta de Número</h2>
-                <p id="subTitulo">Obtenha informações sobre um número de telefone e celular de maneira fácil e rápida.</p>
+                <p id="subTitulo">Explore com facilidade e rapidez informações abrangentes relacionadas a números de telefone e celulares. Tenha acesso a dados detalhados de forma simplificada</p>
             </div>
             <div class="col" id="imgHomeDiv">
                 <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/Consulta-home.png" alt="" id="imgHome"  >

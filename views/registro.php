@@ -259,9 +259,9 @@ require_once('config.php');
 </head>
 
 <body>
-    <div class="alert alert-success" id="alertLogin-error" role="alert" style="color: #05a85c;     width: 40%;">
+    <!-- <div class="alert alert-success" id="alertLogin-error" role="alert" style="color: #05a85c;     width: 40%;">
         Usuário registrado com sucesso!! Aguarde alguns instantes e faça o login.
-    </div>
+    </div> -->
     <div class="container text-center">
         <div class="row">
             <div class="col-6">
@@ -312,7 +312,7 @@ require_once('config.php');
                                     </div>
                                     <!--Login-->
                                     <div class="input-container-cadastro" id="login-div">
-                                        <input id="login" name="login" class="input-cadastro" type="text" placeholder=" " minlength="6" maxlength="6" required="required" onkeyup="validaLogin()">
+                                        <input id="login" name="login" class="input-cadastro" type="text" placeholder=" " minlength="3" maxlength="10" required="required" onkeyup="validaLogin()">
                                         <div class="vago"></div>
                                         <label for="login" class="placeholder" id="resLogin" style="background: #7fffd400;">Login</label>
                                     </div>
@@ -411,7 +411,7 @@ require_once('config.php');
 
                                     <!--CONFIRMAR SENHA-->
                                     <div class="input-container-cadastro" id="conf-senha-div">
-                                        <input id="confirmar" name="Confsenha" class="input-cadastro" type="password" placeholder=" " onkeyup="validConfirmaSenha()" onkeypress="return ApenasLetras(event,this)">
+                                        <input id="confirmar" name="Confsenha" class="input-cadastro" type="password" placeholder=" " onkeyup="validConfirmaSenha()" onkeypress="return ApenasLetras(event,this)"  minlength="8" maxlength="8">
                                         <div class="vago"></div>
                                         <label for="Senha" class="placeholder" id="resConSenha" style="background: #7fffd400;">Confirmar Senha</label>
                                         <span class="icon2">

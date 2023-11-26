@@ -91,9 +91,7 @@ if (isset($_POST['logout'])) {
       <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
         <li class="nav-title" style="color:#000">Menu</li>
         <li class="nav-item"><a class="nav-link" href="servico" style="color:#000">
-            <svg class="nav-icon">
-              <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-star" style="color:#000"></use>
-            </svg> Serviço</a>
+           Serviço</a>
         </li>
         
         <?php
@@ -101,24 +99,16 @@ if (isset($_POST['logout'])) {
         if ($role === 'admin') {
             echo '
               <li class="nav-item"><a class="nav-link" href="dashboard" style="color:#000" >
-                  <svg class="nav-icon" >
-                    <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-speedometer" style="color:#000"></use>
-                  </svg> Dashboard</a>
+                   Dashboard</a>
               </li>
               <li class="nav-item"><a class="nav-link" href="historico-usuario" style="color:#000">
-                  <svg class="nav-icon">
-                    <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-description" style="color:#000"></use>
-                  </svg> Histórico de Usuário</a>
+                   Histórico de Usuário</a>
               </li>
               <li class="nav-item"><a class="nav-link" href="historico-log" style="color:#000">
-                  <svg class="nav-icon">
-                    <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-description" style="color:#000"></use>
-                  </svg> Histórico de Logs</a>
+                   Histórico de Logs</a>
               </li>
               <li class="nav-item"><a class="nav-link" href="database" style="color:#000">
-                  <svg class="nav-icon">
-                    <use xlink:href="<?php echo $consultaTelefonePath; ?>/template/vendors/@coreui/icons/svg/free.svg#cil-layers" style="color:#000"></use>
-                  </svg> Modelo de DB</a>
+                   Modelo de DB</a>
               </li>
             ';
         }

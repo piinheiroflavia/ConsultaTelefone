@@ -51,7 +51,25 @@ class LoginController {
             // Verificar se a consulta retornou alguma linha
             if ($qtd > 0) {
 
-               // $id = $row->id_usuario;
+                $usuario_id = $row->id_usuario;
+                $data_log = date('Y-m-d H:i:s');
+                $status_log = 'ativo';
+                $descricao_log = "Usuário admin $nome foi logado.";
+
+                $queryLog = "INSERT INTO log (usuario_id, data_log, status, descricao) VALUES (?, ?, ?, ?)";
+                
+                // Use prepared statement para a consulta de inserção
+                $stmtLog = $this->conexao->prepare($queryLog);
+                $stmtLog->bind_param("ssss", $usuario_id, $data_log, $status_log, $descricao_log);
+                $stmtLog->execute();
+
+                // Atualize o status na tabela de usuários
+                $queryUpdateStatus = "UPDATE usuario SET status = 'ativo' WHERE id_usuario = ?";
+                $stmtUpdateStatus = $this->conexao->prepare($queryUpdateStatus);
+                $stmtUpdateStatus->bind_param("i", $usuario_id);
+                $stmtUpdateStatus->execute();
+
+                $usuario_id = $row->id_usuario;
                 $nome = $row->nome_usuario;
                 $nomemae = $row->nome_materno;
                 $tipoUser = $row->tipoUser;
@@ -64,18 +82,12 @@ class LoginController {
                 $logradouro = $row->logradouro;
                 $status = $row->status;
 
-                 // Inserir registro na tabela log
-                $usuario_id = $row->id_usuario;
-                $data_log = date('Y-m-d H:i:s'); 
-                $status_log = 'ativo';
-                $descricao = '';
- 
-                
+            
                     //se o usuario for tipo admin cria sessao e adiciona role admin
                 if($tipoUser === "admin"){
                     
                     $descricao_log = "Usuário admin $nome foi logado.";
-
+                    $_SESSION['usuario_id'] = $usuario_id;
                     $_SESSION["login"] = $login;
                     $_SESSION["nome"] = $nome;
                     $_SESSION["nomemae"] = $nomemae;
@@ -101,15 +113,8 @@ class LoginController {
                   print "<script> location.href='../2FA'</script>";                  
                 }
                 
-                $queryLog = "INSERT INTO log (usuario_id, data_log, status, descricao) VALUES ('$usuario_id', '$data_log', '$status_log', '$descricao_log')";
-                mysqli_query($this->conexao, $queryLog);
-                error_log($queryLog);
-                
-               
-
-                $result = mysqli_query($this->conexao, $queryLog);
-                if (!$result) {
-                    die('Erro na execução da consulta: ' . mysqli_error($this->conexao));
+                if (!$stmtLog->execute()) {
+                    die('Erro na execução da consulta: ' . $stmtLog->error);
                 }
 
             } else {

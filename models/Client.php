@@ -34,7 +34,13 @@ class Client {
         return mysqli_fetch_assoc($result);
     }
 
-    
+    public static function selectClientePorCPF($conexao, $cpf) {
+        $query = "SELECT * FROM usuario WHERE cpf = '$cpf'";
+        $result = mysqli_query($conexao, $query);
+
+        return mysqli_fetch_assoc($result);
+    }
+
     public static function updateCliente($conexao, $id, $dados) {
         $set = [];
         $tipos = "";

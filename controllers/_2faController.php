@@ -8,8 +8,9 @@ require_once(__DIR__ . '/../models/user.php');
 
 class _2faController
 {
+    
 
-    public function login_2fa()
+    public function login_2fa($conexao)
     {
         
         session_destroy();
@@ -67,6 +68,27 @@ class _2faController
                         // Inicia a sessão
                         session_start();
                     }
+
+                    // Código para registrar na tabela de log
+                    $id_usuario = $tabela_usuario['id_usuario'];
+                    $data_log = date('Y-m-d H:i:s');
+                    $status_log = 'ativo';
+                    $descricao_log = "O usuário $nome (ID: $id_usuario) utilizou a autenticação de dois fatores.";
+
+                    $queryLog = "INSERT INTO log (usuario_id, data_log, status, descricao) VALUES (?, ?, ?, ?)";
+
+                    // Use prepared statement para a consulta de inserção
+                    $stmtLog = $conexao->prepare($queryLog);
+                    if ($stmtLog) {
+                        $stmtLog->bind_param("ssss", $id_usuario, $data_log, $status_log, $descricao_log);
+                        $stmtLog->execute();
+                        $stmtLog->close();
+                    } else {
+                        // Lidar com erro na preparação da declaração para a tabela de log
+                        die($conexao->error);
+                    }
+
+
                     $_SESSION["login"] = $login;
                     $_SESSION["nome"] = $nome;
                     $_SESSION["nomemae"] = $nomemae;
@@ -121,4 +143,4 @@ class _2faController
 $_2faController = new _2faController();
 
 // Chame o método login2fa
-$_2faController->login_2fa();
+$_2faController->login_2fa($conexao);

@@ -22,12 +22,18 @@
             box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
             width: 90%;
           }
-          #btnDB1, #btnDB2, #btnDB3, #btnDB4{
+          #btnDB1, #btnDB2, #btnDB3, #btnDB4, #btnCopyScript{
             background-color: #47C9FF;
             color: #fff;
             padding: 3px 8px;
             border-radius: 10px 10px 0px 0px;
             border: none;
+          }
+          #btnDB1:hover,#btnDB2:hover,#btnDB3:hover, #btnCopyScript:hover{
+            background-color: #0087ff;
+          }
+          #btnCopyScript:active{
+            background-color: #0087ff;
           }
           /*fim parte do modelo db*/
     </style>
@@ -40,23 +46,62 @@
       <button id="btnDB1" onclick="clickAreaOne()">DER</button>
       <button id="btnDB2" onclick="clickAreaTwo()">Script da tabela usuário</button>
       <button id="btnDB3" onclick="clickAreaTree()">Script da tabela log</button>
-      <button id="btnDB3" onclick="clickAreafour()">Script da tabela authenticator</button>
+      <button id="btnDB3" onclick="clickAreafour()">Script da tabela _2fa</button>
+      <button id="btnCopyScript" >Copiar  Script</button>
+      <textarea id="scriptTextArea" style="display: none;">
+        <!-- Seu script do banco de dados aqui -->
+        CREATE TABLE `gp_03_consultanumero`.`log` (
+            `id_log` INT NOT NULL AUTO_INCREMENT,  
+            `usuario_id` INT NOT NULL,
+            `status` VARCHAR(45) NOT NULL,
+            `descricao` VARCHAR(45) NOT NULL,
+            `data_log` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id_log`),
+            CONSTRAINT FK_LogUsuario FOREIGN KEY (`usuario_id`) REFERENCES `usuario`(`id_usuario`)
+        );
+        CREATE TABLE `gp_03_consultanumero`.`_2fa` (
+          `id_2fa` INT NOT NULL AUTO_INCREMENT,  
+          `2fa_quest` VARCHAR(45) NOT NULL,
+        PRIMARY KEY (`id_2fa`));
+
+        CREATE TABLE `gp_03_consultanumero`.`log` (
+          `id_log` INT NOT NULL AUTO_INCREMENT,  
+          `usuario_id` INT NOT NULL,
+          `status` VARCHAR(45) NOT NULL,
+            `descricao` VARCHAR(45) NOT NULL,
+            `data_log` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id_log`),
+          CONSTRAINT FK_LogUsuario FOREIGN KEY (`usuario_id`) REFERENCES `usuario`(`id_usuario`)
+        );
+    </textarea>
     </div>
     <hr style="margin: 0px 0px 20px 0px;">
-
+   
     <div class="blocoDB1">
-        <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/DER copy.png" alt="" srcset="" width="90%">
+        <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/DER.png" alt="" srcset="" width="90%">
     </div>
     <div class="blocoDB2">
       <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/dbUsuario.png" alt="script do banco" srcset=""  >
     </div>
     <div class="blocoDB3">
-      <!-- <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/dbUsuario.png" alt="script do banco" srcset=""> -->
-      tabela log
+      <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/dbLog.png" alt="script do banco" srcset=""> 
+    
     </div>
     <div class="blocoDB4">
-      <!-- <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/dbUsuario.png" alt="script do banco" srcset=""> -->
-      tabela authenticator
+      <img src="<?php echo $consultaTelefonePath; ?>/assests/imgs/db_2fa.png" alt="script do banco" srcset=""> 
+
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Script banco de dados</strong>
+                <small>1s atrás</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Script copiado para a área de transferência!
+            </div>
+        </div>
     </div>
     <!--FIM DO CARD DE RESULTADO DO NÚMERO -->
     </div>
@@ -121,6 +166,13 @@
         btnDB3.style.background = "#47C9FF";
         btnDB4.style.background = "#008aff";
     }
+    document.getElementById('btnCopyScript').addEventListener('click', function() {
+            var scriptTextArea = document.getElementById('scriptTextArea');
+            scriptTextArea.select();
+            document.execCommand('copy');
+            var toast = new bootstrap.Toast(document.getElementById('liveToast'));
+            toast.show();
+        });
   </script>
 </body>
 </html>

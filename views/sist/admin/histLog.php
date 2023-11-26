@@ -40,7 +40,7 @@ $result = $conn->query($sql);
 ?>
 
 <div class="container pt-4" id="tabelaUsuario">
-    <h3 class="welcome-text" style="margin-bottom: 30px;">Histórico de <strong>Usuários</strong> </h3>
+    <h3 class="welcome-text" style="margin-bottom: 30px;">Histórico de <strong>Logs</strong> </h3>
     <hr style=" margin-bottom: 20px;" >
 
 
@@ -52,9 +52,6 @@ style="background: #fff;"
   data-height="600"
   data-show-export="true"
   data-pagination="true"
-  data-side-pagination="server"
-
-  
   data-pagination-pre-text="Previous"
   data-pagination-next-text="Next">
 
@@ -98,28 +95,21 @@ style="background: #fff;"
     $('#toolbar').find('select').change(function () {
       $table.bootstrapTable('destroy').bootstrapTable({
         exportDataType: $(this).val(),
-        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel', 'pdf'],
+        exportTypes: ['csv', 'txt', 'excel', 'pdf', 'print'],
         columns: [
-          {
-            field: 'state',
-            checkbox: true,
-            visible: $(this).val() === 'selected'
-          },
-          {
-            field: 'id',
-            title: 'ID'
-          }, {
-            field: 'name',
-            title: 'Item Name'
-          }, {
-            field: 'price',
-            title: 'Item Price'
-          }
+          {field: 'state', checkbox: true, visible: true},
+          {field: 'id', title: 'ID'},
+          {field: 'usuario_id', title: 'Usuário'},
+          {field: 'status', title: 'Status'},
+          {field: 'data_log', title: 'Data Registro'},
+          {field: 'descricao', title: 'Descrição'}
         ]
       })
     }).trigger('change')
   })
 </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin/tableExport.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
