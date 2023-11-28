@@ -18,7 +18,7 @@ class UserController
             case 'selectAllClientes':
                 return $this->selectAllClientes($parametros);
                 break;
-            case 'selectAllLog':
+            case 'selectAllLogs':
                 return $this->selectAllLogs($parametros);
                 break;
             case 'historicoLogs':
@@ -27,13 +27,10 @@ class UserController
             case 'buscarPorCPF':
                 return $this->buscarPorCPF($parametros['cpf']);
                 break;
-    
             case 'obterInformacoesUsuario':
-                return $this->obterInformacoesUsuario($parametros['login']);
-                
+                return $this->obterInformacoesUsuario($parametros['login']);              
             case 'editarUsuario':
                 return $this->editarUsuario($parametros['id'], $parametros['nome'], $parametros['email'], $parametros['senha']);
-
             case 'excluirUsuario':
                     $idUsuarioParaExcluir = isset($parametros['id']) ? $parametros['id'] : null;
                
@@ -64,18 +61,9 @@ class UserController
 
     public function selectAllLogs()
     {
-        $sql = "SELECT * FROM sua_tabela_de_logs";
-        $result = $this->conexao->query($sql);
-
-        if (!$result) {
-            // Trate o erro, por exemplo, exibindo uma mensagem de erro ou logando
-            echo "Erro na consulta: " . $this->conexao->error;
-            return null;
-        }
-
-        $logs = $result->fetch_all(MYSQLI_ASSOC);
-
-        return $logs;
+        $resultado = Client::selectAllLogs($this->conexao);
+        //var_dump($resultado); // Adicione esta linha
+        return $resultado;
     }
 
 

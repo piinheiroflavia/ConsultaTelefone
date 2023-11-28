@@ -11,113 +11,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF/jspdf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../../extensions/Editor/css/editor.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.dataTables.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="../../extensions/Editor/js/dataTables.editor.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.7.0/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 
 </head>
 <body>
 
 <?php
-        $dbDrive = 'mysql';
-        $dbhost = 'localhost';
-        $dbUsername = 'root';
-        $dbPassword = '';
-        $dbName = 'gp_03_consultanumero';
-        $conn = new mysqli($dbhost, $dbUsername, $dbPassword, $dbName);
+  $userController = new UserController($conexao);
+  $acao = 'selectAllLogs';
+  $parametros = [];
+  $logs = [];
 
-// Verifica a conexão
-if ($conn->connect_error) {
-    die("Falha na conexão com o banco de dados: " . $conn->connect_error);
-}
+  $logs = $userController->executarAcao($acao, $parametros);
 
-// Query para selecionar os dados da tabela de log
-$sql = "SELECT * FROM log";
-$result = $conn->query($sql);
+
 ?>
-
-<div class="container pt-4" id="tabelaUsuario">
-    <h3 class="welcome-text" style="margin-bottom: 30px;">Histórico de <strong>Logs</strong> </h3>
+<div class="container pt-2" id="tabelaUsuario">
+    <h3 class="welcome-text" style="margin-bottom: 30px;">Histórico de <strong>Usuários</strong> </h3>
     <hr style=" margin-bottom: 20px;" >
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+          <div class="content-wrapper">
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="card mb-4">
+              
+               <div class="card-body">
+               
+               <table id="tabelaUsers" class="table table-hover" style="width: 100% !important;">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Usuário</th>                      
+                        <th>status</th>
+                        <th>Data de Registro</th>
+                        <th>Descrição</th>                    
+                    </tr>
+                </thead>
+                <tbody>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
+    
+  
+  
+  <script>
 
-<table
-style="background: #fff;"
-  id="table"
-  data-toggle="table"
-  data-height="600"
-  data-show-export="true"
-  data-pagination="true"
-  data-pagination-pre-text="Previous"
-  data-pagination-next-text="Next">
+   var logs = <?php echo json_encode($logs); ?>;
+   console.log(logs);
 
-  <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th data-field="id">Usuário</th>
-      <th data-field="name">Status</th>
-      <th data-field="price">Data Registro</th>
-      <th data-field="descricao">Descrição</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <?php
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>
-                    <th scope='row'>" . $row['id_log'] . "</th>
-                    <td>" . $row['usuario_id'] . "</td>
-                    <td>" . $row['status'] . "</td>
-                    <td>" . $row['data_log'] . "</td>
-                    <td>" . $row['descricao'] . "</td>
-                  </tr>";
-        }
-    } else {
-        echo "Nenhum registro encontrado.";
-    }
 
-    // Fecha a conexão
-    $conn->close();
-    ?>
-  </tbody>
-</table>
-<div>
-<div id="toolbar" class="form-inline">
-</div>
-<script>
-  var $table = $('#table')
+    $(document).ready(function() {
+        $('#tabelaUsers').DataTable({
+            data: logs,
+            columns: [
+                { data: 'id_log' },
+                { data: 'nome_usuario' },
+                { data: 'status' },
+                { data: 'data_log' },
+                { data: 'descricao' }
+            ],
+            "order": [[0, "desc"]],
+            "pageLength": 10,
+            dom: 'Bfrtip', 
+            buttons: [
+                    {
+                        extend: 'collection',
+                        text: 'Export',
+                        buttons: [
+                        'copy', 'excel', 'csv', 'pdf', 'print'
+                        ]
+                    }
+                ]
+            // Adicione configurações adicionais do DataTables conforme necessário
+        });
+    });
 
-  $(function() {
-    $('#toolbar').find('select').change(function () {
-      $table.bootstrapTable('destroy').bootstrapTable({
-        exportDataType: $(this).val(),
-        exportTypes: ['csv', 'txt', 'excel', 'pdf', 'print'],
-        columns: [
-          {field: 'state', checkbox: true, visible: true},
-          {field: 'id', title: 'ID'},
-          {field: 'usuario_id', title: 'Usuário'},
-          {field: 'status', title: 'Status'},
-          {field: 'data_log', title: 'Data Registro'},
-          {field: 'descricao', title: 'Descrição'}
-        ]
-      })
-    }).trigger('change')
-  })
-</script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin/tableExport.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/bootstrap-table.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/extensions/export/bootstrap-table-export.min.js"></script>
-    <script src="https://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
-    <script src="https://rawgit.com/hhurz/tableExport.jquery.plugin/master/jquery.base64.js"></script>
+    </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>     
+  
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.11.4/i18n/pt_br.json"></script>
 </body>
 </html>

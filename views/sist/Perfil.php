@@ -24,6 +24,7 @@ if (isset($_SESSION['nome'])) {
     exit(); // Certifique-se de sair após redirecionar para evitar a execução adicional do código
 }
 
+
 ob_end_flush(); 
 ?>
 <!DOCTYPE html>
@@ -34,10 +35,10 @@ ob_end_flush();
     <title>Document</title>
 <style>
     .btn{
-    color: #fff;
-    background-color: #47C9FF;
+        color: #fff;
+        background-color: #47C9FF;
+        padding: 10px
     }
-
     .img-account-profile {
         height: 10rem;
     }
@@ -112,10 +113,19 @@ ob_end_flush();
     /*fim parte do modelo db*/
     </style>
 </head>
+<?php
+
+//$userController = new UserController($conexao);
+$acao = 'selectAllClientes';
+$parametros = [];
+
+
+
+?>
+
 <body>
 
   <div class="container-xl px-4 mt-4">
-
     <div class="row">
         <div class="col-xl-4">
             <!-- Profile card-->
@@ -126,9 +136,6 @@ ob_end_flush();
                     <img class="img-account-profile rounded-circle mb-2" src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="">
                     <p><strong><?php  echo " $nomeUsuario"; ?></strong></p>       
                     <p><?php  echo " $tipoUser"; ?></p>       
-                    <!--upload button-->
-                    <!-- <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-                    <button class="btn" type="button">Upload new image</button><br><br><br> -->
                   <!-- <input type="file" name="arquivos" class="btn"  accept="image/png, image/jpeg"  multiple />  -->
                 </div>
             </div>
@@ -179,77 +186,64 @@ ob_end_flush();
                             <p><strong>Endereço</strong></p>
                             <p><?php  echo " $logradouro"; ?></p>
                         </div>
-                    </div>
+                    </div>                  
+                    <div class="row gx-3">
+                        <div class="col-md-9">
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Alteração senha</button>
+                        </div>
+                    </div>       
                     </form>
                 </div>
             </div>
         </div>
 
 
-        <!-- EDITAR -->
-        <!-- <div class="col-xl-8">
-           Detalhes da conta
-          <div class="card mb-4">
-              <div class="card-header">Detalhes da conta</div>
-              <div class="card-body">
-                  <form>
-                       Form Group (username)
-                      <div class="mb-3">
-                          <label class="small mb-1" for="inputUsername">Nome</label>
-                          <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" >
-                      </div>
-                       Form Row
-                      <div class="row gx-3 mb-3">
-                           Form Group (first name)
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="inputFirstName">First name</label>
-                              <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" >
-                          </div>
-                           Form Group (last name)
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="inputLastName">Last name</label>
-                              <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" >
-                          </div>
-                      </div>
-                       Form Row        
-                      <div class="row gx-3 mb-3">
-                           Form Group (organization name)
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="inputOrgName">Organization name</label>
-                              <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
-                          </div>
-                           Form Group (location)
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="inputLocation">Location</label>
-                              <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location">
-                          </div>
-                      </div>
-                       Form Group (email address)
-                      <div class="mb-3">
-                          <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                          <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address">
-                      </div>
-                       Form Row
-                      <div class="row gx-3 mb-3">
-                           Form Group (phone number)
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="inputPhone">Phone number</label>
-                              <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" >
-                          </div>
-                           Form Group (birthday)
-                          <div class="col-md-6">
-                              <label class="small mb-1" for="inputBirthday">Birthday</label>
-                              <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" >
-                          </div>
-                      </div>
-                       Save changes button
-                      <button class="btn" type="button">Salvar</button>
-                  </form>
-              </div>
-          </div>
-      </div> -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Alterar Senha</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form>
+          <!--SENHA--> <!--CONFIRMAR SENHA-->
+          <div class="input1">
+                                    <!--SENHA-->
+                                    <div class="input-container-cadastro" id="senha-div">
+                                        <input id="Senha" name="senha" class="input-cadastro" type="password" placeholder=" " minlength="8" maxlength="8" required="required" onkeyup="validSenha()" onkeypress="return ApenasLetras(event,this)">
+                                        <div class="vago"></div>
+                                        <label for="Senha" class="placeholder" id="resSenha" style="background: #7fffd400;">Senha</label>
+                                        <span class="icon2">
+                                            <i id="lock" class="fa-solid fa-eye-slash" onclick="showPassword()"></i>
+                                            <i id="unlock" class="fa-regular fa-eye" onclick="showPassword()"></i>
+                                        </span>
+                                    </div>
+
+                                    <!--CONFIRMAR SENHA-->
+                                    <div class="input-container-cadastro" id="conf-senha-div">
+                                        <input id="confirmar" name="Confsenha" class="input-cadastro" type="password" placeholder=" " onkeyup="validConfirmaSenha()" onkeypress="return ApenasLetras(event,this)"  minlength="8" maxlength="8">
+                                        <div class="vago"></div>
+                                        <label for="Senha" class="placeholder" id="resConSenha" style="background: #7fffd400;">Confirmar Senha</label>
+                                        <span class="icon2">
+                                            <i id="lock2" class="fa-solid fa-eye-slash" onclick="showPassword2()"></i>
+                                            <i id="unlock2" class="fa-regular fa-eye" onclick="showPassword2()"></i>
+                                        </span>
+                                    </div>
+                </form>
+            <button type="button" class="btn btn-primary">Salvar alterações</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sair</button>
+
+        </div>
+    </div>
+    </div>
+      </div> 
     </div>
 </div>
+<script src="../../ConsultaTelefone/assests/js/registroo.js"></script>
+<script src="<?php echo $consultaTelefonePath; ?>/assests/js/registro.js"></script>
 </body>
 </html>
 

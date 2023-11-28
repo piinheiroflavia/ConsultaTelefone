@@ -10,6 +10,24 @@ class Client {
         return mysqli_query($conexao, $query);
     }
 
+    // ---------------------------------LOG--------------------------------------
+    public static function selectAllLogs($conexao) {
+        $result = $conexao->query("SELECT log.*, usuario.nome_usuario FROM log
+        INNER JOIN usuario ON log.usuario_id = usuario.id_usuario");
+    
+        if ($result->num_rows > 0) {
+            $logs = array();
+    
+            while ($row = $result->fetch_assoc()) {
+                $logs[] = $row;
+            }
+    
+            return $logs;
+        } else {
+            throw new \Exception("Erro sem logs");
+        }
+    }
+
     public static function selectAllClientes($conexao) {
         $result = $conexao->query("SELECT * FROM usuario");
     
@@ -72,22 +90,7 @@ class Client {
         return mysqli_query($conexao, $query);
     }
 
-    // ---------------------------------LOG--------------------------------------
-    public static function selectAllLogs($conexao) {
-        $result = $conexao->query(" ");
     
-        if ($result->num_rows > 0) {
-            $logs = array();
-    
-            while ($row = $result->fetch_assoc()) {
-                $logs[] = $row;
-            }
-    
-            return $logs;
-        } else {
-            throw new \Exception("Erro sem usuário");
-        }
-    }
     
 }
 ?>

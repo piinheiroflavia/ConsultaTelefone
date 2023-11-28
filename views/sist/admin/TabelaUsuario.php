@@ -1,6 +1,5 @@
 <?php
   include_once('template/links.php');
-  
   require_once('config.php');
   include_once(__DIR__ . '/../../../controllers/UserController.php');
 ?>
@@ -12,10 +11,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-         
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
- 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../../extensions/Editor/css/editor.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.5.1/css/dataTables.dateTime.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.dataTables.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="../../extensions/Editor/js/dataTables.editor.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.7.0/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
 
     <style>
       #iconSearch{
@@ -34,7 +53,8 @@
       }
     </style>
 </head>
-<body>
+<body>  
+
 <?php
    $userController = new UserController($conexao);
    $acao = 'selectAllClientes';
@@ -143,9 +163,7 @@
     }
 
 ?>
-
-  <!-- TABELA USUÁRIO -->
-  <div class="container pt-4" id="tabelaUsuario">
+    <div class="container pt-4" id="tabelaUsuario">
     <h3 class="welcome-text" style="margin-bottom: 30px;">Histórico de <strong>Usuários</strong> </h3>
     <hr style=" margin-bottom: 20px;" >
     <div class="layout-wrapper layout-content-navbar">
@@ -153,302 +171,151 @@
           <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="card mb-4">
-               <!-- card-body -->
+              
                <div class="card-body">
-                  <div class="row gx-3 gy-2 align-items-center" >
-                 
-                  <div class="col-md-2 float-left">
-                    <!-- <label for="defaultFormControlInput">Pesquisar</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="defaultFormControlInput"
-                        placeholder="digite aqui.."
-                        aria-describedby="defaultFormControlHelp"
-                    />
-                </div>
-                <div class="col-md-2 float-left">
-                    <label class="form-label" for="showToastPlacement">&nbsp;</label>
-                    <button id="showToastPlacement" class="btn d-block" style="border:none; padding: 0px 2px; width: 28px; box-shadow: none;">
-                        <span class="material-symbols-outlined" id="iconSearch" onclick="buscarPorCPF()">search</span>
-                    </button> -->
-                     <!-- Adicione o formulário de pesquisa -->
-                    
-                </div>
-                <form method="POST"  action="http://localhost/ConsultaTelefone/historico-usuario">
-                        <div class="input-group ">
-                            <input type="text" class="form-control" placeholder="Pesquisar por Nome, CPF ou Email" name="acao" aria-describedby="button-search">
-
-                            <button class="btn" type="submit" id="button-search" style="background-color:#35aad4; color:#fff; margin:5px;  width: 169px; border-radius: 10px; padding:8px">Pesquisar</button>
-
-                            <button id="btnGerarPDF" class="btn d-block" style="background-color:#35aad4; color:#fff; margin:5px; width: 169px; border-radius: 10px;padding:8px 10px" >Exportar</button>
-                        </div>
-
-                    </form>
-
-                    <!-- <div class="col-md-2 float-left" style=" margin-left: 40px;" >
-                        <label class="form-label" for="showToastPlacement">&nbsp;</label>
-                        <button class="btn d-block" style="background-color:#35aad4; color:#fff; padding: 5px 22px; width: 179px;" onclick="criarUsuario()">Criar Usuário</button>
-                    </div> -->
-                  </div>
-                </div>
-                <!-- fim card-body -->
-              </div>
-              <div class="card mb-4">
-                <h5 class="card-header">Usuários</h5>
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-striped" id="tabela">
-                    <thead>
-                        <tr>
+               
+               <table id="tabelaUsers" class="table table-hover" style="width: 100% !important;">
+                <thead>
+                    <tr>
                         <th>ID</th>
+                        <th>Nome do Usuário</th>                      
                         <th>Login</th>
-                        <th>Usuário</th>
-                        <th>Status</th>
                         <th>Email</th>
-                        <th>CPF</th>
+                        <th>CPF</th>                    
+                        <th>Senha</th>
+                        <th>Status</th>
                         <th></th>
                         <th></th>
-
-                        </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                  
-                        <?php foreach ($clientes as $cliente) : ?>
-                            <tr>
-                                <td><?php echo $cliente['id_usuario']; ?></td>
-                                <td><?php echo $cliente['login']; ?></td>
-                                <td><?php echo $cliente['nome_usuario']; ?></td>
-                                <td><?php echo $cliente['status']; ?></td>
-                                <td><?php echo $cliente['email']; ?></td>
-                                <td><?php echo $cliente['cpf']; ?></td>
-
-                                <!-- <td><span class="material-symbols-outlined" onclick="editarUsuario('<?php echo $cliente['id_usuario']; ?>', '<?php echo $cliente['nome_usuario']; ?>', '<?php echo $cliente['sexo']; ?>', '<?php echo $cliente['data_nasc']; ?>', '<?php echo $cliente['nome_materno']; ?>', '<?php echo $cliente['login']; ?>', '<?php echo $cliente['email']; ?>', '<?php echo $cliente['cpf']; ?>', '<?php echo $cliente['celular']; ?>', '<?php echo $cliente['telefone']; ?>', '<?php echo $cliente['cep']; ?>', '<?php echo $cliente['logradouro']; ?>', '<?php echo $cliente['bairro']; ?>', '<?php echo $cliente['uf']; ?>', '<?php echo $cliente['senha']; ?>', '<?php echo $cliente['tipoUser']; ?>', '<?php echo $cliente['status']; ?>')">edit</span></td> -->
-
-                                <td><span class="material-symbols-outlined" onclick="detalhesUsuario('<?php echo $cliente['id_usuario']; ?>', '<?php echo $cliente['nome_usuario']; ?>', '<?php echo $cliente['sexo']; ?>', '<?php echo $cliente['data_nasc']; ?>', '<?php echo $cliente['nome_materno']; ?>', '<?php echo $cliente['login']; ?>', '<?php echo $cliente['email']; ?>', '<?php echo $cliente['cpf']; ?>', '<?php echo $cliente['celular']; ?>', '<?php echo $cliente['telefone']; ?>', '<?php echo $cliente['cep']; ?>', '<?php echo $cliente['logradouro']; ?>', '<?php echo $cliente['bairro']; ?>', '<?php echo $cliente['uf']; ?>', '<?php echo $cliente['senha']; ?>', '<?php echo $cliente['tipoUser']; ?>', '<?php echo $cliente['status']; ?>')">info</span></td>
-
-                                <td>
-                                    <button onclick="excluirUsuario(<?php echo $cliente['id_usuario']; ?>)" style="border: none;background:none"><span class="material-symbols-outlined">delete</span></button>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                    </table>
+                    </tr>
+                </thead>
+                <tbody>
                 </div>
             </div>
             </div>
-            <div class="content-backdrop fade"></div>
-          </div>
+        </div>
         </div>
       </div>
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
   </div>
 
-    <!--Modal de detalhes -->
-    <div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userDetailsModalLabel">Detalhes do Usuário</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="userDetailsContent">
-                    <!-- As informações do usuário serão exibidas aqui -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-
-    <!-- Modal de Edição -->
-    <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuário</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                   <!-- Formulário de Edição -->
-                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <input type="hidden" name="edit_id" id="edit_id_modal">
-                        <label for="edit_nome_usuario_modal">Novo Nome do Usuário:</label>
-                        <input type="text" id="edit_nome_usuario_modal" name="edit_nome_usuario" required>
-
-                        <!-- Inclua outros campos aqui, por exemplo: -->
-                        <label for="edit_login_modal">Novo login:</label>
-                        <input type="text" id="edit_login_modal" name="edit_login" required>
-
-                        <!-- Adicione outros campos conforme necessário -->
-
-                        <button type="submit" class="btn btn-primary">Salvar Edição</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>     
+    
   
   
   <script>
 
-    function imprimirTela() {
-            window.print();
-        }
+   var clientes = <?php echo json_encode($clientes); ?>;
+   console.log(clientes);
 
-    function detalhesUsuario(userId, nome_usuario, sexo, data_nasc, nome_materno, login, email, cpf, celular, telefone, cep, logradouro, bairro, uf, senha, tipoUser, status) {
-        // Preencher as informações do usuário no modal
-        var userDetailsContent = document.getElementById('userDetailsContent');
-        userDetailsContent.innerHTML = `
-            <div>
-            <p>ID: ${userId}</p>
-            <p>Nome do Usuário: ${nome_usuario}</p>
-            </div>
 
-            <div>
-            <p>Sexo: ${sexo}</p>
-            <p>Data de Nascimento: ${data_nasc}</p>
-            </div>
+    $(document).ready(function() {
+        $('#tabelaUsers').DataTable({
+            data: clientes,
+            columns: [
+                { data: 'id_usuario' },
+                { data: 'nome_usuario' },
+                { data: 'login' },
+                { data: 'email' },
+                { data: 'cpf' },
+                { data: 'senha' },
+                { data: 'status' },
+                {
+                    "data": null,
+                    "title": "Ação",
+                    "render": function(data, type, row) {
+                       
+                        return '<div><button onclick="excluirUsuario(' + row.id_usuario + ')" style="border: none;background:none"><span class="material-symbols-outlined">info</span></button></div>';
+                    }
+                },
+                {
+                    "data": null,
+                    "title": "Ação",
+                    "render": function(data, type, row) {
+                       
+                        return '<div><button onclick="excluirUsuario(' + row.id_usuario + ')" style="border: none;background:none"><span class="material-symbols-outlined">delete</span></button></div>';
+                    }
+                }
+            ],
+            "order": [[0, "desc"]],
+            "pageLength": 10,
+            dom: 'Bfrtip', 
+            buttons: [
+                    {
+                        extend: 'collection',
+                        text: 'Export',
+                        buttons: [
+                        'copy', 'excel', 'csv', 'pdf', 'print'
+                        ]
+                    }
+                ]
+            // Adicione configurações adicionais do DataTables conforme necessário
+        });
+    });
 
-            <div>
-            <p>Nome Materno: ${nome_materno}</p>
-            <p>Login: ${login}</p>
-            </div>
-
-            <div>
-            <p>Email: ${email}</p>
-            <p>CPF: ${cpf}</p>
-            </div>
-
-            <div>
-            <p>Celular: ${celular}</p>
-            <p>Telefone: ${telefone}</p>
-            </div>
-
-            <div>
-            <p>CEP: ${cep}</p>
-            <p>Logradouro: ${logradouro}</p>
-            </div>
-
-            <div>
-            <p>Bairro: ${bairro}</p>
-            <p>UF: ${uf}</p>
-            </div>
-
-            <div>
-            <p>Senha: ${senha}</p>
-            <p>Tipo de Usuário: ${tipoUser}</p>
-            <p>Status: ${status}</p>
-            </div>
-        `;
-
-        // Abre o modal
-        var userDetailsModal = new bootstrap.Modal(document.getElementById('userDetailsModal'));
-        userDetailsModal.show();
-    }
-
-    function editarUsuario(id, nome_usuario, sexo, data_nasc, nome_materno, login, email, cpf, celular, telefone, cep, logradouro, bairro, uf, senha, tipoUser, status) {
-
-        document.getElementById("edit_id_modal").value = id;
-        document.getElementById("edit_nome_usuario_modal").value = nome_usuario;
-        document.getElementById("edit_login_modal").value = login; // Corrigido aqui
-
-    
-
-    var editarUsuarioModal = new bootstrap.Modal(document.getElementById('editarUsuarioModal'));
-    editarUsuarioModal.show();
-    }
 
     function excluirUsuario(userId) {
-    if (confirm("Tem certeza de que deseja excluir este usuário?")) {
-        Swal.fire({
-            title: 'Tem certeza?',
-            text: 'Esta ação não pode ser revertida!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, exclua!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch(window.location.href, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: 'id=' + userId,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Remover a linha da tabela
-                        var row = document.querySelector('tr[data-id="' + userId + '"]');
-                        if (row) {
-                            row.remove();
-                        }
-
-                        Swal.fire({
-                            title: 'Excluído!',
-                            text: 'Usuário excluído com sucesso.',
-                            icon: 'success',
-                            timer: 5000, // 5 segundos
-                            timerProgressBar: true,
-                            onClose: () => {
-                                location.reload();
+        if (confirm("Tem certeza de que deseja excluir este usuário?")) {
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: 'Esta ação não pode ser revertida!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, exclua!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(window.location.href, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'id=' + userId,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Remover a linha da tabela
+                            var row = document.querySelector('tr[data-id="' + userId + '"]');
+                            if (row) {
+                                row.remove();
                             }
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Erro!',
-                            text: 'Erro ao excluir o usuário: ' + data.error,
-                            icon: 'error'
-                        });
-                    }
-                })
-                .catch(error => console.error('Erro ao excluir usuário:', error));
-            }
-        });
+
+                            Swal.fire({
+                                title: 'Excluído!',
+                                text: 'Usuário excluído com sucesso.',
+                                icon: 'success',
+                                timer: 5000, // 5 segundos
+                                timerProgressBar: true,
+                                onClose: () => {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: 'Erro ao excluir o usuário: ' + data.error,
+                                icon: 'error'
+                            });
+                        }
+                    })
+                    .catch(error => console.error('Erro ao excluir usuário:', error));
+                }
+            });
+        }
     }
-}
 
-    document.getElementById('btnGerarPDF').addEventListener('click', function() {
-      // Instancia o objeto jsPDF
-      var doc = new jsPDF();
+    </script>
 
-      // Pega a tabela
-      var tabela = document.getElementById('tabela');
-
-      // Converte a tabela para um array de arrays de dados
-      var dados = [];
-      var linhas = tabela.getElementsByTagName('tr');
-      for (var i = 0; i < linhas.length; i++) {
-         var linha = [];
-         var colunas = linhas[i].getElementsByTagName('td');
-         for (var j = 0; j < colunas.length; j++) {
-            linha.push(colunas[j].innerText);
-         }
-         dados.push(linha);
-      }
-
-      // Adiciona os dados ao PDF
-      doc.autoTable({
-         head: [['ID', 'Usuário', 'Login','Status','Email'  ]], // Cabeçalho da tabela no PDF
-         body: dados,
-      });
-
-      doc.save('tabela.pdf');
-   });
-  </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>     
+  
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.11.4/i18n/pt_br.json"></script>
 </body>
 </html>

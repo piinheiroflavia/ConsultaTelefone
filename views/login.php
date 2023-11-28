@@ -243,7 +243,7 @@
                 </div> -->
                 <!--Login-->
                 <div class="input-container-cadastro" id="login-div">
-                    <input id="login" name="login" class="input-cadastro" type="text" minlength="3" maxlength="10" placeholder=" "  >
+                    <input id="login" name="login" class="input-cadastro" type="text" placeholder=" " >
                     <!-- onkeyup="validLogin()" -->
                     <div class="vago"></div>
                     <label for="login" class="placeholder" id="resLogin" style="background: #7fffd400;">Login</label>                            
@@ -251,7 +251,7 @@
                 <!--SENHA-->
                 <div class="input-container-cadastro" id="senha-div">
                     <input id="Senha" name="senha" class="input-cadastro" type="password" placeholder=" " 
-                    onkeyup="validSenha()" onkeypress="return ApenasLetras(event,this)" minlength="8" maxlength="8">
+                    onkeyup="validSenha()" onkeypress="return ApenasLetras(event,this)" >
                     <div class="vago"></div>
                     <label for="Senha" class="placeholder" id="resSenha" style="background: #7fffd400;">Senha</label>
                     <span class="icon2">

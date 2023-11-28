@@ -50,15 +50,27 @@
       <button id="btnCopyScript" >Copiar  Script</button>
       <textarea id="scriptTextArea" style="display: none;">
         <!-- Seu script do banco de dados aqui -->
-        CREATE TABLE `gp_03_consultanumero`.`log` (
-            `id_log` INT NOT NULL AUTO_INCREMENT,  
-            `usuario_id` INT NOT NULL,
-            `status` VARCHAR(45) NOT NULL,
-            `descricao` VARCHAR(45) NOT NULL,
-            `data_log` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id_log`),
-            CONSTRAINT FK_LogUsuario FOREIGN KEY (`usuario_id`) REFERENCES `usuario`(`id_usuario`)
-        );
+        CREATE TABLE `gp_03_consultanumero`.`usuario` (
+          `id_usuario` INT NOT NULL AUTO_INCREMENT,usuario
+          `nome_usuario` VARCHAR(45) NOT NULL,
+          `sexo` VARCHAR(45) NULL,
+          `data_nasc` DATE NOT NULL,
+          `nome_materno` VARCHAR(45) NOT NULL,
+          `login` VARCHAR(45) NOT NULL,
+          `email` VARCHAR(45) NOT NULL,
+          `cpf` VARCHAR(45) NOT NULL,
+          `celular` VARCHAR(45) NULL,
+          `telefone` VARCHAR(45) NULL,
+          `cep` INT NOT NULL,
+          `logradouro` VARCHAR(45) NULL,
+          `bairro` VARCHAR(45) NULL,
+          `uf` VARCHAR(45) NULL,
+          `senha` VARCHAR(45) NOT NULL,
+          `tipoUser` VARCHAR(45) NOT NULL,
+          `status` VARCHAR(45) NOT NULL,
+        PRIMARY KEY (`id_usuario`));
+
+        
         CREATE TABLE `gp_03_consultanumero`.`_2fa` (
           `id_2fa` INT NOT NULL AUTO_INCREMENT,  
           `2fa_quest` VARCHAR(45) NOT NULL,

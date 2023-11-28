@@ -11,6 +11,7 @@ require_once('config.php');
     <title>Tela de Registro</title>
 
     <link rel="stylesheet" href="<?php echo $consultaTelefonePath; ?>/assests/css/style.css">
+    
     <style>
         /*começo do responsivo*/
 
@@ -259,9 +260,7 @@ require_once('config.php');
 </head>
 
 <body>
-    <!-- <div class="alert alert-success" id="alertLogin-error" role="alert" style="color: #05a85c;     width: 40%;">
-        Usuário registrado com sucesso!! Aguarde alguns instantes e faça o login.
-    </div> -->
+
     <div class="container text-center">
         <div class="row">
             <div class="col-6">
@@ -272,7 +271,7 @@ require_once('config.php');
                             <div class="btnTop">
                                 <a href="login" class="btnhome"><span class="material-symbols-outlined" id="iconeHome">arrow_back</span></a>
                             </div>
-                            <form method="POST" onsubmit="return validar()" action="../../ConsultaTelefone/controllers/RegistroController.php">
+                            <form method="POST" onsubmit="return validar()" id="registroForm" action="../../ConsultaTelefone/controllers/RegistroController.php">
 
                                 <div class="textLogin">
                                     <h3>Registre-se</h3>
@@ -281,7 +280,7 @@ require_once('config.php');
                                 <div class="col-12 inputN">
                                     <!--NOME Completo-->
                                     <div class="input-container-cadastro" id="nome-div">
-                                        <input id="nome" name="nome" class="input-cadastro" type="text" minlength="15" maxlength="60" placeholder=" " required="required" onkeyup="validNome()">
+                                        <input id="nome" name="nome" class="input-cadastro" type="text" minlength="15" maxlength="80" placeholder=" " required="required" onkeyup="validNome()">
                                         <div class="vago"></div>
                                         <label for="nome" class="placeholder" id="resN" style="background: #7fffd400;">Nome Completo</label>
                                     </div>
@@ -312,7 +311,7 @@ require_once('config.php');
                                     </div>
                                     <!--Login-->
                                     <div class="input-container-cadastro" id="login-div">
-                                        <input id="login" name="login" class="input-cadastro" type="text" placeholder=" " minlength="3" maxlength="10" required="required" onkeyup="validaLogin()">
+                                        <input id="login" name="login" class="input-cadastro" type="text" placeholder=" " minlength="6" maxlength="6" required="required" onkeyup="validaLogin()">
                                         <div class="vago"></div>
                                         <label for="login" class="placeholder" id="resLogin" style="background: #7fffd400;">Login</label>
                                     </div>
@@ -377,6 +376,7 @@ require_once('config.php');
                                         <input id="cpfcnpj" name="cpf" class="input-cadastro" type="text" autocomplete="off" maxlength="11" placeholder=" " required="required" oninput="validaCpf(TestaCPF(this.value));">
                                         <div class="vago"></div>
                                         <label for="cpfcnpj" class="placeholder" id="resCpf" style="background: #7fffd400;">CPF</label>
+                                        <p id="cpfExistenceMessage"></p>
                                     </div>
 
                                 </div><!--input4 row-->
@@ -437,7 +437,34 @@ require_once('config.php');
         </div>
 
         <script src="../../ConsultaTelefone/assests/js/registroo.js"></script>
+        <script src="<?php echo $consultaTelefonePath; ?>/assests/js/registro.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <script>
+           function validaCpfAndCheckExistence(cpf) {
+                // Valida o CPF
+                if (!TestaCPF(cpf)) {
+                    // Se o CPF não for válido, você pode exibir uma mensagem de erro aqui
+                    return;
+                }
+
+                // Faz a requisição AJAX para verificar a existência do CPF
+                $.ajax({
+                    type: "POST",
+                    url: "verificaCPF.php", // Arquivo PHP que verifica a existência do CPF
+                    data: { cpf: cpf },
+                    success: function (response) {
+                        // O PHP deve retornar uma resposta JSON, por exemplo: { "exists": true } ou { "exists": false }
+                        var result = JSON.parse(response);
+                        if (result.exists) {
+                            $("#cpfExistenceMessage").text("CPF já cadastrado. Tente novamente.");
+                        } else {
+                            $("#cpfExistenceMessage").text("");
+                        }
+                    }
+                });
+            }
             function limpa_formulário_cep() {
                 //Limpa valores do formulário de cep.
                 document.getElementById('logradouro').value = ("");

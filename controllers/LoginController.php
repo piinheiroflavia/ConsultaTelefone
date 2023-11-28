@@ -118,9 +118,7 @@ class LoginController {
                 }
 
             } else {
-                //echo "Credenciais inválidas. Tente novamente.";
-                //print "<script>alert('Credenciais inválidas. Tente novamente.')</script>";
-                
+
                 $_SESSION["login_error"] = "Dados inválidos. Tente novamente.";
                 print "<script> location.href='../login';</script>";
             }

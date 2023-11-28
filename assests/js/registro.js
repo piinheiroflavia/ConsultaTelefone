@@ -56,8 +56,9 @@ var respSucesso = document.getElementById('respSucesso');
 
 var btn = document.getElementById("btnSubmit")
 
-//btn.style.cursor = 'not-allowed';
 
+//btn.style.cursor = 'not-allowed';
+console.log('tesa')
 /*FUNÇÕES QUE INDETIFICAM SE O CAMPO ESTÁ VÁLIDO (COR VERDE), CASO O ALGUNS CAMPOS FIQUE VAZIO OU MENOR QUE 15 CARACTERES O CAMPO FICA VERMELHO, */
 function validNome(){
 if(nome.value == ''){
@@ -65,7 +66,13 @@ if(nome.value == ''){
   resN.style.fontSize = ' 0.9rem'
   resN.innerHTML = '*Nome Completo';		
   resN.style.color = '#ff0018'
-nome.focus();
+  nome.focus();
+}else if (nome.value.length < 15 || nome.value.length >= 90 ){
+  nome.style.borderBlockColor = ' red'
+resN.innerHTML = 'Nome *min. 15 caracteres';	
+  resN.style.fontSize = ' 0.8rem'	
+  resN.style.color = 'red';
+  validaNome = false;
 }else{
   resN.innerHTML='Nome Completo ';
   resN.style.color = '#008e4c'
@@ -75,28 +82,26 @@ nome.focus();
 }
 }
 
-
-console.log('test')
+console.log('ssss')
+console.log('rodando')
  function validarNascimento() {
-//     // var idadeMinima = 18;
-//     // //pega o valor da dataNasc
-//     // var dataNasc = new Date(nascimento.value);
-//     // //pega o valor da dataAtual
-//     // var dataAtual = new Date();
 
-//     // //
-//     // dataAtual.setFullYear(dataAtual.getFullYear() - idadeMinima);
+    var idadeMinima = 18; 
+    var dataNasc = new Date(nascimento.value);   
+    var dataAtual = new Date();
+    dataAtual.setFullYear(dataAtual.getFullYear() - idadeMinima);
 
 
-     if (nascimento.value === '') {
-         nascimento.style.border = 'solid 2.3px #ff0018';
-         nascimento.focus();
-         resDn.innerHTML='Data de Nascimento';
+    if (nascimento.value === '') {
+      nascimento.style.border = 'solid 2.3px #ff0018';
+      nascimento.focus();
+      resDn.innerHTML='Data de Nascimento8';
 
-//     // } else if (dataNasc > idadeMinima) {
-//     //     nascimento.style.border = 'solid 2.3px #ff0018';
-//     //     nascimento.focus();
-//     //     resDn.innerHTML='Usuário menor de 18 anos ';
+    } else if (dataNasc > idadeMinima) {
+      nascimento.style.border = 'solid 2.3px #ff0018';
+      nascimento.focus();
+      resDn.innerHTML='Usuário menor de 18 anos ';
+
     } else {
          nascimento.style.border = 'solid 2.3px #008000';
     }
@@ -352,23 +357,10 @@ if((confirma.value == '')||(senha.value != confirma.value)){
 }
 }
 
-function validar(){
-    
-    console.log('teste validar')
-    Swal.fire({
-          position: 'top-center',
-          icon: 'success',
-          title: 'Registrado com sucesso',
-          showConfirmButton: false,
-          timer: 1500
-    })
 
-    validarEnvio()
- 
-}
 //VERIFICAR SE TODOS OS CAMPOS ESTAO VAZIOS ANTES DE CADASTRAR O USUÁRIO
  function validarEnvio(){
-    console.log('teste validar envio')
+
  if (validaNome && validLogin && validaEmail && validaCep && validaNum && validaCpfCnpj && validaCelular && validaTelefone && validaSenha && validaconSenha){
 
    respErro.setAttribute('style', 'display: bloco', 'color: #0C4B77')
@@ -377,7 +369,7 @@ function validar(){
    respErro.innerHTML =''
    btn.disabled = true 
    btn.style.backgroundColor = '#fff'
-   
+
 // //se nem todos os campos são preenchidos
  }else{
    respErro.setAttribute('style', 'display: bloco', 'color: #0C4B77')
@@ -387,7 +379,7 @@ function validar(){
    btn.disabled = true
    btn.style.cursor = 'no-drop'
  }
- return false;
+   
  }
 
 //FUNÇÃO PARA ACEITAR APENAS LETRAS NA SENHA
