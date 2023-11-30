@@ -436,7 +436,7 @@ require_once('config.php');
             </div>
         </div>
 
-        <script src="../../ConsultaTelefone/assests/js/registroo.js"></script>
+        <script src="<?php echo $consultaTelefonePath; ?>/assests/js/registroo.js"></script>
         <script src="<?php echo $consultaTelefonePath; ?>/assests/js/registro.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

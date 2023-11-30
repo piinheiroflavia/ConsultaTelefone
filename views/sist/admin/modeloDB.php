@@ -47,7 +47,7 @@
       <button id="btnDB2" onclick="clickAreaTwo()">Script da tabela usuário</button>
       <button id="btnDB3" onclick="clickAreaTree()">Script da tabela log</button>
       <button id="btnDB3" onclick="clickAreafour()">Script da tabela _2fa</button>
-      <button id="btnCopyScript" >Copiar  Script</button>
+      <!-- <button id="btnCopyScript">Copiar Script</button> -->
       <textarea id="scriptTextArea" style="display: none;">
         <!-- Seu script do banco de dados aqui -->
         CREATE TABLE `gp_03_consultanumero`.`usuario` (
@@ -179,12 +179,23 @@
         btnDB4.style.background = "#008aff";
     }
     document.getElementById('btnCopyScript').addEventListener('click', function() {
-            var scriptTextArea = document.getElementById('scriptTextArea');
-            scriptTextArea.select();
-            document.execCommand('copy');
-            var toast = new bootstrap.Toast(document.getElementById('liveToast'));
-            toast.show();
-        });
+    var scriptTextArea = document.getElementById('scriptTextArea');
+
+    // Create a range and select the text
+    var range = document.createRange();
+    range.selectNode(scriptTextArea);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    // Execute the copy command
+    document.execCommand('copy');
+
+    // Clear the selection
+    window.getSelection().removeAllRanges();
+
+    var toast = new bootstrap.Toast(document.getElementById('liveToast'));
+    toast.show();
+  });
   </script>
 </body>
 </html>

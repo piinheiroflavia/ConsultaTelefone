@@ -58,19 +58,19 @@ var btn = document.getElementById("btnSubmit")
 
 
 //btn.style.cursor = 'not-allowed';
-console.log('tesa')
+
 /*FUNÇÕES QUE INDETIFICAM SE O CAMPO ESTÁ VÁLIDO (COR VERDE), CASO O ALGUNS CAMPOS FIQUE VAZIO OU MENOR QUE 15 CARACTERES O CAMPO FICA VERMELHO, */
 function validNome(){
 if(nome.value == ''){
-  nome.style.border = 'solid 2.3px #ff0018'
+  nome.style.border = 'solid 2.3px #fff'
   resN.style.fontSize = ' 0.9rem'
   resN.innerHTML = '*Nome Completo';		
-  resN.style.color = '#ff0018'
+  resN.style.color = '#fff'
   nome.focus();
 }else if (nome.value.length < 15 || nome.value.length >= 90 ){
-  nome.style.borderBlockColor = ' red'
-resN.innerHTML = 'Nome *min. 15 caracteres';	
-  resN.style.fontSize = ' 0.8rem'	
+  nome.style.borderBlockColor = ' #fff'
+  resN.innerHTML = 'Mínimo 15 caracteres';	
+  resN.style.fontSize = ' 0.9rem'	
   resN.style.color = 'red';
   validaNome = false;
 }else{
@@ -82,36 +82,37 @@ resN.innerHTML = 'Nome *min. 15 caracteres';
 }
 }
 
-console.log('ssss')
+console.log('ssswwwwwwwws')
 console.log('rodando')
- function validarNascimento() {
+function validarNascimento() {
 
-    var idadeMinima = 18; 
-    var dataNasc = new Date(nascimento.value);   
-    var dataAtual = new Date();
-    dataAtual.setFullYear(dataAtual.getFullYear() - idadeMinima);
+  // var idadeMinima = 18; 
+  // var dataNasc = new Date(nascimento.value);   
+  // var dataAtual = new Date();
+  // dataAtual.setFullYear(dataAtual.getFullYear() - idadeMinima);
 
 
-    if (nascimento.value === '') {
-      nascimento.style.border = 'solid 2.3px #ff0018';
-      nascimento.focus();
-      resDn.innerHTML='Data de Nascimento8';
+  if (nascimento.value === '') {
+    nascimento.style.border = 'solid 2.3px #fff';
+    nascimento.focus();
+    resDn.innerHTML='Data de Nascimento';
 
-    } else if (dataNasc > idadeMinima) {
-      nascimento.style.border = 'solid 2.3px #ff0018';
-      nascimento.focus();
-      resDn.innerHTML='Usuário menor de 18 anos ';
+  // } else if (dataNasc > idadeMinima) {
+  //   nascimento.style.border = 'solid 2.3px #fff';
+  //   nascimento.focus();
+  //   resDn.innerHTML='Usuário menor de 18 anos ';
 
-    } else {
-         nascimento.style.border = 'solid 2.3px #008000';
-    }
+  } else {
+       nascimento.style.border = 'solid 2.3px #008000';
+  }
 }
+
 
 function validaLogin(){
   if(login.value == ''){
-  login.style.border = 'solid 2.3px #ff0018'
+  login.style.border = 'solid 2.3px #fff'
   resLogin.innerHTML = '*login ';		
-  resLogin.style.color = '#ff0018'
+  resLogin.style.color = '#fff'
   login.focus();
   validLogin = false;
   }else{
@@ -125,10 +126,16 @@ function validaLogin(){
 
 function validMaterno(){
   if(materno.value == ''){
-  materno.style.border = 'solid 2.3px #ff0018'
+  materno.style.border = 'solid 2.3px #fff'
   resNm.innerHTML = '*Nome Materno ';		
-  resNm.style.color = '#ff0018'
+  resNm.style.color = '#fff'
   materno.focus();
+  validaMaterno = false;
+  }else if (materno.value.length < 15 || materno.value.length >= 90 ){
+  materno.style.borderBlockColor = ' red'
+  resNm.innerHTML = 'Mínimo 15 caracteres';	
+  resNm.style.fontSize = ' 0.9rem'	
+  resNm.style.color = 'red';
   validaMaterno = false;
   }else{
     resNm.innerHTML='Nome Materno ';
@@ -144,16 +151,16 @@ function validEmail(emaill){
 let ev = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;
 
  if(email.value==''){
-    email.style.border = 'solid 2.3px #ff0018'
+    email.style.border = 'solid 2.3px #fff'
     resEmail.innerHTML ='*Email';		
-    resEmail.style.color = ' #ff0018'
+    resEmail.style.color = ' #fff'
     email.focus();
     validaEmail = false;
 //lse if verifica se o email inserido bate com o reGex (precisa ter um @ e de 2 a 3 caracteres após o ponto)
   } else if (!ev.test(emaill)) {
-    email.style.border = 'solid 2.3px #ff0018'
+    email.style.border = 'solid 2.3px #fff'
     resEmail.innerHTML = '*Email Inválido';		
-    resEmail.style.color = '#ff0018';
+    resEmail.style.color = '#fff';
   }else{
       resEmail.style.color = '#008000'
       resEmail.innerHTML ='Email ';	
@@ -167,7 +174,7 @@ function validCep(){
 if(cep.value==''){
   cep.style.border = ' #CA1C2A'
   resCep.innerHTML='*CEP';		
-  //resCep.style.border = 'solid 2.3px #ff0018'
+  //resCep.style.border = 'solid 2.3px #fff'
   cep.focus();
   validaCep = false;
 }else{
@@ -181,15 +188,15 @@ if(cep.value==''){
 function validNumeroCasa(){
 
 if(numero.value==''){
-  numero.style.border = 'solid 2.3px #ff0018'
+  numero.style.border = 'solid 2.3px #fff'
   resNum.innerHTML='*Nº Casa';		
-  resNum.style.color = ' #ff0018'
+  resNum.style.color = ' #fff'
   numero.focus();
   validaNum = false;
 }else if (email.value.length < 0 ){
-  email.style.border = 'solid 2.3px #ff0018'
+  email.style.border = 'solid 2.3px #fff'
   resEmail.innerHTML = '*Nº Casa';		
-  resEmail.style.color = '#ff0018';
+  resEmail.style.color = '#fff';
 }else{
   resNum.style.color = '#008000'
   resNum.innerHTML='Nº Casa';	
@@ -201,16 +208,16 @@ if(numero.value==''){
 function validCelular(){
 
 if(celular.value==''){
-  celular.style.border = 'solid 2.3px #ff0018'
+  celular.style.border = 'solid 2.3px #fff'
   resCel.innerHTML='*Celular ';		
-  resCel.style.color = ' #ff0018'
+  resCel.style.color = ' #fff'
   resCel.style.fontSize = ' 0.9rem'
   celular.focus();
   validaCelular = false;
 }else if (celular.value.length <20 ){
-    celular.style.border = 'solid 2.3px #ff0018'
+    celular.style.border = 'solid 2.3px #fff'
     resCel.innerHTML = '*Celular ';		
-    resCel.style.color = '#ff0018';
+    resCel.style.color = '#fff';
   validaCelular = false;
 }else{
   resCel.style.color = '#008000'
@@ -251,9 +258,9 @@ function validaCpf(retorno) {
     cpfcnpj.style.border = 'solid 2.3px #008000'
     validaCpfCnpj = true;
   } else {
-    cpfcnpj.style.border = 'solid 2.3px #ff0018'
+    cpfcnpj.style.border = 'solid 2.3px #fff'
     resCpf.innerHTML='CPF Inválido ';	
-    resCpf.style.color = ' #ff0018'
+    resCpf.style.color = ' #fff'
     cpfcnpj.focus();
     validaCpfCnpj = false;
   }
@@ -290,15 +297,15 @@ return true;
 function validTelefone(){
 
 if(telefone.value==''){
-  telefone.style.border = 'solid 2.3px #ff0018'
+  telefone.style.border = 'solid 2.3px #fff'
   resTel.innerHTML='*Telefone';		
-  resTel.style.color = ' #ff0018'
+  resTel.style.color = ' #fff'
   telefone.focus();
   validaTelefone = false;
 // }else if (telefone.value.length < 15 ){
-//   telefone.style.border = 'solid 2.3px #ff0018'
+//   telefone.style.border = 'solid 2.3px #fff'
 //   resTel.innerHTML = '*Telefone';		
-//   resTel.style.color = '#ff0018';
+//   resTel.style.color = '#fff';
 //   validaTelefone = false;
 }else{
   resTel.style.color = '#008000'
@@ -328,9 +335,9 @@ $("#telefone")
 function validSenha() {
 
 if(senha.value.length < 8 ){
-  senha.style.border = 'solid 2.3px #ff0018'
+  senha.style.border = 'solid 2.3px #fff'
   resSenha.innerHTML='Senha  *Apenas letras';		
-  resSenha.style.color = ' #ff0018'
+  resSenha.style.color = ' #fff'
   senha.focus();
   validaSenha = false;
 }else{
@@ -344,9 +351,9 @@ if(senha.value.length < 8 ){
 function validConfirmaSenha(){
 
 if((confirma.value == '')||(senha.value != confirma.value)){
-  confirma.style.border = 'solid 2.3px #ff0018'
+  confirma.style.border = 'solid 2.3px #fff'
   resConSenha.innerHTML='As senhas não são iguais';		
-  resConSenha.style.color = ' #ff0018'
+  resConSenha.style.color = ' #fff'
   confirma.focus();
   validaconSenha = false;
 }else{
@@ -375,7 +382,7 @@ if((confirma.value == '')||(senha.value != confirma.value)){
    respErro.setAttribute('style', 'display: bloco', 'color: #0C4B77')
    respSucesso.innerHTML = ''
    respErro.innerHTML = 'Preencha todos os campos corretamente'
-   respErro.style.color = '#ff0018'
+   respErro.style.color = '#fff'
    btn.disabled = true
    btn.style.cursor = 'no-drop'
  }
