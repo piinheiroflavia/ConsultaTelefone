@@ -63,7 +63,8 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Usuário</th>                      
+                        <th>Usuário</th>  
+                        <th>Categoria</th>                      
                         <th>status</th>
                         <th>Data de Registro</th>
                         <th>Descrição</th>                    
@@ -95,6 +96,7 @@
             columns: [
                 { data: 'id_log' },
                 { data: 'nome_usuario' },
+                { data: 'tipoUser' },
                 { data: 'status' },
                 { data: 'data_log' },
                 { data: 'descricao' }

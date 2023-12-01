@@ -2,8 +2,7 @@
 //ob_start();  
 
 require_once('template/links.php');
-include_once('config.php');  // Certifique-se de incluir o arquivo de configuração
-
+include_once('config.php');  
 ?>
 
 <!DOCTYPE html>

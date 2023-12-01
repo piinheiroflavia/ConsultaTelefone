@@ -190,9 +190,7 @@ $parametros = [];
                     <div class="row gx-3">
                         <div class="col-md-9">
                         </div>
-                        <div class="col-md-3">
-                            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Alteração senha</button>
-                        </div>
+                            
                     </div>       
                     </form>
                 </div>

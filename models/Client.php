@@ -12,7 +12,7 @@ class Client {
 
     // ---------------------------------LOG--------------------------------------
     public static function selectAllLogs($conexao) {
-        $result = $conexao->query("SELECT log.*, usuario.nome_usuario FROM log
+        $result = $conexao->query("SELECT log.*, usuario.nome_usuario, usuario.tipoUser FROM log
         INNER JOIN usuario ON log.usuario_id = usuario.id_usuario");
     
         if ($result->num_rows > 0) {
