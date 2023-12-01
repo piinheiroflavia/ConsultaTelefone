@@ -133,7 +133,7 @@ $parametros = [];
                 <div class="card-header">Perfil</div>
                 <div class="card-body text-center">
                     <!-- Profile image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png" alt="">
+                    <img class="img-account-profile rounded-circle mb-2" src="https://img.icons8.com/?size=256&id=UbNZ9CFCwtyU&format=png" alt="">
                     <p><strong><?php  echo " $nomeUsuario"; ?></strong></p>       
                     <p><?php  echo " $tipoUser"; ?></p>       
                   <!-- <input type="file" name="arquivos" class="btn"  accept="image/png, image/jpeg"  multiple />  -->

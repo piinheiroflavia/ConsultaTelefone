@@ -196,7 +196,7 @@ require_once('config.php');
         .placeholder {
             opacity: 0.9;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #000;
             line-height: 2px;
             pointer-events: none;
@@ -216,7 +216,7 @@ require_once('config.php');
         }
 
         .input-cadastro:not(:placeholder-shown)~.placeholder {
-            color: #fff;
+            color: #000;
 
         }
 
@@ -280,7 +280,7 @@ require_once('config.php');
                                 <div class="col-12 inputN">
                                     <!--NOME Completo-->
                                     <div class="input-container-cadastro" id="nome-div">
-                                        <input id="nome" name="nome" class="input-cadastro" type="text" minlength="15" maxlength="80" placeholder=" " required="required" onkeyup="validNome()">
+                                        <input id="nome" name="nome" class="input-cadastro" type="text" minlength="15" maxlength="80" placeholder=" " required="required" onkeyup="validNome()"  autofocus="true">
                                         <div class="vago"></div>
                                         <label for="nome" class="placeholder" id="resN" style="background: #7fffd400;">Nome Completo</label>
                                     </div>
@@ -325,7 +325,8 @@ require_once('config.php');
                                         <label for="cep" class="placeholder" id="resCep" style="background: #7fffd400;">CEP</label>
                                     </div>
                                     <div class="input-container-cadastro">
-                                        <select class="form-select" id="select-div" name="sexo" data-placeholder="seco">
+                                        <select class="form-select" id="select-div" name="sexo"  data-placeholder="seco">
+                                        <option value="">Selecione</option>
                                             <option value="Feminino">feminino</option>
                                             <option value="Masculino">masculino</option>
                                             <option value="Outros">outros</option>
@@ -435,9 +436,9 @@ require_once('config.php');
                 </div>
             </div>
         </div>
-
-        <script src="<?php echo $consultaTelefonePath; ?>/assests/js/registroo.js"></script>
         <script src="<?php echo $consultaTelefonePath; ?>/assests/js/registro.js"></script>
+        <script src="<?php echo $consultaTelefonePath; ?>/assests/js/registroo.js"></script>       
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

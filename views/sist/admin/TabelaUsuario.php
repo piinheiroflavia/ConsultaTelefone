@@ -157,6 +157,7 @@
             "order": [[0, "desc"]],
             "pageLength": 10,
             dom: 'Bfrtip', 
+            
             buttons: [
                     {
                         extend: 'collection',

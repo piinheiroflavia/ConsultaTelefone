@@ -134,7 +134,7 @@ if (isset($_POST['logout'])) {
                 <li class="">
                   <a class=" dropdown-toggle d-flex align-items-start hidden-arrow " style="margin-right: 10px;" role="button"  id="navbarDropdownMenuAvatar" data-bs-toggle="dropdown" aria-expanded="false">
                     <img
-                      src="https://cdn-icons-png.flaticon.com/512/3135/3135823.png"
+                      src="https://img.icons8.com/?size=256&id=UbNZ9CFCwtyU&format=png"
                       class="rounded-circle"
                       height="35"
                       alt="user"
