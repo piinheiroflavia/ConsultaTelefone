@@ -56,7 +56,7 @@ var respSucesso = document.getElementById('respSucesso');
 
 var btn = document.getElementById("btnSubmit")
 
-
+console.log('rodandooo')
 //btn.style.cursor = 'not-allowed';
 
 /*FUNÇÕES QUE INDETIFICAM SE O CAMPO ESTÁ VÁLIDO (COR VERDE), CASO O ALGUNS CAMPOS FIQUE VAZIO OU MENOR QUE 15 CARACTERES O CAMPO FICA VERMELHO, */
@@ -82,8 +82,6 @@ if(nome.value == ''){
 }
 }
 
-console.log('teast')
-console.log('rodaando')
 function validarNascimento() {
 
   // var idadeMinima = 18; 
@@ -184,7 +182,6 @@ function validCep(){
     cep.style.border = 'solid 2.3px #ff0000';
     resCep.innerHTML='*CEP';		
     resCep.style.fontSize = ' 1rem'	
-    resCep.style.border = 'solid 2.3px #fff'
     cep.focus();
     validaCep = false;
   }else if (cep.value.length < 8 || cep.value.length >= 9 ){
@@ -272,7 +269,7 @@ $(document).ready(function () {
 /*FUNÇÃO QUE INDETIFICA SE O CAMPO ESTÁ VÁLIDO E DE ACORDO COM OS REQUISITOS PARA VERIFICAR SE EXISTE O CPF*/
 function validaCpf(retorno) {
   if (retorno == true) {
-    resCpf.style.color = '#008000'
+    resCpf.style.color = '#321010'
     resCpf.style.fontSize = ' 1rem'	
     resCpf.innerHTML='CPF';	
     cpfcnpj.style.border = 'solid 2.3px #008000'
@@ -323,13 +320,7 @@ if(telefone.value==''){
   resTel.style.color = ' #321010'
   telefone.focus();
   validaTelefone = false;
- }else if (telefone.value.length < 15 ){
-   telefone.style.border = 'solid 2.3px #ff0000'
-   resTel.innerHTML = '*Telefone';		
-   resTel.style.fontSize = ' 1rem'	
-   resTel.style.color = '#321010';
-   validaTelefone = false;
-   
+
 }else{
   resTel.style.color = '#321010'
   resTel.style.fontSize = ' 1rem'	
