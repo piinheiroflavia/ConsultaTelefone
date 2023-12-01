@@ -24,7 +24,7 @@ class ServicoNum {
         
         $data_log = date('Y-m-d H:i:s');
         $status_log = 'ativo';
-        $descricao_log = "Usuário com o número $phoneNumber realizou uma verificação.";
+        $descricao_log = "Consulta no número: $phoneNumber .";
 
         // Consulta SQL para inserção
         $queryLog = "INSERT INTO log (usuario_id, data_log, status, descricao) VALUES (?, ?, ?, ?)";

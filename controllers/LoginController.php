@@ -54,7 +54,7 @@ class LoginController {
                 $usuario_id = $row->id_usuario;
                 $data_log = date('Y-m-d H:i:s');
                 $status_log = 'ativo';
-                $descricao_log = "Usuário admin $nome foi logado.";
+                $descricao_log = "Usuário foi logado.";
 
                 $queryLog = "INSERT INTO log (usuario_id, data_log, status, descricao) VALUES (?, ?, ?, ?)";
                 
@@ -86,7 +86,7 @@ class LoginController {
                     //se o usuario for tipo admin cria sessao e adiciona role admin
                 if($tipoUser === "admin"){
                     
-                    $descricao_log = "Usuário admin $nome foi logado.";
+                    $descricao_log = "Admin $nome foi logado.";
                     $_SESSION['usuario_id'] = $usuario_id;
                     $_SESSION["login"] = $login;
                     $_SESSION["nome"] = $nome;

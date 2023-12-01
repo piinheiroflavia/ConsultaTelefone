@@ -289,12 +289,14 @@
     
 
     if (loginError !== null) {
-        alertLogin.style.fontSize = "0.9rem"
-        alertLogin.style.backgroundColor = "#e92538"
-        alertLogin.style.border = "solid 2px #ef3220";
-        alertLogin.style.display = "block";
-        alertLogin.textContent = loginError;
-        
+        Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Esse usuário não existe!",
+        showConfirmButton: false,
+        timer: 1500
+        });
+                
         // Remove a variável de erro da sessão para que a mensagem não seja exibida novamente após atualizar a página
         <?php unset($_SESSION["login_error"]); ?>
     }
