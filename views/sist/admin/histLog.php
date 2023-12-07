@@ -49,7 +49,7 @@
 
 ?>
 <div class="container pt-2" id="tabelaUsuario">
-    <h3 class="welcome-text" style="margin-bottom: 30px;">Histórico de <strong>Usuários</strong> </h3>
+    <h3 class="welcome-text" style="margin-bottom: 30px;">Histórico de <strong>Log</strong> </h3>
     <hr style=" margin-bottom: 20px;" >
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">

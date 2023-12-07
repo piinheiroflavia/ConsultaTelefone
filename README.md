@@ -79,4 +79,6 @@ VALUES
 ('Digite sua data de nascimento?');
 ```
 
-
+## Páginas
+<img src="./assests/imgs/paghome.png" alt="pagina home" width ='70%'>
+<span>Interface inicial com informações referente ao serviço.</span>

@@ -56,7 +56,7 @@ var respSucesso = document.getElementById('respSucesso');
 
 var btn = document.getElementById("btnSubmit")
 
-console.log('rodandooo')
+//console.log('rodandooo')
 //btn.style.cursor = 'not-allowed';
 
 /*FUNÇÕES QUE INDETIFICAM SE O CAMPO ESTÁ VÁLIDO (COR VERDE), CASO O ALGUNS CAMPOS FIQUE VAZIO OU MENOR QUE 15 CARACTERES O CAMPO FICA VERMELHO, */
